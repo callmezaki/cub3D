@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 16:07:25 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/19 18:09:18 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/19 19:35:47 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ char	*ft_strchr(const char *s, int c)
 			return (NULL);
 		i++;
 	}
-	return ((char *)s);
+	return ((char *)&s[i]);
 }
