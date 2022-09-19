@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/19 18:21:56 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/19 18:50:29 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,30 @@ int ft_check_exten(char *s)
 		return(0);
 }
 
+int ft_trima(char **a)
+{
+	char *t = *a;
+	t = ft_strtrim(t, " \t");
+	if(t)
+	{
+		*a = t;
+		return(1);
+	}
+	else
+		return(0);
+		
+}
+
+void parse_data(t_data data,char *temp)
+{
+	
+}
+
 void get_data(int fd, t_data *data)
 {
 	char *str;
 	char *temp;
+	int i = 0;
 	
 	(void)data;
 	
@@ -47,10 +67,13 @@ void get_data(int fd, t_data *data)
 		str = get_next_line(fd);
 		if (str && ft_strcmp(str,"\n"))
 		{
+			if (i < 6)
+				i+=ft_trima(&temp);
 			temp = ft_strjoin(temp,str);
 			free(str);
 		}
 	}
+	printf("%s",temp);
 	parse_data(data,temp);
 }
 
