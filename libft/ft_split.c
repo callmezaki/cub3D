@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 03:47:04 by zait-sli          #+#    #+#             */
-/*   Updated: 2021/11/18 21:00:59 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:51:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,12 @@ static void	ft_lastpart(char **p, char const *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
 	int		len;
-	int		a;
 	char	**p;
 
 	if (!s)
 		return (NULL);
-	i = 0;
 	len = words_count((char *)s, c);
-	a = 0;
 	p = (char **)malloc(sizeof(char *) * (words_count((char *)s, c) + 1));
 	if (p == NULL)
 		return (NULL);

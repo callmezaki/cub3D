@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 11:24:11 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/19 17:58:01 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:50:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ static char	*move(char *s1, char *s2, char *s)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		a;
-	int		i;
 	char	*s;
 
-	i = 0;
 	if (s1 == NULL)
 	{
 		s1 = (char *)malloc(1 * sizeof(char));

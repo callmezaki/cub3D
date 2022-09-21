@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/19 23:28:02 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/20 23:56:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <fcntl.h>
+#include <mlx.h>
 #include "cub3d.h"
 
 char	*get_ext(char *filename)
@@ -56,6 +57,17 @@ int ft_trima2(char *a)
 		return(1);
 	else
 		return(0);	
+}
+
+char  **ft_trima3(char **a)
+{
+	int i = 0;
+	while(a[i])
+	{
+		a[i] = ft_strtrim2(a[i], "  \t");
+		i++;
+	}
+	return(a);
 }
 
 int    search_indx(char **args, char *indx)
@@ -232,41 +244,127 @@ void    parse_walls(t_data *data, char **args)
     check_path(data->EA);
 }
 
-void get_map(t_data *data, char **s)
-{
-	int i = 0;
-	int y = 0;
-	
-	while(s[i])
-	{
-		if (!ft_trima2(s[i]))
-			y++;
-		else
-		{
-			data->map = &s[y];
-			break ;
-		}
-		i++;
-	}
-}
-
-void intial_map_check(char *s, char **t)
+char *intial_map_check(char *s, char **t)
 {
 	int i = 0;
 	int len = 0;
-
+	char *a;
+	char *b;
 
 	while(i< 6)
 	{
 		len+= ft_strlen(t[i]);
 		i++;
 	}
-	s = &s[i];
-	// i = 0;
-	// while()
-	// {
-		
-	// }
+	s = &s[len + i];
+	i = 0;
+	while(s[i] && s[i + 1])
+	{
+		if((s[i] == '\n' && s[i + 1] == '\n'))
+		{
+			break ;
+		}
+		i++;
+	}
+	while(s[i])
+	{
+		if (s[i] != ' ' && s[i] != '\n' && s[i] != '\t')
+		{
+			printf("Errrrroooor\n");
+			exit(1);
+		}
+		i++;
+	}
+	t = ft_split(s, '\n');
+	// printf("%s",s);
+	len = 0;
+	i = 1;
+	while(t[i])
+	{
+		a = ft_strtrim(t[i]," ");
+		b = ft_strtrim(t[i-1]," ");
+		if (!a[0] && b[0])
+		{
+			len++;
+		}
+		i++;
+	}
+	if (len > 1)
+	{
+		printf("Errrrroooor7\n");
+		exit(1);
+	}
+	s = ft_strtrim2(s," \n\t");
+	return (s);
+}
+
+int check_valid(int c)
+{
+	if(c == '1' || c == '0' || c == 'N' || c == 'W' || c == 'E' || c == 'S' || c == ' ')
+		return(1);
+	return(0);
+}
+
+void check_map(char **s)
+{
+	int i = 0;
+	int j = 0;
+	int len = tab_len(s) -1;
+	s = ft_trima3(s);
+	while(s[i])
+	{
+		j = 0;
+		while(s[i][j])
+		{
+			if (!check_valid(s[i][j]))
+			{
+				printf("Erroop\n");
+				exit(1);
+			}
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	j = 0;
+	while(s[0][j])
+	{
+		if (s[0][j] != ' ' && s[0][j] != '1')
+		{
+			printf("Erroop\n");
+			exit(1);
+		}
+		j++;
+	}
+	while(s[len][j])
+	{
+		if (s[len][j] != ' ' && s[len][j] != '1')
+		{
+			printf("Erroop\n");
+			exit(1);
+		}
+		j++;
+	}
+	j = 0;
+	while(s[i])
+	{
+		if ((s[i][0] != ' ' && s[i][0] != '1'))
+		{
+			printf("Erroop\n");
+			exit(1);
+		}
+		i++;
+	}
+	i = 0;
+	while(s[i])
+	{
+		if ((s[i][ft_strlen(s[i]) - 1] != ' ' && s[i][ft_strlen(s[i]) - 1] != '1'))
+		{
+			printf("Erroop\n");
+			exit(1);
+		}
+		i++;
+	}
 }
 
 void parse_data(t_data *data,char *temp)
@@ -275,8 +373,9 @@ void parse_data(t_data *data,char *temp)
 	char **s = ft_split(temp,'\n');
 	parse_walls(data,s);
 	get_colors(data, s);
-	intial_map_check(temp, s);
-	get_map(data, &s[6]);
+	temp = intial_map_check(temp, s);
+	data->map = ft_split(temp,'\n');
+	check_map(data->map);
 	// printf("%s\n",data->NO);
 	// printf("%s\n",data->SO);
 	// printf("%s\n",data->WE);
@@ -318,7 +417,6 @@ void get_data(int fd, t_data *data)
 			free(str);
 		}
 	}
-	printf("%s",temp);
 	parse_data(data,temp);
 }
 
@@ -335,4 +433,5 @@ int main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd > 0)
 		get_data(fd,data);
+	mlx_loop();
 }
