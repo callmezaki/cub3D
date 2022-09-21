@@ -1,9 +1,11 @@
 NAME = cub3d
 INCLUDE = cub3d.h 
 
-SRC =	cub3d.c \
-		main.c \
+SRC =	cub3d.c         \
+		main.c          \
 		get_next_line.c \
+		window.c        \
+		ft_block.c      \
 
 CFLAGS = -Wall -Werror -Wextra -g
 

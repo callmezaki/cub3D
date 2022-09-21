@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/21 15:48:53 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:23:29 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <fcntl.h>
-#include <mlx.h>
 #include "cub3d.h"
 
 char	*get_ext(char *filename)
@@ -489,4 +488,5 @@ int main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd > 0)
 		get_data(fd,data);
+	init_window();
 }
