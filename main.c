@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/20 23:56:46 by marvin           ###   ########.fr       */
+/*   Updated: 2022/09/21 15:37:33 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,7 +318,7 @@ void check_map(char **s)
 		{
 			if (!check_valid(s[i][j]))
 			{
-				printf("Erroop\n");
+				printf("Erroop0\n");
 				exit(1);
 			}
 			j++;
@@ -331,7 +331,7 @@ void check_map(char **s)
 	{
 		if (s[0][j] != ' ' && s[0][j] != '1')
 		{
-			printf("Erroop\n");
+			printf("Erroop1\n");
 			exit(1);
 		}
 		j++;
@@ -340,7 +340,7 @@ void check_map(char **s)
 	{
 		if (s[len][j] != ' ' && s[len][j] != '1')
 		{
-			printf("Erroop\n");
+			printf("Erroop2\n");
 			exit(1);
 		}
 		j++;
@@ -350,7 +350,7 @@ void check_map(char **s)
 	{
 		if ((s[i][0] != ' ' && s[i][0] != '1'))
 		{
-			printf("Erroop\n");
+			printf("Erroop3\n");
 			exit(1);
 		}
 		i++;
@@ -360,21 +360,27 @@ void check_map(char **s)
 	{
 		if ((s[i][ft_strlen(s[i]) - 1] != ' ' && s[i][ft_strlen(s[i]) - 1] != '1'))
 		{
-			printf("Erroop\n");
+			printf("Erroop4\n");
 			exit(1);
 		}
 		i++;
 	}
+	
 }
 
 void parse_data(t_data *data,char *temp)
 {
-	// int i = 0;
+	int i = 0;
 	char **s = ft_split(temp,'\n');
 	parse_walls(data,s);
 	get_colors(data, s);
 	temp = intial_map_check(temp, s);
 	data->map = ft_split(temp,'\n');
+	while(data->map[i])
+	{
+		printf("%s\n",data->map[i]);
+		i++;
+	}
 	check_map(data->map);
 	// printf("%s\n",data->NO);
 	// printf("%s\n",data->SO);
@@ -382,11 +388,6 @@ void parse_data(t_data *data,char *temp)
 	// printf("%s\n",data->EA);
 	// printf("R = %d, G = %d, B = %d\n",data->C.R,data->C.G,data->C.B);
 	// printf("R = %d, G = %d, B = %d\n",data->F.R,data->F.G,data->F.B);
-	// while(data->map[i])
-	// {
-	// 	printf("%s\n",data->map[i]);
-	// 	i++;
-	// }
 }
 
 void get_data(int fd, t_data *data)
@@ -433,5 +434,4 @@ int main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd > 0)
 		get_data(fd,data);
-	mlx_loop();
 }
