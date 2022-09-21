@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/21 16:23:29 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/21 17:21:00 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <fcntl.h>
+#include "cub3d.h"
+
+#include <stdio.h>
+#include <fcntl.h>
+#include <mlx.h>
 #include "cub3d.h"
 
 char	*get_ext(char *filename)
@@ -304,6 +309,31 @@ int check_valid(int c)
 	return(0);
 }
 
+int check_player(char c)
+{
+	if (c == 'N' || c == 'W' || c == 'E' || c == 'S')
+		return(1);
+	return(0);
+}
+
+void check_zero(char **s, int i, int j)
+{
+	if (s[i - 1][j] == '1' || s[i - 1][j] == '0' || check_player(s[i - 1][j]))
+	{
+		if (s[i + 1][j] == '1' || s[i + 1][j] == '0' || check_player(s[i + 1][j]))
+		{
+			if (s[i][j+1] == '1' || s[i][j+1] == '0' || check_player(s[i][j+1]))
+			{
+				if (s[i][j-1] == '1' || s[i][j-1] == '0' || check_player(s[i][j-1]))
+					return ;
+			}
+		}
+		
+	}
+	printf("Error000\n");
+	exit(1);
+}
+
 void check_map(char **s)
 {
 	int i = 0;
@@ -364,7 +394,18 @@ void check_map(char **s)
 		}
 		i++;
 	}
-	
+	i = 1;
+	while(s[i + 1])
+	{
+		j = 1;
+		while(s[i][j])
+		{
+			if (s[i][j] == '0' || check_player(s[i][j]))
+				check_zero(s, i, j);
+			j++;
+		}
+		i++;
+	}
 }
 
 int check_duplicates(char *str)
@@ -430,12 +471,12 @@ void parse_data(t_data *data,char *temp)
 	get_colors(data, s);
 	temp = intial_map_check(temp, s);
 	data->map = ft_split(temp,'\n');
+	check_map(data->map);
 	// while(data->map[i])
 	// {
 	// 	printf("%s\n",data->map[i]);
 	// 	i++;
 	// }
-	check_map(data->map);
 	// printf("%s\n",data->NO);
 	// printf("%s\n",data->SO);
 	// printf("%s\n",data->WE);
@@ -488,5 +529,5 @@ int main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd > 0)
 		get_data(fd,data);
-	init_window();
+	init_window(data);
 }

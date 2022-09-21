@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/21 16:53:01 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/21 17:30:24 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ typedef struct	s_window {
 
 char	*get_next_line(int fd);
 void	my_mlx_pixel_put(t_window *data, int x, int y, int color);
-void	init_window();
-void    ft_block(t_window *data, t_block *block);
-
+void	init_window(t_data *data);
+void    ft_block(t_window *data, t_block block);
+int		check_player(char c);
+void	draw_minimap(t_window *win ,t_data *data);
 #endif
