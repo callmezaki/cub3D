@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/21 15:41:30 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/21 15:48:53 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -409,6 +409,8 @@ int	check_assets(char **s)
 			str = ft_strjoin(str, tmp);
 			j++;
 		}
+		else
+			break;
 		i++;
 	}
 	if(!check_duplicates(str) && j == 6)
@@ -418,11 +420,9 @@ int	check_assets(char **s)
 
 void parse_data(t_data *data,char *temp)
 {
-	int i = 0;
+	// int i = 0;
 	char **s = ft_split(temp,'\n');
-	if(!check_assets(s))
-		puts("PASS");
-	else
+	if(check_assets(s))
 	{
 		puts("FAIL");
 		exit(1);
@@ -431,11 +431,11 @@ void parse_data(t_data *data,char *temp)
 	get_colors(data, s);
 	temp = intial_map_check(temp, s);
 	data->map = ft_split(temp,'\n');
-	while(data->map[i])
-	{
-		printf("%s\n",data->map[i]);
-		i++;
-	}
+	// while(data->map[i])
+	// {
+	// 	printf("%s\n",data->map[i]);
+	// 	i++;
+	// }
 	check_map(data->map);
 	// printf("%s\n",data->NO);
 	// printf("%s\n",data->SO);
