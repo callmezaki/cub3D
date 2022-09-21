@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/21 15:37:33 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:41:30 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,10 +368,65 @@ void check_map(char **s)
 	
 }
 
+int check_duplicates(char *str)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while(str[i])
+	{
+		j = i + 1;
+		while(str[j])
+		{
+			if(str[j] == str[i])
+				return(1);
+			j++;
+		}
+		i++;
+	}
+	return(0);
+}
+
+int	check_assets(char **s)
+{
+	int i;
+	int j;
+	char *str;
+	char *tmp;
+
+	str = ft_strdup("");
+	tmp = ft_strdup("");
+	i = 0;
+	j = 0;
+	while(s[i])
+	{
+		if(s[i][0] == 'N' || s[i][0] == 'S' || s[i][0] == 'W'
+			|| s[i][0] == 'E' || s[i][0] == 'C' || s[i][0] == 'F')
+		{
+			tmp[0] = s[i][0];
+			str = ft_strjoin(str, tmp);
+			j++;
+		}
+		i++;
+	}
+	if(!check_duplicates(str) && j == 6)
+		return(0);
+	return(1);
+}
+
 void parse_data(t_data *data,char *temp)
 {
 	int i = 0;
 	char **s = ft_split(temp,'\n');
+	if(!check_assets(s))
+		puts("PASS");
+	else
+	{
+		puts("FAIL");
+		exit(1);
+	}
 	parse_walls(data,s);
 	get_colors(data, s);
 	temp = intial_map_check(temp, s);
