@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/21 17:30:24 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:11:32 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include "libft/libft.h"
 #include "mlx.h"
+#define Z 20
 
 typedef struct s_color
 {
@@ -37,6 +38,13 @@ typedef struct s_block
 	int color;
 } t_block;
 
+typedef struct s_player
+{
+	char facing;
+	int x;
+	int y;
+} t_player;
+
 typedef struct s_data
 {
 	char *NO;
@@ -48,7 +56,7 @@ typedef struct s_data
 
 	t_color F;
 	t_color C;
-	
+	t_player player;
 } t_data;
 
 typedef struct	s_window {

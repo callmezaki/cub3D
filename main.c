@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/21 17:21:00 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:11:58 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,7 @@ char *intial_map_check(char *s, char **t)
 	int len = 0;
 	char *a;
 	char *b;
+	int p_count = 0;
 
 	while(i< 6)
 	{
@@ -268,7 +269,14 @@ char *intial_map_check(char *s, char **t)
 		{
 			break ;
 		}
+		if (check_player(s[i]))
+			p_count++;
 		i++;
+	}
+	if (p_count > 1 || p_count == 0)
+	{
+		printf("P Error\n");
+		exit(0);
 	}
 	while(s[i])
 	{
@@ -280,7 +288,6 @@ char *intial_map_check(char *s, char **t)
 		i++;
 	}
 	t = ft_split(s, '\n');
-	// printf("%s",s);
 	len = 0;
 	i = 1;
 	while(t[i])
@@ -458,9 +465,32 @@ int	check_assets(char **s)
 	return(1);
 }
 
+void get_player_data(t_data *data)
+{
+	t_player player;
+
+	int i = 0;
+	int j = 0;
+	while(data->map[i])
+	{
+		j = 1;
+		while(data->map[i][j])
+		{
+			if (check_player(data->map[i][j]))
+			{
+				player.facing = data->map[i][j];
+				player.x = i;
+				player.y = j;
+				break;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void parse_data(t_data *data,char *temp)
 {
-	// int i = 0;
 	char **s = ft_split(temp,'\n');
 	if(check_assets(s))
 	{
@@ -472,17 +502,7 @@ void parse_data(t_data *data,char *temp)
 	temp = intial_map_check(temp, s);
 	data->map = ft_split(temp,'\n');
 	check_map(data->map);
-	// while(data->map[i])
-	// {
-	// 	printf("%s\n",data->map[i]);
-	// 	i++;
-	// }
-	// printf("%s\n",data->NO);
-	// printf("%s\n",data->SO);
-	// printf("%s\n",data->WE);
-	// printf("%s\n",data->EA);
-	// printf("R = %d, G = %d, B = %d\n",data->C.R,data->C.G,data->C.B);
-	// printf("R = %d, G = %d, B = %d\n",data->F.R,data->F.G,data->F.B);
+	get_player_data(data);
 }
 
 void get_data(int fd, t_data *data)

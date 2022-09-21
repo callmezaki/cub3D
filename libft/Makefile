@@ -66,7 +66,7 @@ $(NAME): $(OBJECTS) $(BUNSUSOBJ) $(INCLUDES)
 
 %.o : %.c
 
-	$(CC) $(CFLAGS) -o $@ -c $<
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
 bonus: $(BUNSUSOBJ)
 
