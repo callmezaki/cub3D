@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/21 19:11:32 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:34:14 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,13 @@
 #include <stdlib.h>
 #include "libft/libft.h"
 #include "mlx.h"
-#define Z 20
+# define Z 20
+
+# define KEY_W 13 
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_ESC 53
 
 typedef struct s_color
 {
@@ -45,6 +51,14 @@ typedef struct s_player
 	int y;
 } t_player;
 
+typedef struct	s_window {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_window;
+
 typedef struct s_data
 {
 	char *NO;
@@ -57,15 +71,9 @@ typedef struct s_data
 	t_color F;
 	t_color C;
 	t_player player;
+	t_window window;
+	t_block  block;
 } t_data;
-
-typedef struct	s_window {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_window;
 
 char	*get_next_line(int fd);
 void	my_mlx_pixel_put(t_window *data, int x, int y, int color);

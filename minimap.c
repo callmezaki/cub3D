@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/21 19:23:04 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:36:25 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@ int get_color(char c)
 {
 	int color = 0;
 	
-	if (c == '0' || check_player(c))
+	if (c == '0')
 	{
 		color = 16777215;
+	}
+	if (check_player(c))
+	{
+		color = 879875;
 	}
 	else if (c == '1')
 		color = 8421504;

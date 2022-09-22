@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/09/21 17:19:55 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:40:26 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,46 @@ void	my_mlx_pixel_put(t_window *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+void	move_right(t_data *data)
+{	
+	if (data->map[data->player.x][data->player.y + 1] != '1')
+	{
+		data->map[data->player.x][data->player.y] = '0';
+		data->map[data->player.x][data->player.y + 1] = 'N';
+	}
+	
+	draw_minimap(&data->window, data);
+}
+
+int	move_player(int key, t_data *data)
+{
+	// t_data *data;
+	// data = (t_data *) param;
+
+	printf("%s\n", data->map[4]);
+	if (key == KEY_D)
+		move_right(data);
+	// else if (key == KEY_A)
+	// 	move_left(data);
+	// else if (key == KEY_W)
+	// 	move_up(data);
+	// else if (key == KEY_S)
+	// 	move_down(data);
+	return(0);
+}
+
 void	init_window(t_data *data)
 {
 	void	*mlx;
 	void	*mlx_win;
-	t_window	window;
 
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	window.img = mlx_new_image(mlx, 1920, 1080);
-	window.addr = mlx_get_data_addr(window.img, &window.bits_per_pixel, &window.line_length,
-								&window.endian);
-	draw_minimap(&window ,data);;
-	mlx_put_image_to_window(mlx, mlx_win, window.img, 0, 0);
+	data->window.img = mlx_new_image(mlx, 1920, 1080);
+	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
+								&data->window.endian);
+	draw_minimap(&data->window ,data);
+	mlx_put_image_to_window(mlx, mlx_win, data->window.img, 0, 0);
+	mlx_hook(mlx_win, 2, 1L << 0, move_player, data);
 	mlx_loop(mlx);
 }
