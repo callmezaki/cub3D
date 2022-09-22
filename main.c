@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/21 19:11:58 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:46:30 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,17 +126,17 @@ int check_cama(char *s)
 
 void check_color_range(t_data *d)
 {
-	if (d->F.R < 255 && d->F.R >= 0)
+	if (d->F.R <= 255 && d->F.R >= 0)
 	{
-		if (d->F.G < 255 && d->F.G >= 0)
+		if (d->F.G <= 255 && d->F.G >= 0)
 		{
-			if (d->F.B < 255 && d->F.B >= 0)
+			if (d->F.B <= 255 && d->F.B >= 0)
 			{
-				if (d->C.R < 255 && d->C.R >= 0)
+				if (d->C.R <= 255 && d->C.R >= 0)
 				{
-					if (d->C.G < 255 && d->C.G >= 0)
+					if (d->C.G <= 255 && d->C.G >= 0)
 					{
-						if (d->C.B < 255 && d->C.B >= 0)
+						if (d->C.B <= 255 && d->C.B >= 0)
 						{
 							return ;
 						}
@@ -156,6 +156,7 @@ void	get_colors(t_data *data, char **s)
 	char **sp;
 	char **ss;
 	int i = search_indx(s, "F");
+	int j = 0;
 	if (i > 0)
 	{
 		char *t = ft_strdup(s[i]);
@@ -167,6 +168,15 @@ void	get_colors(t_data *data, char **s)
 		}
 		if (check_cama(sp[1]))
 		{
+			while(sp[1][j])
+			{
+				if (!ft_isdigit(sp[1][j]) && sp[1][j] != ',')
+				{
+					printf("Error\n");
+					exit(1);
+				}
+				j++;
+			}
 			ss = ft_split(sp[1],',');
 			data->F.R = ft_atoi(ss[0]);
 			data->F.G = ft_atoi(ss[1]);
@@ -184,6 +194,16 @@ void	get_colors(t_data *data, char **s)
 				}
 				if (check_cama(sp[1]))
 				{
+					j = 0;
+					while(sp[1][j])
+					{
+						if (!ft_isdigit(sp[1][j]) && sp[1][j] != ',')
+						{
+							printf("Error\n");
+							exit(1);
+						}
+						j++;
+					}
 					ss = ft_split(sp[1],',');
 					data->C.R = ft_atoi(ss[0]);
 					data->C.G = ft_atoi(ss[1]);
@@ -231,18 +251,38 @@ void    parse_walls(t_data *data, char **args)
 {
     int i;
     i = search_indx(args, "NO");
+	if (i < 0)
+	{
+		puts("Errrrrrrr");
+		exit(1);
+	}
     check_space(args[i]);
     data->NO = ft_strdup(ft_strchr(args[i], '.'));
     check_path(data->NO);
     i = search_indx(args, "SO");
+	if (i < 0)
+	{
+		puts("Errrrrrrr");
+		exit(1);
+	}
     check_space(args[i]);
     data->SO = ft_strdup(ft_strchr(args[i], '.'));
     check_path(data->SO);
     i = search_indx(args, "WE");
+	if (i < 0)
+	{
+		puts("Errrrrrrr");
+		exit(1);
+	}
     check_space(args[i]);
     data->WE = ft_strdup(ft_strchr(args[i], '.'));
     check_path(data->WE);
     i = search_indx(args, "EA");
+	if (i < 0)
+	{
+		puts("Errrrrrrr");
+		exit(1);
+	}
     check_space(args[i]);
     data->EA = ft_strdup(ft_strchr(args[i], '.'));
     check_path(data->EA);
@@ -261,7 +301,7 @@ char *intial_map_check(char *s, char **t)
 		len+= ft_strlen(t[i]);
 		i++;
 	}
-	s = &s[len + i];
+	s = ft_strdup(&s[len + i]);
 	i = 0;
 	while(s[i] && s[i + 1])
 	{
@@ -280,8 +320,9 @@ char *intial_map_check(char *s, char **t)
 	}
 	while(s[i])
 	{
-		if (s[i] != ' ' && s[i] != '\n' && s[i] != '\t')
+		if (s[i] != ' ' && s[i] != '\n' && s[i] != '\t' && s[i] != '1')
 		{
+			printf("%c\n",s[i]);
 			printf("Errrrroooor\n");
 			exit(1);
 		}
@@ -372,6 +413,7 @@ void check_map(char **s)
 		}
 		j++;
 	}
+	j = 0;
 	while(s[len][j])
 	{
 		if (s[len][j] != ' ' && s[len][j] != '1')
@@ -467,8 +509,6 @@ int	check_assets(char **s)
 
 void get_player_data(t_data *data)
 {
-	t_player player;
-
 	int i = 0;
 	int j = 0;
 	while(data->map[i])
@@ -478,9 +518,17 @@ void get_player_data(t_data *data)
 		{
 			if (check_player(data->map[i][j]))
 			{
-				player.facing = data->map[i][j];
-				player.x = i;
-				player.y = j;
+				data->player.facing = data->map[i][j];
+				data->player.x = (j * Z) + (Z / 2);
+				data->player.y = (i * Z) + (Z / 2);
+				if (data->player.facing == 'N')
+					data->player.teta = 3 * M_PI / 2;
+				else if (data->player.facing == 'S')
+					data->player.teta = M_PI / 2;
+				else if (data->player.facing == 'E')
+					data->player.teta = 2 * M_PI;
+				else if (data->player.facing == 'W')
+					data->player.teta = M_PI;
 				break;
 			}
 			j++;
@@ -539,7 +587,6 @@ void get_data(int fd, t_data *data)
 int main(int ac, char **av)
 {
 	t_data *data;
-
 	data = malloc(sizeof(t_data));
 	int fd;
 	if (ac != 2)
@@ -548,6 +595,8 @@ int main(int ac, char **av)
 		return(printf("Invalid Extention\n"));
 	fd = open(av[1], O_RDONLY);
 	if (fd > 0)
+	{
 		get_data(fd,data);
-	init_window(data);
+		init_window(data);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/22 14:36:25 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/22 23:29:14 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,9 @@ int get_color(char c)
 {
 	int color = 0;
 	
-	if (c == '0')
+	if (c == '0' || check_player(c))
 	{
 		color = 16777215;
-	}
-	if (check_player(c))
-	{
-		color = 879875;
 	}
 	else if (c == '1')
 		color = 8421504;
@@ -60,5 +56,16 @@ void draw_minimap(t_window *win ,t_data *data)
 		}
 		i++;
 	}
-	ft_block(win, block);
+}
+void draw_player(t_data *data)
+{
+	t_segment seg;
+	
+	seg.x0 = data->player.x;
+	seg.y0 = data->player.y;
+	seg.x1 = data->player.x  + (cos(data->player.teta) * 60);
+	seg.y1 = data->player.y + (sin(data->player.teta) * 60);
+	// printf("%f  %f  %f  %f\n", seg.x0, seg.y0, seg.x1, seg.y1);
+	
+	DDA(data, seg);
 }

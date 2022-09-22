@@ -6,7 +6,8 @@ SRC =	cub3d.c         \
 		get_next_line.c \
 		window.c        \
 		ft_block.c      \
-		minimap.c\
+		minimap.c	\
+		DDA.c	\
 
 CFLAGS = -Wall -Werror -Wextra -g
 

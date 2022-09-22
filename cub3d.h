@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/22 15:34:14 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/22 21:45:08 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,21 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <math.h>
 #include "libft/libft.h"
 #include "mlx.h"
-# define Z 20
+
+# define Z 50
+# define step 3
+// # define step 0.05
 
 # define KEY_W 13 
 # define KEY_A 0
 # define KEY_S 1
 # define KEY_D 2
 # define KEY_ESC 53
+# define LEFT	123
+# define RIGHT	124
 
 typedef struct s_color
 {
@@ -36,19 +42,31 @@ typedef struct s_color
 
 typedef struct s_block
 {
-	int x0;
-	int x1;
-	int y0;
-	int y1;
+	double x0;
+	double x1;
+	double y0;
+	double y1;
 
 	int color;
 } t_block;
 
+
+typedef struct s_segment
+{
+	double x0;
+	double x1;
+	double y0;
+	double y1;
+} t_segment;
+
 typedef struct s_player
 {
 	char facing;
-	int x;
-	int y;
+	double x;
+	double y;
+	double teta;
+	t_segment seg;
+	
 } t_player;
 
 typedef struct	s_window {
@@ -57,6 +75,8 @@ typedef struct	s_window {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	void	*mlx;
+	void	*mlx_win;
 }	t_window;
 
 typedef struct s_data
@@ -81,4 +101,6 @@ void	init_window(t_data *data);
 void    ft_block(t_window *data, t_block block);
 int		check_player(char c);
 void	draw_minimap(t_window *win ,t_data *data);
+void	draw_player(t_data *data);
+void DDA(t_data *data, t_segment segment);
 #endif
