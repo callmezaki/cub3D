@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/22 21:45:08 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:54:32 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include "libft/libft.h"
 #include "mlx.h"
 
-# define Z 50
+# define Z 20
 # define step 3
 // # define step 0.05
 
@@ -61,9 +61,14 @@ typedef struct s_segment
 
 typedef struct s_player
 {
-	char facing;
+	char   facing;
 	double x;
 	double y;
+	int	   turndirection;
+	int    walkdirection;
+	double rotationangle;
+	double movespeed;
+	double rotationspeed;	
 	double teta;
 	t_segment seg;
 	
@@ -100,7 +105,7 @@ void	my_mlx_pixel_put(t_window *data, int x, int y, int color);
 void	init_window(t_data *data);
 void    ft_block(t_window *data, t_block block);
 int		check_player(char c);
-void	draw_minimap(t_window *win ,t_data *data);
+int 	draw_minimap(t_data *data);
 void	draw_player(t_data *data);
-void DDA(t_data *data, t_segment segment);
+void 	DDA(t_data *data, t_segment segment);
 #endif
