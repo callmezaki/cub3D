@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/23 22:31:34 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/24 21:02:02 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,6 +387,7 @@ void check_map(char **s)
 	int i = 0;
 	int j = 0;
 	int len = tab_len(s) -1;
+	
 	s = ft_trima3(s);
 	while(s[i])
 	{
@@ -537,6 +538,15 @@ void get_player_data(t_data *data)
 	}
 }
 
+int get_map_width(t_data *data, int y)
+{
+	if (y <= data->map_height)
+	{
+		return(ft_strlen(data->map[y]));
+	}
+	return(-1);
+}
+
 void parse_data(t_data *data,char *temp)
 {
 	char **s = ft_split(temp,'\n');
@@ -551,6 +561,7 @@ void parse_data(t_data *data,char *temp)
 	data->map = ft_split(temp,'\n');
 	check_map(data->map);
 	get_player_data(data);
+	data->map_height = tab_len(data->map);
 }
 
 void get_data(int fd, t_data *data)

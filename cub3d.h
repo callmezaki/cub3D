@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/24 02:27:53 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/25 00:42:34 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 
 # define Z 20
 # define step 0.08
-# define D_rays 0.001
+# define FOV 60
+# define D_rays (FOV / 2) * (M_PI / 180) 
+# define inc_rays D_rays / (W_width / 2)
 # define W_height 1080
 # define W_width 1920
-# define rays (W_width / 2)
-# define D_rays 0.001
+# define rays W_width
 
 # define KEY_W 13 
 # define KEY_A 0
@@ -43,6 +44,13 @@ typedef struct s_color
 	int G;
 	int B;
 } t_color;
+
+
+typedef struct s_point
+{
+	double y;
+	double x;
+} t_point;
 
 typedef struct s_ray
 {
@@ -112,6 +120,8 @@ typedef struct s_data
 	t_window window;
 	t_block  block;
 	t_ray  *r;
+	int map_width;
+	int map_height;
 } t_data;
 
 char	*get_next_line(int fd);
@@ -123,4 +133,5 @@ int 	draw_minimap(t_data *data);
 void	draw_player(t_data *data);
 void	draw_walls(t_data *data);
 void 	DDA(t_data *data, t_segment segment, int color);
+int		get_map_width(t_data *data, int y);
 #endif

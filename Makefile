@@ -9,7 +9,7 @@ SRC =	cub3d.c         \
 		minimap.c	\
 		DDA.c	\
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra  -g
 
 OBJS = $(SRC:.c=.o)
 
