@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/23 17:54:32 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/24 02:27:53 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@
 #include "mlx.h"
 
 # define Z 20
-# define step 3
-// # define step 0.05
+# define step 0.08
+# define D_rays 0.001
+# define W_height 1080
+# define W_width 1920
+# define rays (W_width / 2)
+# define D_rays 0.001
 
 # define KEY_W 13 
 # define KEY_A 0
@@ -39,6 +43,15 @@ typedef struct s_color
 	int G;
 	int B;
 } t_color;
+
+typedef struct s_ray
+{
+	double x;
+	double y;
+	double distance;
+	double alpha;
+	
+} t_ray;
 
 typedef struct s_block
 {
@@ -98,6 +111,7 @@ typedef struct s_data
 	t_player player;
 	t_window window;
 	t_block  block;
+	t_ray  *r;
 } t_data;
 
 char	*get_next_line(int fd);
@@ -107,5 +121,6 @@ void    ft_block(t_window *data, t_block block);
 int		check_player(char c);
 int 	draw_minimap(t_data *data);
 void	draw_player(t_data *data);
-void 	DDA(t_data *data, t_segment segment);
+void	draw_walls(t_data *data);
+void 	DDA(t_data *data, t_segment segment, int color);
 #endif

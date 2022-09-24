@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/09/23 19:36:43 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/24 02:33:18 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,11 +171,10 @@ void	init_window(t_data *data)
 {
 	data->player.turndirection = 0;
 	data->player.walkdirection = 0;
-	data->player.rotationangle = M_PI / 2;
 	data->player.rotationspeed = (3 * M_PI / 180);
 	data->player.movespeed = 4;
 	data->window.mlx = mlx_init();
-	data->window.mlx_win = mlx_new_window(data->window.mlx, 1920, 1080, "Cub3d");
+	data->window.mlx_win = mlx_new_window(data->window.mlx, W_width, W_height, "Cub3d");
 	// data->window.img = mlx_new_image(data->window.mlx, 1920, 1080);
 	// data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
 	// 							&data->window.endian);

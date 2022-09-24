@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:47:40 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/22 22:34:12 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/24 02:31:09 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ double ft_abs(double d)
 }
 
 
-void DDA(t_data *data, t_segment segment)
+void DDA(t_data *data, t_segment segment,int color)
 {
 	double incx;
 	double incy;
@@ -39,7 +39,8 @@ void DDA(t_data *data, t_segment segment)
 	incy = dy/stp;
 	while(i < stp)
 	{
-		my_mlx_pixel_put(&data->window, segment.x0, segment.y0, 0xf02b79);
+		if(segment.x0 < W_width && segment.x0 >= 0 && segment.y0 < W_height && segment.y0 >= 0)
+			my_mlx_pixel_put(&data->window, segment.x0, segment.y0, color);
 		segment.x0 += incx;
 		segment.y0 += incy;
 		i++;
