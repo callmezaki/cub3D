@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/25 00:40:31 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:45:04 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,20 @@ int get_color(char c)
 	return (color);
 }
 
+int draw(t_data *data)
+{
+	mlx_clear_window(data->window.mlx, data->window.mlx_win);
+	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
+	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
+								&data->window.endian);
+	claculate_rays(data);
+	draw_walls(data);
+	draw_minimap(data);
+	draw_player(data);
+	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
+	mlx_destroy_image(data->window.mlx, data->window.img);
+	return(0);
+}
 int draw_minimap(t_data *data)
 {
 	t_block block;
@@ -36,10 +50,6 @@ int draw_minimap(t_data *data)
 	block.y0 = -Z;
 	block.x1 = 0;
 	block.y1 = 0;
-	mlx_clear_window(data->window.mlx, data->window.mlx_win);
-	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
-	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
-								&data->window.endian);
 	while(data->map[i])
 	{
 		block.x0 = 0;
@@ -61,10 +71,6 @@ int draw_minimap(t_data *data)
 		}
 		i++;
 	}
-	draw_player(data);
-	draw_walls(data);
-	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
-	mlx_destroy_image(data->window.mlx, data->window.img);
 	return(0);
 }
 
@@ -77,7 +83,7 @@ void	draw_walls(t_data *data)
 	{
 		double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
 		double distance_to_proj = rays / tan(FOV / 2);
-		double proj_wall_height = (120 / per_distance) * distance_to_proj;
+		double proj_wall_height = (80 / per_distance) * distance_to_proj;
 		if (proj_wall_height > W_height)
 			proj_wall_height = W_height;
 		int wall_top_pixel = (W_height / 2) - (proj_wall_height / 2);
@@ -241,7 +247,7 @@ double best_distance(t_data *data, double beta)
 	return(distance);
 }
 
-void	draw_rays(t_segment *seg, t_data *data)
+void	claculate_rays(t_data *data)
 {
 	double distance = 0;
 	double sigma;
@@ -251,23 +257,33 @@ void	draw_rays(t_segment *seg, t_data *data)
 	int i = 0;
 	t_ray* r;
 	r = malloc(sizeof(t_ray) * rays);
-	seg->x0 = data->player.x;
-	seg->y0 = data->player.y;
+
 	while(i < rays)
 	{
 		sigma = data->player.teta + (t);
 		distance = best_distance(data,sigma);
-		seg->x1 = data->player.x + (cos(sigma) * distance);
-		seg->y1 = data->player.y + (sin(sigma) * distance);
-		DDA(data, *seg,0x7FB3D5);
-		r[i].x = seg->x1;
-		r[i].y = seg->y1;
+		r[i].x  = data->player.x + (cos(sigma) * distance);
+		r[i].y = data->player.y + (sin(sigma) * distance);
 		r[i].distance = distance;
 		r[i].alpha = sigma;
 		i++;
 		t += inc_rays;
 	}
 	data->r = r;
+}
+
+void	draw_rays(t_segment *seg, t_data *data)
+{
+	int i = 0;
+	seg->x0 = data->player.x;
+	seg->y0 = data->player.y;
+	while(i < rays)
+	{
+		seg->x1 = data->r[i].x;
+		seg->y1 = data->r[i].y;
+		DDA(data, *seg,0x7FB3D5);
+		i++;
+	}
 }
 
 void draw_player(t_data *data)

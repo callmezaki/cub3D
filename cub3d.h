@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/25 00:42:34 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:43:37 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 #include "libft/libft.h"
 #include "mlx.h"
 
+# define W_height 1080
+# define W_width 1920
 # define Z 20
 # define step 0.08
 # define FOV 60
 # define D_rays (FOV / 2) * (M_PI / 180) 
-# define inc_rays D_rays / (W_width / 2)
-# define W_height 1080
-# define W_width 1920
 # define rays W_width
+# define inc_rays D_rays / (W_width / 2)
 
 # define KEY_W 13 
 # define KEY_A 0
@@ -133,5 +133,8 @@ int 	draw_minimap(t_data *data);
 void	draw_player(t_data *data);
 void	draw_walls(t_data *data);
 void 	DDA(t_data *data, t_segment segment, int color);
+void	claculate_rays(t_data *data);
+void	draw_rays(t_segment *seg, t_data *data);
 int		get_map_width(t_data *data, int y);
+int		draw(t_data *data);
 #endif

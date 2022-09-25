@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/09/24 23:22:41 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:30:40 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	init_window(t_data *data)
 	// // draw_minimap(data);
 	// // draw_player(data);
 	// mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
-	mlx_loop_hook(data->window.mlx, draw_minimap, data);
+	mlx_loop_hook(data->window.mlx, draw, data);
 	mlx_hook(data->window.mlx_win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->window.mlx_win, 3, 0L, key_release, data);
 	mlx_hook(data->window.mlx_win, 17, 0, you_quit, NULL);
