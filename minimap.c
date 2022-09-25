@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/25 20:45:04 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/25 21:27:59 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,45 @@ int get_color(char c)
 	return (color);
 }
 
+int rgb_to_dec(t_color color)
+{
+	int dec;
+
+	dec = (color.R << 16) + (color.G << 8) + color.B;
+	return(dec);
+}
+
+void	draw_background(t_data *data)
+{
+	int x;
+	int y;
+	int c;
+
+	x = 0;
+	y = 0;
+	c = rgb_to_dec(data->C);
+	while(y < W_height)
+	{
+		x = 0;
+		if(y == W_height / 2)
+			c = rgb_to_dec(data->F);
+		while(x < W_width)
+		{
+			my_mlx_pixel_put(&data->window, x, y, c);
+			x++;
+		}
+		y++;
+	}
+	
+}
+
 int draw(t_data *data)
 {
 	mlx_clear_window(data->window.mlx, data->window.mlx_win);
 	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
 	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
 								&data->window.endian);
+	draw_background(data);
 	claculate_rays(data);
 	draw_walls(data);
 	draw_minimap(data);
@@ -92,7 +125,7 @@ void	draw_walls(t_data *data)
 		seg.y0 = wall_top_pixel;
 		seg.x1 = i;
 		seg.y1 = wall_bottom_pixel;
-		DDA(data, seg,0xFF441C);
+		DDA(data, seg,0x808080);
 		i++;
 	}
 }

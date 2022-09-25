@@ -5,8 +5,8 @@ SO ./path_to_the_south_texture.xpm
 WE ./path_to_the_west_texture.xpm
 EA ./path_to_the_east_texture.xpm
    
-C 025,30,0
-F 220,100,0
+C 102,178,255
+F 102,255,178
     
 				        
         1111111111111111111111111
