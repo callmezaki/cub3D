@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/25 20:43:37 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/25 22:46:09 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 # define W_height 1080
 # define W_width 1920
-# define Z 20
-# define step 0.08
+# define Z 10
+# define step 0.5
 # define FOV 60
 # define D_rays (FOV / 2) * (M_PI / 180) 
 # define rays W_width

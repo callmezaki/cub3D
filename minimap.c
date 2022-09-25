@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/25 21:27:59 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/25 22:45:10 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int get_color(char c)
 		color = 16777215;
 	}
 	else if (c == '1')
-		color = 8421504;
+		color = 8421000;
 	return (color);
 }
 
@@ -93,6 +93,7 @@ int draw_minimap(t_data *data)
 		while(data->map[i][j])
 		{
 			if (data->map[i][j] == ' ');
+			else if ((data->map[i][j] == '0') || check_player(data->map[i][j]));
 			else
 			{
 				block.color = get_color(data->map[i][j]);
@@ -116,7 +117,7 @@ void	draw_walls(t_data *data)
 	{
 		double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
 		double distance_to_proj = rays / tan(FOV / 2);
-		double proj_wall_height = (80 / per_distance) * distance_to_proj;
+		double proj_wall_height = ((Z * 4) / per_distance) * distance_to_proj;
 		if (proj_wall_height > W_height)
 			proj_wall_height = W_height;
 		int wall_top_pixel = (W_height / 2) - (proj_wall_height / 2);
@@ -314,7 +315,7 @@ void	draw_rays(t_segment *seg, t_data *data)
 	{
 		seg->x1 = data->r[i].x;
 		seg->y1 = data->r[i].y;
-		DDA(data, *seg,0x7FB3D5);
+		DDA(data, *seg,0xFFFFFFF);
 		i++;
 	}
 }
@@ -324,14 +325,14 @@ void draw_player(t_data *data)
 	t_segment seg;
 	
 	data->player.teta += data->player.turndirection * data->player.rotationspeed;
-	data->player.x += (cos(data->player.teta) * data->player.walkdirection * data->player.movespeed);
-	data->player.y += (sin(data->player.teta) * data->player.walkdirection * data->player.movespeed);
+	data->player.x += (cos(data->player.teta) * data->player.walkdirection * step);
+	data->player.y += (sin(data->player.teta) * data->player.walkdirection * step);
 	double x = (data->player.x) / Z;
 	double y = (data->player.y) / Z ;
 	if (data->map[(int)y][(int)x] != '0' && !check_player(data->map[(int)y][(int)x]))
 	{
-		data->player.x -= (cos(data->player.teta) * data->player.walkdirection * data->player.movespeed);
-		data->player.y -= (sin(data->player.teta) * data->player.walkdirection * data->player.movespeed);
+		data->player.x -= (cos(data->player.teta) * data->player.walkdirection * step);
+		data->player.y -= (sin(data->player.teta) * data->player.walkdirection * step);
 	}
 	draw_rays(&seg, data);
 }
