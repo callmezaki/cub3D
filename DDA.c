@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:47:40 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/26 21:41:53 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/26 23:19:04 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void DDA(t_data *data, t_segment segment,int color)
 		i++;
 	}
 }
+
 
 void DDA2(t_data *data, t_segment s,int color)
 {

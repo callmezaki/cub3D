@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/26 22:17:02 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/26 23:23:21 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void	rotate_player(t_data *data)
 	claculate_rays(data);
 	draw_walls(data);
 	draw_minimap2(data);
-	draw_minimap(data);
 	draw_rays(&seg, data);
+	draw_minimap(data);
 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
 	mlx_destroy_image(data->window.mlx, data->window.img);
 }
@@ -123,8 +123,8 @@ int draw(t_data *data)
 	claculate_rays(data);
 	draw_walls(data);
 	draw_minimap2(data);
-	draw_minimap(data);
 	draw_rays(&seg, data);
+	draw_minimap(data);
 	player_symbol(data, 98, 98, 0);
 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
 	mlx_destroy_image(data->window.mlx, data->window.img);
@@ -277,7 +277,6 @@ double h_distance(t_data *data, double beta)
 
 	ply.x = data->player.x - data->map_x;
 	ply.y = data->player.y - data->map_y;
-	
 	First_inter.y = floor(ply.y / Z) * Z;
 	if (facing_down(beta))
 		First_inter.y += Z;
