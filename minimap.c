@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/26 21:39:06 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/26 22:17:02 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int get_color(char c)
 		color = 16777215;
 	}
 	else if (c == '1')
-		color = 456000;
+		color = 35184;
 	return (color);
 }
 
@@ -60,10 +60,48 @@ void	draw_background(t_data *data)
 int run(t_data *data)
 {
 	if (data->player.walkdirection != 0)
-	{
 		draw(data);
-	}
+	else if (data->player.turndirection != 0)
+		draw(data);
 	return(0);
+}
+
+void    player_symbol(t_data *data, double x, double y,int color)
+{
+	int tmp;
+	double tx = 4 + x;
+	double ty = 4 + y;
+	
+	tmp = y;
+    while(x < tx)
+    {
+        y = tmp;
+        while(y < ty)
+        {
+			// if (x < W_width && x >=  0 && y < W_height && y >= 0)
+           		my_mlx_pixel_put(&data->window, x, y, color);
+            y++;
+        }
+        x++;
+    }
+}
+
+void	rotate_player(t_data *data)
+{
+	t_segment seg;
+
+	mlx_clear_window(data->window.mlx, data->window.mlx_win);
+	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
+	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
+								&data->window.endian);
+	draw_background(data);
+	claculate_rays(data);
+	draw_walls(data);
+	draw_minimap2(data);
+	draw_minimap(data);
+	draw_rays(&seg, data);
+	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
+	mlx_destroy_image(data->window.mlx, data->window.img);
 }
 
 int draw(t_data *data)
@@ -87,6 +125,7 @@ int draw(t_data *data)
 	draw_minimap2(data);
 	draw_minimap(data);
 	draw_rays(&seg, data);
+	player_symbol(data, 98, 98, 0);
 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
 	mlx_destroy_image(data->window.mlx, data->window.img);
 	return(0);
@@ -147,7 +186,7 @@ int draw_minimap2(t_data *data)
 			}
 			else
 			{
-				block.color = 0x808080;
+				block.color = 10676939;
 				ft_block(data, block.x0,block.y0,block.color);	
 			}
 			block.x0 = block.x1;
@@ -395,9 +434,9 @@ void move_player(t_data *data)
 	// double y = (data->map_y + data->centre_p.y - data->player.y) / Z;
 	double x = (data->player.x - data->map_x + p.x) / Z;
 	double y = (data->player.y - data->map_y + p.y) / Z;
-	printf("%f,%f,%f, %f,%f\n",data->map_x,data->centre_p.x, data->player.x, data->centre_p.x, p.x);
-	printf("%f,%f,%f, %f,%f\n",data->map_y,data->centre_p.y, data->player.y, data->centre_p.y, p.y);
-	printf("%f,%f\n",x,y);
+	// printf("%f,%f,%f, %f,%f\n",data->map_x,data->centre_p.x, data->player.x, data->centre_p.x, p.x);
+	// printf("%f,%f,%f, %f,%f\n",data->map_y,data->centre_p.y, data->player.y, data->centre_p.y, p.y);
+	// printf("%f,%f\n",x,y);
 	if (data->map[(int)y][(int)x] == '0' || check_player(data->map[(int)y][(int)x]))
 	{
 		data->player.x += p.x;
