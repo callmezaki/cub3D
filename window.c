@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/09/25 22:45:42 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/26 01:36:49 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,25 @@ int	you_quit(void)
 int key_press(int key, t_data *data)
 {
 	if (key == KEY_W)
+	{
+		data->player.sides = 0;
 		data->player.walkdirection = 1;
+	}
 	else if (key == KEY_S)
+	{
+		data->player.sides = 0;
 		data->player.walkdirection = -1;
+	}
+	if (key == KEY_A)
+	{
+		data->player.sides = 1;
+		data->player.walkdirection = -1;
+	}
+	else if (key == KEY_D)
+	{
+		data->player.sides = 1;
+		data->player.walkdirection = 1;
+	}
 	else if (key == LEFT)
 		data->player.turndirection = -1;
 	else if (key == RIGHT)
@@ -66,6 +82,10 @@ int key_release(int key, t_data *data)
 		data->player.walkdirection = 0;
 	else if (key == KEY_S)
 		data->player.walkdirection = 0;
+	if (key == KEY_A)
+		data->player.walkdirection = 0;
+	else if (key == KEY_D)
+		data->player.walkdirection = 0;
 	else if (key == LEFT)
 		data->player.turndirection = 0;
 	else if (key == RIGHT)
@@ -77,6 +97,7 @@ void	init_window(t_data *data)
 {
 	data->player.turndirection = 0;
 	data->player.walkdirection = 0;
+	data->player.sides = 0;
 	data->player.rotationspeed = (2 * M_PI / 180);
 	data->window.mlx = mlx_init();
 	data->window.mlx_win = mlx_new_window(data->window.mlx, W_width, W_height, "Cub3d");

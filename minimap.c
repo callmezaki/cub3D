@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/25 22:45:10 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/26 01:41:33 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,15 +324,35 @@ void draw_player(t_data *data)
 {
 	t_segment seg;
 	
+	data->player.teta = normalize(data->player.teta);
+	printf("%f\n", data->player.teta);
 	data->player.teta += data->player.turndirection * data->player.rotationspeed;
-	data->player.x += (cos(data->player.teta) * data->player.walkdirection * step);
-	data->player.y += (sin(data->player.teta) * data->player.walkdirection * step);
+	if(data->player.sides == 0)
+	{
+		data->player.x += (cos(data->player.teta) * data->player.walkdirection * step);
+		data->player.y += (sin(data->player.teta) * data->player.walkdirection * step);
+	}
+	if(data->player.sides == 1)
+	{
+		data->player.x -= (sin(data->player.teta) * data->player.walkdirection * step);
+		data->player.y += (cos(data->player.teta) * data->player.walkdirection * step);
+	}
+	// data->player.x += (cos(data->player.teta) * data->player.walkdirection * step);
+	// data->player.y += (sin(data->player.teta) * data->player.walkdirection * step);
 	double x = (data->player.x) / Z;
 	double y = (data->player.y) / Z ;
 	if (data->map[(int)y][(int)x] != '0' && !check_player(data->map[(int)y][(int)x]))
 	{
-		data->player.x -= (cos(data->player.teta) * data->player.walkdirection * step);
-		data->player.y -= (sin(data->player.teta) * data->player.walkdirection * step);
+		if(data->player.sides == 0)
+		{
+			data->player.x -= (cos(data->player.teta) * data->player.walkdirection * step);
+			data->player.y -= (sin(data->player.teta) * data->player.walkdirection * step);
+		}
+		if(data->player.sides == 1)
+		{
+			data->player.x += (sin(data->player.teta) * data->player.walkdirection * step);
+			data->player.y -= (cos(data->player.teta) * data->player.walkdirection * step);
+		}
 	}
 	draw_rays(&seg, data);
 }
