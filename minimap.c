@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/26 01:51:14 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/26 21:39:06 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,36 @@ void	draw_background(t_data *data)
 	
 }
 
+int run(t_data *data)
+{
+	if (data->player.walkdirection != 0)
+	{
+		draw(data);
+	}
+	return(0);
+}
+
 int draw(t_data *data)
 {
+	t_segment seg;
+
 	mlx_clear_window(data->window.mlx, data->window.mlx_win);
 	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
 	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
 								&data->window.endian);
+	data->centre_p.x = data->player.x - (mini_cub * Z / 2);
+	data->centre_p.y = data->player.y - (mini_cub * Z / 2);
+	data->player.x -= data->centre_p.x;
+	data->player.y -= data->centre_p.y;
+	data->map_x -= data->centre_p.x;
+	data->map_y -= data->centre_p.y;
 	draw_background(data);
+	move_player(data);
 	claculate_rays(data);
 	draw_walls(data);
+	draw_minimap2(data);
 	draw_minimap(data);
-	draw_player(data);
+	draw_rays(&seg, data);
 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
 	mlx_destroy_image(data->window.mlx, data->window.img);
 	return(0);
@@ -78,17 +97,12 @@ int draw_minimap(t_data *data)
 	int i = 0;
 	int j = 0;
 	
-
-	block.x0 = 0;
-	block.y0 = -Z;
-	block.x1 = 0;
-	block.y1 = 0;
+	double x = data->map_x;
+	double y = data->map_y;
 	while(data->map[i])
 	{
-		block.x0 = 0;
-		block.x1 = block.x0 + Z;
-		block.y0 += Z;
-		block.y1 = block.y0 + Z;
+		x = data->map_x;
+		y = data->map_y + i * Z ;
 		j = 0;
 		while(data->map[i][j])
 		{
@@ -97,7 +111,44 @@ int draw_minimap(t_data *data)
 			else
 			{
 				block.color = get_color(data->map[i][j]);
-				ft_block(&data->window, block);
+				ft_block2(data, x,y,block.color);
+			}
+			x += Z;
+			j++;
+		}
+		i++;
+	}
+	return(0);
+}
+
+int draw_minimap2(t_data *data)
+{
+	t_block block;
+	int i = 0;
+	int j = 0;
+
+	block.x0 = 0;
+	block.y0 = -Z;
+	block.x1 = 0;
+	block.y1 = 0;
+	while(i < mini_cub)
+	{
+		block.x0 = 0;
+		block.x1 = block.x0 + Z;
+		block.y0 += Z;
+		block.y1 = block.y0 + Z;
+		j = 0;
+		while(j < mini_cub)
+		{
+			if ((i == 0 || (i == mini_cub - 1)) || (j == 0 || (j == mini_cub - 1)))
+			{
+				block.color = 0;
+				ft_block(data, block.x0,block.y0,block.color);	
+			}
+			else
+			{
+				block.color = 0x808080;
+				ft_block(data, block.x0,block.y0,block.color);	
 			}
 			block.x0 = block.x1;
 			block.x1 += Z;
@@ -117,7 +168,7 @@ void	draw_walls(t_data *data)
 	{
 		double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
 		double distance_to_proj = rays / tan(FOV / 2);
-		double proj_wall_height = ((Z * 4) / per_distance) * distance_to_proj;
+		double proj_wall_height = ((Z * 3) / per_distance) * distance_to_proj;
 		if (proj_wall_height > W_height)
 			proj_wall_height = W_height;
 		int wall_top_pixel = (W_height / 2) - (proj_wall_height / 2);
@@ -152,7 +203,6 @@ int facing_right(double beta)
 double findMod(double a, double b)
 {
     double mod;
-    // Handling negative values
     if (a < 0)
         mod = -a;
     else
@@ -160,13 +210,9 @@ double findMod(double a, double b)
     if (b < 0)
         b = -b;
  
-    // Finding mod by repeated subtraction
      
     while (mod >= b)
         mod = mod - b;
- 
-    // Sign of result typically depends
-    // on sign of a.
     if (a < 0)
         return -mod;
  
@@ -175,11 +221,9 @@ double findMod(double a, double b)
 
 double normalize(double teta)
 {
-	// teta = teta % (2 * M_PI);
 	teta = findMod(teta, 2 * M_PI);
 	if (teta < 0)
 		 teta += (M_PI * 2);
-
 	return(teta);
 }
 
@@ -190,11 +234,15 @@ double h_distance(t_data *data, double beta)
 	t_point t;
 	t_point stp;
 	double h;
+	t_point ply;
+
+	ply.x = data->player.x - data->map_x;
+	ply.y = data->player.y - data->map_y;
 	
-	First_inter.y = floor(data->player.y / Z) * Z;
+	First_inter.y = floor(ply.y / Z) * Z;
 	if (facing_down(beta))
 		First_inter.y += Z;
-	First_inter.x = data->player.x + ((First_inter.y - data->player.y) / tan(beta));
+	First_inter.x = ply.x + ((First_inter.y - ply.y) / tan(beta));
 	stp.y = Z;
 	if (!facing_down(beta))
 		stp.y *= -1;
@@ -211,12 +259,12 @@ double h_distance(t_data *data, double beta)
 		a.y = t.y / Z;
 		if (a.y >= data->map_height || a.y < 0 || a.x > get_map_width(data,a.y) || a.x < 0)
 		{			
-			h = sqrt(pow(First_inter.x - data->player.x,2) + pow(First_inter.y - data->player.y,2));
+			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
 			return(h);
 		}
 		if (data->map[(int)a.y][(int)a.x] != '0' && !check_player(data->map[(int)a.y][(int)a.x]))
 		{
-			h = sqrt(pow(First_inter.x - data->player.x,2) + pow(First_inter.y - data->player.y,2));
+			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
 			return(h);
 		}
 		First_inter.x += stp.x;
@@ -231,11 +279,16 @@ double v_distance(t_data *data, double beta)
 	t_point t;
 	t_point stp;
 	double h;
+	t_point ply;
+
+	ply.x = data->player.x - data->map_x;
+	ply.y = data->player.y - data->map_y;
 	
-	First_inter.x = floor(data->player.x / Z) * Z;
+	
+	First_inter.x = floor(ply.x / Z) * Z;
 	if (facing_right(beta))
 		First_inter.x += Z;
-	First_inter.y = data->player.y + ((First_inter.x - data->player.x) * tan(beta));
+	First_inter.y = ply.y + ((First_inter.x - ply.x) * tan(beta));
 	stp.x = Z;
 	if (!facing_right(beta))
 		stp.x *= -1;
@@ -252,12 +305,12 @@ double v_distance(t_data *data, double beta)
 		a.y = t.y / Z;
 		if (a.y >= data->map_height || a.y < 0 || a.x > get_map_width(data,a.y) || a.x < 0)
 		{			
-			h = sqrt(pow(First_inter.x - data->player.x,2) + pow(First_inter.y - data->player.y,2));
+			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
 			return(h);
 		}
 		if (data->map[(int)a.y][(int)a.x] != '0' && !check_player(data->map[(int)a.y][(int)a.x]))
 		{
-			h = sqrt(pow(First_inter.x - data->player.x,2) + pow(First_inter.y - data->player.y,2));
+			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
 			return(h);
 		}
 		First_inter.x += stp.x;
@@ -296,7 +349,7 @@ void	claculate_rays(t_data *data)
 	{
 		sigma = data->player.teta + (t);
 		distance = best_distance(data,sigma);
-		r[i].x  = data->player.x + (cos(sigma) * distance);
+		r[i].x = data->player.x + (cos(sigma) * distance);
 		r[i].y = data->player.y + (sin(sigma) * distance);
 		r[i].distance = distance;
 		r[i].alpha = sigma;
@@ -315,41 +368,39 @@ void	draw_rays(t_segment *seg, t_data *data)
 	{
 		seg->x1 = data->r[i].x;
 		seg->y1 = data->r[i].y;
-		DDA(data, *seg,0xFFFFFFF);
+		DDA2(data, *seg,0xFFFFFFF);
 		i++;
 	}
 }
 
-void draw_player(t_data *data)
+void move_player(t_data *data)
 {
-	t_segment seg;
+	t_point p;
 	
+	// p.x = data->player.x;
+	// p.y = data->player.y;
 	data->player.teta = normalize(data->player.teta);
 	data->player.teta += data->player.turndirection * data->player.rotationspeed;
-	if(data->player.sides == 0)
+	if(data->player.sides == 0 && (data->player.walkdirection != 0))
 	{
-		data->player.x += (cos(data->player.teta) * data->player.walkdirection * step);
-		data->player.y += (sin(data->player.teta) * data->player.walkdirection * step);
+		p.x += (cos(data->player.teta) * data->player.walkdirection * step);
+		p.y += (sin(data->player.teta) * data->player.walkdirection * step);
 	}
-	if(data->player.sides == 1)
+	if(data->player.sides == 1 && (data->player.walkdirection != 0))
 	{
-		data->player.x -= (sin(data->player.teta) * data->player.walkdirection * step);
-		data->player.y += (cos(data->player.teta) * data->player.walkdirection * step);
+		p.x -= (sin(data->player.teta) * data->player.walkdirection * step);
+		p.y += (cos(data->player.teta) * data->player.walkdirection * step);
 	}
-	double x = (data->player.x) / Z;
-	double y = (data->player.y) / Z ;
-	if (data->map[(int)y][(int)x] != '0' && !check_player(data->map[(int)y][(int)x]))
+	// double x = (data->map_x + data->centre_p.x - data->player.x) / Z;
+	// double y = (data->map_y + data->centre_p.y - data->player.y) / Z;
+	double x = (data->player.x - data->map_x + p.x) / Z;
+	double y = (data->player.y - data->map_y + p.y) / Z;
+	printf("%f,%f,%f, %f,%f\n",data->map_x,data->centre_p.x, data->player.x, data->centre_p.x, p.x);
+	printf("%f,%f,%f, %f,%f\n",data->map_y,data->centre_p.y, data->player.y, data->centre_p.y, p.y);
+	printf("%f,%f\n",x,y);
+	if (data->map[(int)y][(int)x] == '0' || check_player(data->map[(int)y][(int)x]))
 	{
-		if(data->player.sides == 0)
-		{
-			data->player.x -= (cos(data->player.teta) * data->player.walkdirection * step);
-			data->player.y -= (sin(data->player.teta) * data->player.walkdirection * step);
-		}
-		if(data->player.sides == 1)
-		{
-			data->player.x += (sin(data->player.teta) * data->player.walkdirection * step);
-			data->player.y -= (cos(data->player.teta) * data->player.walkdirection * step);
-		}
+		data->player.x += p.x;
+		data->player.y += p.y;
 	}
-	draw_rays(&seg, data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/09/26 01:36:49 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/26 18:40:34 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	init_window(t_data *data)
 	// // draw_minimap(data);
 	// // draw_player(data);
 	// mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
-	mlx_loop_hook(data->window.mlx, draw, data);
+	draw(data);
+	mlx_loop_hook(data->window.mlx, run, data);
 	mlx_hook(data->window.mlx_win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->window.mlx_win, 3, 0L, key_release, data);
 	mlx_hook(data->window.mlx_win, 17, 0, you_quit, NULL);

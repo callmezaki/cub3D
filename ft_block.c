@@ -6,25 +6,50 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:28:14 by sgmira            #+#    #+#             */
-/*   Updated: 2022/09/24 02:32:28 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/26 21:41:30 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-void    ft_block(t_window *data, t_block block)
+void    ft_block(t_data *data, double x, double y,int color)
 {
 	int tmp;
+	double tx = Z + x;
+	double ty = Z + y;
 	
-	tmp = block.y0;
-    while(block.x0 < block.x1)
+	tmp = y;
+    while(x < tx)
     {
-        block.y0 = tmp;
-        while(block.y0 < block.y1)
+        y = tmp;
+        while(y < ty)
         {
-			if (block.x0 < W_width && block.x0 >=  0 && block.y0 < W_height && block.y0 >= 0)
-           		my_mlx_pixel_put(data, block.x0, block.y0, block.color);
-            block.y0++;
+			if (x < W_width && x >=  0 && y < W_height && y >= 0)
+           		my_mlx_pixel_put(&data->window, x, y, color);
+            y++;
         }
-        block.x0++;
+        x++;
+    }
+}
+
+void    ft_block2(t_data *data, double x, double y,int color)
+{
+	int tmp;
+	double tx = Z + x;
+	double ty = Z + y;
+	
+	tmp = y;
+    while(x < tx)
+    {
+        y = tmp;
+        while(y < ty)
+        {
+			if (x < W_width && x >=  0 && y < W_height && y >= 0)
+			{
+				if (x > Z && x < Z  * (mini_cub -1) && y > Z && y < Z * (mini_cub -1))
+           			my_mlx_pixel_put(&data->window, x, y, color);
+			}
+            y++;
+        }
+        x++;
     }
 }

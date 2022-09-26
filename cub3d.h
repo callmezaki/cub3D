@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/26 16:08:31 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/26 21:36:41 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 
 # define W_height 1080
 # define W_width 1920
-# define Z 20
+# define Z 10
+# define mini_cub 20
 # define step 0.5
 # define FOV 60
 # define D_rays (FOV / 2) * (M_PI / 180) 
@@ -123,19 +124,26 @@ typedef struct s_data
 	t_ray  *r;
 	int map_width;
 	int map_height;
+	double map_x;
+	double map_y;
+	t_point centre_p;
 } t_data;
 
 char	*get_next_line(int fd);
 void	my_mlx_pixel_put(t_window *data, int x, int y, int color);
 void	init_window(t_data *data);
-void    ft_block(t_window *data, t_block block);
+void    ft_block(t_data *data, double x, double y,int color);
 int		check_player(char c);
 int 	draw_minimap(t_data *data);
-void	draw_player(t_data *data);
+void	move_player(t_data *data);
 void	draw_walls(t_data *data);
 void 	DDA(t_data *data, t_segment segment, int color);
 void	claculate_rays(t_data *data);
 void	draw_rays(t_segment *seg, t_data *data);
 int		get_map_width(t_data *data, int y);
 int		draw(t_data *data);
+int run(t_data *data);
+int draw_minimap2(t_data *data);
+void    ft_block2(t_data *data, double x, double y,int color);
+void DDA2(t_data *data, t_segment segment,int color);
 #endif
