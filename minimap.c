@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/26 23:23:21 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/27 23:35:08 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,176 +25,12 @@ int get_color(char c)
 	return (color);
 }
 
-int rgb_to_dec(t_color color)
-{
-	int dec;
-
-	dec = (color.R << 16) + (color.G << 8) + color.B;
-	return(dec);
-}
-
-void	draw_background(t_data *data)
-{
-	int x;
-	int y;
-	int c;
-
-	x = 0;
-	y = 0;
-	c = rgb_to_dec(data->C);
-	while(y < W_height)
-	{
-		x = 0;
-		if(y == W_height / 2)
-			c = rgb_to_dec(data->F);
-		while(x < W_width)
-		{
-			my_mlx_pixel_put(&data->window, x, y, c);
-			x++;
-		}
-		y++;
-	}
-	
-}
-
 int run(t_data *data)
 {
 	if (data->player.walkdirection != 0)
 		draw(data);
 	else if (data->player.turndirection != 0)
 		draw(data);
-	return(0);
-}
-
-void    player_symbol(t_data *data, double x, double y,int color)
-{
-	int tmp;
-	double tx = 4 + x;
-	double ty = 4 + y;
-	
-	tmp = y;
-    while(x < tx)
-    {
-        y = tmp;
-        while(y < ty)
-        {
-			// if (x < W_width && x >=  0 && y < W_height && y >= 0)
-           		my_mlx_pixel_put(&data->window, x, y, color);
-            y++;
-        }
-        x++;
-    }
-}
-
-void	rotate_player(t_data *data)
-{
-	t_segment seg;
-
-	mlx_clear_window(data->window.mlx, data->window.mlx_win);
-	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
-	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
-								&data->window.endian);
-	draw_background(data);
-	claculate_rays(data);
-	draw_walls(data);
-	draw_minimap2(data);
-	draw_rays(&seg, data);
-	draw_minimap(data);
-	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
-	mlx_destroy_image(data->window.mlx, data->window.img);
-}
-
-int draw(t_data *data)
-{
-	t_segment seg;
-
-	mlx_clear_window(data->window.mlx, data->window.mlx_win);
-	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
-	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
-								&data->window.endian);
-	data->centre_p.x = data->player.x - (mini_cub * Z / 2);
-	data->centre_p.y = data->player.y - (mini_cub * Z / 2);
-	data->player.x -= data->centre_p.x;
-	data->player.y -= data->centre_p.y;
-	data->map_x -= data->centre_p.x;
-	data->map_y -= data->centre_p.y;
-	draw_background(data);
-	move_player(data);
-	claculate_rays(data);
-	draw_walls(data);
-	draw_minimap2(data);
-	draw_rays(&seg, data);
-	draw_minimap(data);
-	player_symbol(data, 98, 98, 0);
-	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
-	mlx_destroy_image(data->window.mlx, data->window.img);
-	return(0);
-}
-int draw_minimap(t_data *data)
-{
-	t_block block;
-	int i = 0;
-	int j = 0;
-	
-	double x = data->map_x;
-	double y = data->map_y;
-	while(data->map[i])
-	{
-		x = data->map_x;
-		y = data->map_y + i * Z ;
-		j = 0;
-		while(data->map[i][j])
-		{
-			if (data->map[i][j] == ' ');
-			else if ((data->map[i][j] == '0') || check_player(data->map[i][j]));
-			else
-			{
-				block.color = get_color(data->map[i][j]);
-				ft_block2(data, x,y,block.color);
-			}
-			x += Z;
-			j++;
-		}
-		i++;
-	}
-	return(0);
-}
-
-int draw_minimap2(t_data *data)
-{
-	t_block block;
-	int i = 0;
-	int j = 0;
-
-	block.x0 = 0;
-	block.y0 = -Z;
-	block.x1 = 0;
-	block.y1 = 0;
-	while(i < mini_cub)
-	{
-		block.x0 = 0;
-		block.x1 = block.x0 + Z;
-		block.y0 += Z;
-		block.y1 = block.y0 + Z;
-		j = 0;
-		while(j < mini_cub)
-		{
-			if ((i == 0 || (i == mini_cub - 1)) || (j == 0 || (j == mini_cub - 1)))
-			{
-				block.color = 0;
-				ft_block(data, block.x0,block.y0,block.color);	
-			}
-			else
-			{
-				block.color = 10676939;
-				ft_block(data, block.x0,block.y0,block.color);	
-			}
-			block.x0 = block.x1;
-			block.x1 += Z;
-			j++;
-		}
-		i++;
-	}
 	return(0);
 }
 
@@ -414,9 +250,8 @@ void	draw_rays(t_segment *seg, t_data *data)
 void move_player(t_data *data)
 {
 	t_point p;
+	t_point t;
 	
-	// p.x = data->player.x;
-	// p.y = data->player.y;
 	data->player.teta = normalize(data->player.teta);
 	data->player.teta += data->player.turndirection * data->player.rotationspeed;
 	if(data->player.sides == 0 && (data->player.walkdirection != 0))
@@ -429,14 +264,9 @@ void move_player(t_data *data)
 		p.x -= (sin(data->player.teta) * data->player.walkdirection * step);
 		p.y += (cos(data->player.teta) * data->player.walkdirection * step);
 	}
-	// double x = (data->map_x + data->centre_p.x - data->player.x) / Z;
-	// double y = (data->map_y + data->centre_p.y - data->player.y) / Z;
-	double x = (data->player.x - data->map_x + p.x) / Z;
-	double y = (data->player.y - data->map_y + p.y) / Z;
-	// printf("%f,%f,%f, %f,%f\n",data->map_x,data->centre_p.x, data->player.x, data->centre_p.x, p.x);
-	// printf("%f,%f,%f, %f,%f\n",data->map_y,data->centre_p.y, data->player.y, data->centre_p.y, p.y);
-	// printf("%f,%f\n",x,y);
-	if (data->map[(int)y][(int)x] == '0' || check_player(data->map[(int)y][(int)x]))
+	t.x = (data->player.x - data->map_x + p.x) / Z;
+	t.y = (data->player.y - data->map_y + p.y) / Z;
+	if (data->map[(int)t.y][(int)t.x] == '0' || check_player(data->map[(int)t.y][(int)t.x]))
 	{
 		data->player.x += p.x;
 		data->player.y += p.y;

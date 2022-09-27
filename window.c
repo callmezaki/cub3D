@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/09/26 22:08:56 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/27 22:58:37 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ void	my_mlx_pixel_put(t_window *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	if (x < W_width && x >=  0 && y < W_height && y >= 0)
+	{
+		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+		*(unsigned int*)dst = color;
+	}
 }
 
 int	you_quit(void)
@@ -102,12 +105,6 @@ void	init_window(t_data *data)
 	data->player.rotationspeed = (2 * M_PI / 180);
 	data->window.mlx = mlx_init();
 	data->window.mlx_win = mlx_new_window(data->window.mlx, W_width, W_height, "Cub3d");
-	// data->window.img = mlx_new_image(data->window.mlx, 1920, 1080);
-	// data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
-	// 							&data->window.endian);
-	// // draw_minimap(data);
-	// // draw_player(data);
-	// mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
 	draw(data);
 	mlx_loop_hook(data->window.mlx, run, data);
 	mlx_hook(data->window.mlx_win, 2, 1L << 0, key_press, data);

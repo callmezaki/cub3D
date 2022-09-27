@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/26 21:36:41 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/27 23:15:15 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,14 +136,18 @@ void    ft_block(t_data *data, double x, double y,int color);
 int		check_player(char c);
 int 	draw_minimap(t_data *data);
 void	move_player(t_data *data);
+void	rotate_player(t_data *data);
 void	draw_walls(t_data *data);
 void 	DDA(t_data *data, t_segment segment, int color);
 void	claculate_rays(t_data *data);
 void	draw_rays(t_segment *seg, t_data *data);
 int		get_map_width(t_data *data, int y);
 int		draw(t_data *data);
-int run(t_data *data);
+int		run(t_data *data);
+int		draw_minimap_frame(t_data *data);
 int draw_minimap2(t_data *data);
 void    ft_block2(t_data *data, double x, double y,int color);
-void DDA2(t_data *data, t_segment segment,int color);
+void	DDA2(t_data *data, t_segment segment,int color);
+void	draw_background(t_data *data);
+int get_color(char c);
 #endif

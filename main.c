@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/26 17:33:50 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/27 22:29:50 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -611,3 +611,6 @@ int main(int ac, char **av)
 		init_window(data);
 	}
 }
+
+
+// putting F as First line in map

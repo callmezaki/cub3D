@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:47:40 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/26 23:19:04 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/27 22:45:13 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void DDA(t_data *data, t_segment segment,int color)
 	incy = (float)dy/stp;
 	while(i <= stp)
 	{
-		if((int)segment.x0 < W_width && (int)segment.x0 >= 0 && (int)segment.y0 < W_height && (int)segment.y0 >= 0)
-			my_mlx_pixel_put(&data->window, segment.x0, segment.y0, color);
+		my_mlx_pixel_put(&data->window, segment.x0, segment.y0, color);
 		segment.x0 += incx;
 		segment.y0 += incy;
 		i++;
@@ -67,11 +66,8 @@ void DDA2(t_data *data, t_segment s,int color)
 	incy = (float)dy/stp;
 	while(i <= stp)
 	{
-		if((int)s.x0 < W_width && (int)s.x0 >= 0 && (int)s.y0 < W_height && (int)s.y0 >= 0)
-		{
-			if (s.x0 > Z && s.x0 < Z * (mini_cub -1) && s.y0 > Z && s.y0 < Z * (mini_cub -1))
-				my_mlx_pixel_put(&data->window, s.x0, s.y0, color);
-		}
+		if (s.x0 > Z && s.x0 < Z * (mini_cub -1) && s.y0 > Z && s.y0 < Z * (mini_cub -1))
+			my_mlx_pixel_put(&data->window, s.x0, s.y0, color);
 		s.x0 += incx;
 		s.y0 += incy;
 		i++;
