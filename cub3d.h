@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/27 23:15:15 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/28 21:05:50 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define W_height 1080
 # define W_width 1920
-# define Z 10
+# define Z 16
 # define mini_cub 20
 # define step 0.5
 # define FOV 60
@@ -81,6 +81,13 @@ typedef struct s_segment
 	double y1;
 } t_segment;
 
+typedef struct s_texture
+{
+	int *tab;
+	int width;
+	int height;
+} t_texture;
+
 typedef struct s_player
 {
 	char   facing;
@@ -121,6 +128,7 @@ typedef struct s_data
 	t_player player;
 	t_window window;
 	t_block  block;
+	t_texture texture;
 	t_ray  *r;
 	int map_width;
 	int map_height;
@@ -150,4 +158,5 @@ void    ft_block2(t_data *data, double x, double y,int color);
 void	DDA2(t_data *data, t_segment segment,int color);
 void	draw_background(t_data *data);
 int get_color(char c);
+void	get_texture(t_data *data);
 #endif

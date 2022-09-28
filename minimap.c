@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/27 23:35:08 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/28 22:52:53 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	draw_walls(t_data *data)
 {
 	int i = 0;
 	t_segment seg;
-
 	while(i < rays)
 	{
 		double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
