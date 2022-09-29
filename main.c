@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/27 22:29:50 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/29 20:36:39 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -492,8 +492,9 @@ int	check_assets(char **s)
 	j = 0;
 	while(s[i])
 	{
-		if(s[i][0] == 'N' || s[i][0] == 'S' || s[i][0] == 'W'
-			|| s[i][0] == 'E' || s[i][0] == 'C' || s[i][0] == 'F')
+		if(!ft_strcmp(ft_split(s[i], ' ')[0], "NO") || !ft_strcmp(ft_split(s[i], ' ')[0], "SO")
+			|| !ft_strcmp(ft_split(s[i], ' ')[0], "WE") || !ft_strcmp(ft_split(s[i], ' ')[0], "EA") 
+			|| !ft_strcmp(ft_split(s[i], ' ')[0], "C") || !ft_strcmp(ft_split(s[i], ' ')[0], "F"))
 		{
 			tmp[0] = s[i][0];
 			str = ft_strjoin(str, tmp);

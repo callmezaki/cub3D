@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/28 22:52:53 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/29 22:45:18 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,56 @@ int run(t_data *data)
 	return(0);
 }
 
-void	draw_walls(t_data *data)
+// void	draw_walls(t_data *data)
+// {
+// 	int i = 0;
+// 	t_segment seg;
+// 	while(i < rays)
+// 	{
+// 		double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
+// 		double distance_to_proj = rays / tan(FOV / 2);
+// 		double proj_wall_height = ((Z * 3) / per_distance) * distance_to_proj;
+// 		if (proj_wall_height > W_height)
+// 			proj_wall_height = W_height;
+// 		int wall_top_pixel = (W_height / 2) - (proj_wall_height / 2);
+// 		int wall_bottom_pixel = (W_height / 2) + (proj_wall_height / 2);
+// 		seg.x0 = i;
+// 		seg.y0 = wall_top_pixel;
+// 		seg.x1 = i;
+// 		seg.y1 = wall_bottom_pixel;
+// 		DDA(data, seg,0x808080);
+// 		i++;
+// 	}
+// }
+
+void    draw_walls(t_data *data)
 {
-	int i = 0;
-	t_segment seg;
-	while(i < rays)
-	{
-		double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
-		double distance_to_proj = rays / tan(FOV / 2);
-		double proj_wall_height = ((Z * 3) / per_distance) * distance_to_proj;
-		if (proj_wall_height > W_height)
-			proj_wall_height = W_height;
-		int wall_top_pixel = (W_height / 2) - (proj_wall_height / 2);
-		int wall_bottom_pixel = (W_height / 2) + (proj_wall_height / 2);
-		seg.x0 = i;
-		seg.y0 = wall_top_pixel;
-		seg.x1 = i;
-		seg.y1 = wall_bottom_pixel;
-		DDA(data, seg,0x808080);
-		i++;
-	}
+    int i = 0;
+    int j;
+	int txtr_offx;
+	int txtr_offy;
+	
+    while(i < rays)
+    {
+		txtr_offx = (int)data->r[i].x % (Z * 3); 
+        double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
+        double distance_to_proj = rays / tan(FOV / 2);
+        double proj_wall_height = ((Z * 3) / per_distance) * distance_to_proj;
+        if (proj_wall_height > W_height)
+            proj_wall_height = W_height;
+        int wall_top_pixel = (W_height / 2) - (proj_wall_height / 2);
+        int wall_bottom_pixel = (W_height / 2) + (proj_wall_height / 2);
+        j = wall_bottom_pixel;
+        while(j < wall_top_pixel)
+        {
+			// printf("%f\n", proj_wall_height);
+			txtr_offy = (j - wall_top_pixel) * ((double)16 / proj_wall_height);
+            my_mlx_pixel_put(&data->window, i, j, data->texture.tab[(16 * txtr_offy) + txtr_offx]);
+            // my_mlx_pixel_put(&data->window, i, j, 0);
+            j++;
+        }
+        i++;
+    }
 }
 
 int facing_down(double beta)

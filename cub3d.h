@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/28 21:05:50 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/29 21:56:30 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define W_width 1920
 # define Z 16
 # define mini_cub 20
-# define step 0.5
+# define step 1
 # define FOV 60
 # define D_rays (FOV / 2) * (M_PI / 180) 
 # define rays W_width
@@ -130,6 +130,7 @@ typedef struct s_data
 	t_block  block;
 	t_texture texture;
 	t_ray  *r;
+	t_point wallhit;
 	int map_width;
 	int map_height;
 	double map_x;
