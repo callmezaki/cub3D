@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/29 22:45:18 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/30 16:12:06 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void    draw_walls(t_data *data)
 	
     while(i < rays)
     {
-		txtr_offx = (int)data->r[i].x % (Z * 3); 
+		if(data->distance.h_or_v == 2)
+			txtr_offx = (int)data->r[i].y % (Z * 3);
+		else if (data->distance.h_or_v == 1)
+			txtr_offx = (int)data->r[i].x % (Z * 3);
         double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
         double distance_to_proj = rays / tan(FOV / 2);
         double proj_wall_height = ((Z * 3) / per_distance) * distance_to_proj;
@@ -221,9 +224,9 @@ double v_distance(t_data *data, double beta)
 	}
 }
 
-double best_distance(t_data *data, double beta)
+void best_distance(t_data *data, double beta)
 {
-	double distance = 0;
+	data->distance.distance = 0;
 	double h;
 	double v;
 	
@@ -231,15 +234,23 @@ double best_distance(t_data *data, double beta)
 	v = v_distance(data, beta);
 	h = h_distance(data, beta);
 	if (h < v)
-		distance = h;
-	else  
-		distance = v;
-	return(distance);
+	{
+		data->distance.h_or_v = 1;
+		data->distance.distance = h;
+	}
+	else 
+	{
+		data->distance.h_or_v = 2;
+		data->distance.distance = v;
+	}
+	// printf("%d\n", data->distance.h_or_v);
+	// data->r->h_or_v = s;
+	// return(distance);
 }
 
 void	claculate_rays(t_data *data)
 {
-	double distance = 0;
+	// double distance = 0;
 	double sigma;
 	double t = D_rays;
 	t *= -1;
@@ -251,11 +262,12 @@ void	claculate_rays(t_data *data)
 	while(i < rays)
 	{
 		sigma = data->player.teta + (t);
-		distance = best_distance(data,sigma);
-		r[i].x = data->player.x + (cos(sigma) * distance);
-		r[i].y = data->player.y + (sin(sigma) * distance);
-		r[i].distance = distance;
+		best_distance(data,sigma);
+		r[i].x = data->player.x + (cos(sigma) * data->distance.distance);
+		r[i].y = data->player.y + (sin(sigma) * data->distance.distance);
+		r[i].distance = data->distance.distance;
 		r[i].alpha = sigma;
+		r[i].h_or_v = data->distance.h_or_v;
 		i++;
 		t += inc_rays;
 	}
