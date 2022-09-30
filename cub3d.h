@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/30 16:00:17 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/30 16:44:10 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,10 +160,14 @@ int		get_map_width(t_data *data, int y);
 int		draw(t_data *data);
 int		run(t_data *data);
 int		draw_minimap_frame(t_data *data);
-int draw_minimap2(t_data *data);
+int		draw_minimap2(t_data *data);
 void    ft_block2(t_data *data, double x, double y,int color);
 void	DDA2(t_data *data, t_segment segment,int color);
 void	draw_background(t_data *data);
-int get_color(char c);
+int		get_color(char c);
 void	get_texture(t_data *data);
+double	h_distance(t_data *data, double beta);
+double	v_distance(t_data *data, double beta);
+double	best_distance(t_data *data, double beta);
+void	claculate_rays(t_data *data);
 #endif

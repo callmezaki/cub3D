@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/30 16:12:06 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/30 16:45:37 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,26 @@ void    draw_walls(t_data *data)
     int j;
 	int txtr_offx;
 	int txtr_offy;
+	double rad = (FOV) * (M_PI / 180);
 	
     while(i < rays)
     {
-		if(data->distance.h_or_v == 2)
-			txtr_offx = (int)data->r[i].y % (Z * 3);
-		else if (data->distance.h_or_v == 1)
-			txtr_offx = (int)data->r[i].x % (Z * 3);
+		if(data->r[i].h_or_v == 2)
+			txtr_offx = (int)data->r[i].y % (Z);
+		else if (data->r[i].h_or_v == 1)
+			txtr_offx = (int)data->r[i].x % (Z);
         double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
-        double distance_to_proj = rays / tan(FOV / 2);
-        double proj_wall_height = ((Z * 3) / per_distance) * distance_to_proj;
-        if (proj_wall_height > W_height)
-            proj_wall_height = W_height;
-        int wall_top_pixel = (W_height / 2) - (proj_wall_height / 2);
-        int wall_bottom_pixel = (W_height / 2) + (proj_wall_height / 2);
-        j = wall_bottom_pixel;
-        while(j < wall_top_pixel)
+        double distance_to_proj = (W_width / 2)  / tan(rad / 2);
+        double proj_wall_height = (Z / per_distance) * distance_to_proj;
+        int wall_top_pixel = (W_height / 2) - ((int)proj_wall_height / 2);
+		if (wall_top_pixel < 0)
+			wall_top_pixel = 0;
+        int wall_bottom_pixel = (W_height / 2) + ((int)proj_wall_height / 2);
+		if (wall_bottom_pixel > W_height)
+			wall_bottom_pixel = W_height;
+        j = wall_top_pixel;
+        while(j < wall_bottom_pixel)
         {
-			// printf("%f\n", proj_wall_height);
 			txtr_offy = (j - wall_top_pixel) * ((double)16 / proj_wall_height);
             my_mlx_pixel_put(&data->window, i, j, data->texture.tab[(16 * txtr_offy) + txtr_offx]);
             // my_mlx_pixel_put(&data->window, i, j, 0);
@@ -250,7 +252,6 @@ void best_distance(t_data *data, double beta)
 
 void	claculate_rays(t_data *data)
 {
-	// double distance = 0;
 	double sigma;
 	double t = D_rays;
 	t *= -1;
