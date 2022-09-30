@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/28 20:16:08 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/09/30 21:48:18 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void move_map(t_data *data)
 void	get_texture(t_data *data)
 {
 	void *img;
+	int i;
 	
 	img = mlx_xpm_file_to_image(data->window.mlx, "minecraft.xpm", &data->texture.width, &data->texture.height);
 	data->texture.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
@@ -90,10 +91,6 @@ int draw(t_data *data)
 	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
 	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
 								&data->window.endian);
-	//for (size_t i = 0; data->texture.tab[i]; i++)
-	// {
-	// 	printf("%d\n", data->texture.tab[i]);
-	// }
 	move_map(data);
 	draw_background(data);
 	move_player(data);

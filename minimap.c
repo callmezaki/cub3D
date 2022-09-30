@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/30 16:45:37 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:50:50 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void    draw_walls(t_data *data)
     int j;
 	int txtr_offx;
 	int txtr_offy;
+	int distfromtop;
 	double rad = (FOV) * (M_PI / 180);
 	
     while(i < rays)
@@ -73,17 +74,19 @@ void    draw_walls(t_data *data)
         double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
         double distance_to_proj = (W_width / 2)  / tan(rad / 2);
         double proj_wall_height = (Z / per_distance) * distance_to_proj;
-        int wall_top_pixel = (W_height / 2) - ((int)proj_wall_height / 2);
+		int temp = (int)proj_wall_height;
+        int wall_top_pixel = (W_height / 2) - (temp / 2);
 		if (wall_top_pixel < 0)
 			wall_top_pixel = 0;
-        int wall_bottom_pixel = (W_height / 2) + ((int)proj_wall_height / 2);
+        int wall_bottom_pixel = (W_height / 2) + (temp / 2);
 		if (wall_bottom_pixel > W_height)
 			wall_bottom_pixel = W_height;
         j = wall_top_pixel;
         while(j < wall_bottom_pixel)
         {
-			txtr_offy = (j - wall_top_pixel) * ((double)16 / proj_wall_height);
-            my_mlx_pixel_put(&data->window, i, j, data->texture.tab[(16 * txtr_offy) + txtr_offx]);
+			distfromtop = j + (temp / 2) - (W_height / 2);
+			txtr_offy = distfromtop * ((double)Z / proj_wall_height);
+            my_mlx_pixel_put(&data->window, i, j, data->texture.tab[(Z * txtr_offy) + txtr_offx]);
             // my_mlx_pixel_put(&data->window, i, j, 0);
             j++;
         }
