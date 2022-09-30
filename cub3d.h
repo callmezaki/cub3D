@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/30 16:44:10 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/09/30 16:46:51 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,5 @@ int		get_color(char c);
 void	get_texture(t_data *data);
 double	h_distance(t_data *data, double beta);
 double	v_distance(t_data *data, double beta);
-double	best_distance(t_data *data, double beta);
 void	claculate_rays(t_data *data);
 #endif

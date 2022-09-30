@@ -9,7 +9,6 @@ SRC =	cub3d.c         \
 		minimap.c	\
 		DDA.c	\
 		draw.c \
-		rays.c \
 
 CFLAGS = -Wall -Werror -Wextra -g
 
