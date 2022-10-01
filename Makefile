@@ -10,7 +10,7 @@ SRC =	cub3d.c         \
 		DDA.c	\
 		draw.c \
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g 
 
 OBJS = $(SRC:.c=.o)
 
@@ -27,3 +27,5 @@ fclean: clean
 	@rm -f $(NAME)
 	@make fclean -C libft
 re: fclean all
+
+# -fsanitize=address
