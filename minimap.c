@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/30 19:50:50 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/01 18:41:21 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void    draw_walls(t_data *data)
 	int txtr_offy;
 	int distfromtop;
 	double rad = (FOV) * (M_PI / 180);
+    double distance_to_proj = (W_width / 2)  / tan(rad / 2);
 	
     while(i < rays)
     {
@@ -72,7 +73,6 @@ void    draw_walls(t_data *data)
 		else if (data->r[i].h_or_v == 1)
 			txtr_offx = (int)data->r[i].x % (Z);
         double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
-        double distance_to_proj = (W_width / 2)  / tan(rad / 2);
         double proj_wall_height = (Z / per_distance) * distance_to_proj;
 		int temp = (int)proj_wall_height;
         int wall_top_pixel = (W_height / 2) - (temp / 2);
