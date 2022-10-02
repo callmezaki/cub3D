@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/02 21:35:09 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/02 23:50:00 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,24 @@ int run(t_data *data)
 // }
 // }
 
+t_texture which_texture(t_data *data,int i)
+{
+	if (data->r[i].h_or_v == 1)
+	{
+		if (normalize(data->r[i].alpha) >= M_PI && normalize(data->r[i].alpha) < 2 * M_PI)
+			return(data->txtr.north);
+		else
+			return(data->txtr.south);
+	}
+	else
+	{
+		if (normalize(data->r[i].alpha) >= (M_PI / 2) && normalize(data->r[i].alpha) < 3 * (M_PI / 2))
+			return(data->txtr.east);
+		else
+			return(data->txtr.west);
+	}	
+}
+
 void    draw_walls(t_data *data)
 {
 	int i = 0;
@@ -81,15 +99,17 @@ void    draw_walls(t_data *data)
 	double x;
 	double a;
 	double rad = (FOV) * (M_PI / 180);
+	t_texture tx;
 
 	while(i < rays)
 	{
+		tx = which_texture(data,i);
 		if(data->r[i].h_or_v == 2)
 			txtr_off.x = (data->r[i].y - data->map_y) / Z;
 		else
 			txtr_off.x = (data->r[i].x - data->map_x) / Z;
 		txtr_off.x = txtr_off.x - floor(txtr_off.x);
-		txtr_off.x *= data->txtr.east.width;
+		txtr_off.x *= tx.width;
 		double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
 		double distance_to_proj = (W_width / 2)  / tan(rad / 2);
 		double proj_wall_height = (Z / per_distance) * distance_to_proj;
@@ -102,10 +122,10 @@ void    draw_walls(t_data *data)
 		j = wall_top_pixel;
 		while(j < wall_bottom_pixel)
 		{
-			txtr_off.y = (j + x) * (data->txtr.east.height / (a));
+			txtr_off.y = (j + x) * (tx.height / (a));
 			txtr_off.y = floor(txtr_off.y);
-			txtr_off.y *= data->txtr.east.width;
-			my_mlx_pixel_put(&data->window, i, j, data->txtr.east.tab[(int)txtr_off.x + (int)txtr_off.y]);
+			txtr_off.y *= tx.width;
+			my_mlx_pixel_put(&data->window, i, j, tx.tab[(int)txtr_off.x + (int)txtr_off.y]);
 			j++;
 		}
 		i++;
