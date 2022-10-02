@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/01 23:17:36 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/02 20:37:40 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define mini_cub 20
 # define step 1
 # define FOV 60
+# define rotationspeed (3 * M_PI / 180)
 # define D_rays (FOV / 2) * (M_PI / 180) 
 # define rays W_width
 # define inc_rays D_rays / (W_width / 2)
@@ -103,8 +104,6 @@ typedef struct s_player
 	int	   turndirection;
 	int    walkdirection;
 	double rotationangle;
-	double movespeed;
-	double rotationspeed;	
 	double teta;
 	t_segment seg;
 	
@@ -169,4 +168,8 @@ void	get_texture(t_data *data);
 double	h_distance(t_data *data, double beta);
 double	v_distance(t_data *data, double beta);
 void	claculate_rays(t_data *data);
+void	best_distance(t_data *data, double beta);
+double	normalize(double teta);
+int		facing_right(double beta);
+int		facing_down(double beta);
 #endif

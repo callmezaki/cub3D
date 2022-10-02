@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/09/28 19:06:51 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/02 20:29:03 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	init_window(t_data *data)
 	data->player.turndirection = 0;
 	data->player.walkdirection = 0;
 	data->player.sides = 0;
-	data->player.rotationspeed = (2 * M_PI / 180);
+	// data->player.rotationspeed = (2 * M_PI / 180);
 	data->window.mlx = mlx_init();
 	data->window.mlx_win = mlx_new_window(data->window.mlx, W_width, W_height, "Cub3d");
 	get_texture(data);
