@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/01 22:50:26 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/01 23:32:39 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,9 @@ void    draw_walls(t_data *data)
         	x =  (a / 2) - (W_height / 2);
 			// distfromtop = j + (proj_wall_height / 2) - (W_height / 2);
             if(data->r[i].h_or_v == 2)
-                txtr_offx = data->r[i].y / Z;
+                txtr_offx = (data->r[i].y - data->map_y) / Z;
             else
-                txtr_offx = data->r[i].x / Z;
+                txtr_offx = (data->r[i].x - data->map_x) / Z;
             txtr_offx = txtr_offx - floor(txtr_offx);
             txtr_offx *= data->texture.width;
             txtr_offy = (j + x) * (data->texture.height / (a));

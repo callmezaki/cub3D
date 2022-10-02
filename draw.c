@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/01 23:17:29 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/01 23:24:30 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int draw(t_data *data)
 	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
 	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
 								&data->window.endian);
-	// move_map(data);
+	move_map(data);
 	draw_background(data);
 	move_player(data);
 	claculate_rays(data);
