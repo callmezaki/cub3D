@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/01 23:24:30 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/02 21:33:21 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,14 @@ void	get_texture(t_data *data)
 {
 	void *img;
 		
-	img = mlx_xpm_file_to_image(data->window.mlx, "minecraft.xpm", &data->texture.width, &data->texture.height);
-	data->texture.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+	img = mlx_xpm_file_to_image(data->window.mlx, "textures/wall1.xpm", &data->txtr.north.width, &data->txtr.north.height);
+	data->txtr.north.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+	img = mlx_xpm_file_to_image(data->window.mlx, "textures/wall2.xpm", &data->txtr.south.width, &data->txtr.south.height);
+	data->txtr.south.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+	img = mlx_xpm_file_to_image(data->window.mlx, "textures/wall3.xpm", &data->txtr.east.width, &data->txtr.east.height);
+	data->txtr.east.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+	img = mlx_xpm_file_to_image(data->window.mlx, "textures/wall4.xpm", &data->txtr.west.width, &data->txtr.west.height);
+	data->txtr.west.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
 }
 
 int draw(t_data *data)

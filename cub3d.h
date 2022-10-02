@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/02 20:37:40 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/02 21:30:43 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,13 @@ typedef struct	s_window {
 	void	*mlx_win;
 }	t_window;
 
+typedef struct	s_txtr {
+	t_texture north;
+	t_texture south;
+	t_texture east;
+	t_texture west;
+}	t_txtr;
+
 typedef struct s_data
 {
 	char *NO;
@@ -133,7 +140,7 @@ typedef struct s_data
 	t_player player;
 	t_window window;
 	t_block  block;
-	t_texture texture;
+	t_txtr txtr;
 	t_ray  *r;
 	t_distance distance;
 	int map_width;

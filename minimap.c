@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/02 20:36:02 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/02 21:35:09 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void    draw_walls(t_data *data)
 		else
 			txtr_off.x = (data->r[i].x - data->map_x) / Z;
 		txtr_off.x = txtr_off.x - floor(txtr_off.x);
-		txtr_off.x *= data->texture.width;
+		txtr_off.x *= data->txtr.east.width;
 		double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
 		double distance_to_proj = (W_width / 2)  / tan(rad / 2);
 		double proj_wall_height = (Z / per_distance) * distance_to_proj;
@@ -102,10 +102,10 @@ void    draw_walls(t_data *data)
 		j = wall_top_pixel;
 		while(j < wall_bottom_pixel)
 		{
-			txtr_off.y = (j + x) * (data->texture.height / (a));
+			txtr_off.y = (j + x) * (data->txtr.east.height / (a));
 			txtr_off.y = floor(txtr_off.y);
-			txtr_off.y *= data->texture.width;
-			my_mlx_pixel_put(&data->window, i, j, data->texture.tab[(int)txtr_off.x + (int)txtr_off.y]);
+			txtr_off.y *= data->txtr.east.width;
+			my_mlx_pixel_put(&data->window, i, j, data->txtr.east.tab[(int)txtr_off.x + (int)txtr_off.y]);
 			j++;
 		}
 		i++;
