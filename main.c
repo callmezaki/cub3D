@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/03 01:33:02 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:53:36 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,42 +128,40 @@ void    check_path(char *data)
     }
 }
 
+int txtr_error(char **args, char *key)
+{
+	int i;
+	
+	i = search_indx(args, key);
+	if (i < 0)
+		write(2, "Texture_ERROR!\n", 16);
+	return(i);
+}
+
 void    parse_walls(t_data *data, char **args)
 {
-    int i;
-    i = search_indx(args, "NO");
-	if (i < 0)
-	{
-		puts("Errrrrrrr");
+	int i;
+	i = txtr_error(args, "NO");
+	if(i < 0)
 		exit(1);
-	}
     check_space(args[i]);
     data->NO = ft_strdup(ft_strchr(args[i], '.'));
     check_path(data->NO);
-    i = search_indx(args, "SO");
-	if (i < 0)
-	{
-		puts("Errrrrrrr");
+	i = txtr_error(args, "SO");
+	if(i < 0)
 		exit(1);
-	}
     check_space(args[i]);
     data->SO = ft_strdup(ft_strchr(args[i], '.'));
     check_path(data->SO);
-    i = search_indx(args, "WE");
-	if (i < 0)
-	{
-		puts("Errrrrrrr");
+	i = txtr_error(args, "WE");
+	if(i < 0)
 		exit(1);
-	}
     check_space(args[i]);
     data->WE = ft_strdup(ft_strchr(args[i], '.'));
     check_path(data->WE);
-    i = search_indx(args, "EA");
-	if (i < 0)
-	{
-		puts("Errrrrrrr");
+	i = txtr_error(args, "EA");
+	if(i < 0)
 		exit(1);
-	}
     check_space(args[i]);
     data->EA = ft_strdup(ft_strchr(args[i], '.'));
     check_path(data->EA);
@@ -272,8 +270,6 @@ void get_data(int fd, t_data *data)
 	char *str;
 	char *temp;
 	int i = 0;
-	
-	(void)data;
 	
 	str = malloc(1);
 	str[0] = '\0';

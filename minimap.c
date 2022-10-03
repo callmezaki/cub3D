@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/03 00:08:28 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/03 17:05:24 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,16 @@ t_texture which_texture(t_data *data,int i)
 {
 	if (data->r[i].h_or_v == 1)
 	{
-		if (normalize(data->r[i].alpha) >= M_PI && normalize(data->r[i].alpha) < 2 * M_PI)
+		if (normalize(data->r[i].alpha) >= M_PI
+			&& normalize(data->r[i].alpha) < 2 * M_PI)
 			return(data->txtr.north);
 		else
 			return(data->txtr.south);
 	}
 	else
 	{
-		if (normalize(data->r[i].alpha) >= (M_PI / 2) && normalize(data->r[i].alpha) < 3 * (M_PI / 2))
+		if (normalize(data->r[i].alpha) >= (M_PI / 2)
+			&& normalize(data->r[i].alpha) < 3 * (M_PI / 2))
 			return(data->txtr.east);
 		else
 			return(data->txtr.west);
