@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/02 22:55:36 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/03 00:13:43 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int rgb_to_dec(t_color color)
-{
-	int dec;
-
-	dec = (color.R << 16) + (color.G << 8) + color.B;
-	return(dec);
-}
 
 void	draw_background(t_data *data)
 {
@@ -41,51 +33,6 @@ void	draw_background(t_data *data)
 		}
 		y++;
 	}
-}
-
-void    player_symbol(t_data *data, double x, double y,int color)
-{
-	int tmp;
-	t_point t;
-
-	t.x = 4 + x;
-	t.y = 4 + y;
-	
-	tmp = y;
-    while(x < t.x)
-    {
-        y = tmp;
-        while(y < t.y)
-        {
-           	my_mlx_pixel_put(&data->window, x, y, color);
-            y++;
-        }
-        x++;
-    }
-}
-
-void move_map(t_data *data)
-{
-	data->centre_p.x = data->player.x - (mini_cub * Z / 2);
-	data->centre_p.y = data->player.y - (mini_cub * Z / 2);
-	data->player.x -= data->centre_p.x;
-	data->player.y -= data->centre_p.y;
-	data->map_x -= data->centre_p.x;
-	data->map_y -= data->centre_p.y;
-}
-
-void	get_texture(t_data *data)
-{
-	void *img;
-		
-	img = mlx_xpm_file_to_image(data->window.mlx, data->NO, &data->txtr.north.width, &data->txtr.north.height);
-	data->txtr.north.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
-	img = mlx_xpm_file_to_image(data->window.mlx, data->SO, &data->txtr.south.width, &data->txtr.south.height);
-	data->txtr.south.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
-	img = mlx_xpm_file_to_image(data->window.mlx, data->EA, &data->txtr.east.width, &data->txtr.east.height);
-	data->txtr.east.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
-	img = mlx_xpm_file_to_image(data->window.mlx, data->WE, &data->txtr.west.width, &data->txtr.west.height);
-	data->txtr.west.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
 }
 
 int draw(t_data *data)
@@ -134,8 +81,6 @@ int draw_minimap(t_data *data)
 	int j = 0;
 	t_point p;
 	
-	p.x = data->map_x;
-	p.y = data->map_y;
 	while(data->map[i])
 	{
 		p.x = data->map_x;
@@ -161,8 +106,6 @@ int draw_minimap_frame(t_data *data)
 	int j = 0;
 	t_point p;
 	
-	p.x = 0;
-	p.y = 0;
 	while(i < mini_cub)
 	{
 		p.x = 0;

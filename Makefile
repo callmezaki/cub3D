@@ -10,6 +10,11 @@ SRC =	cub3d.c         \
 		DDA.c	\
 		draw.c \
 		rays.c \
+		draw_utils.c \
+		colors_parse.c \
+		check_map.c\
+		check_map_utils.c\
+
 
 CFLAGS = -Wall -Werror -Wextra -g 
 

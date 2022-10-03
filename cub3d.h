@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/02 21:30:43 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/03 01:02:21 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,4 +179,25 @@ void	best_distance(t_data *data, double beta);
 double	normalize(double teta);
 int		facing_right(double beta);
 int		facing_down(double beta);
+int		rgb_to_dec(t_color color);
+void	move_map(t_data *data);
+void	player_symbol(t_data *data, double x, double y,int color);
+
+
+//parsing
+
+int		check_cama(char *s);
+void	check_color_range(t_color col);
+t_color	check_color(char **s, int i);
+void	get_colors(t_data *data, char **s);
+int		search_indx(char **args, char *indx);
+void	check_map(char **s);
+char *intial_map_check(char *s, char **t);
+int    tab_len(char **str);
+int check_valid(int c);
+int check_player(char c);
+void check_zero(char **s, int i, int j);
+char  **ft_trima3(char **a);
+int get_map_width(t_data *data, int y);
+
 #endif

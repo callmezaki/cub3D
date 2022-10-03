@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/29 20:36:39 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/03 01:33:02 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char  **ft_trima3(char **a)
 	return(a);
 }
 
-int    search_indx(char **args, char *indx)
+int	search_indx(char **args, char *indx)
 {
     int i;
 
@@ -98,125 +98,6 @@ int    search_indx(char **args, char *indx)
         }
     }
     return(-1);
-}
-
-int check_cama(char *s)
-{
-	int i = 0;
-	int c = 0;
-	int len = ft_strlen(s);
-	if (s[0] == ',' || s[len] == ',')
-		return(0);
-	else
-	{
-		while(s[i] && s[i+1])
-		{
-			if(s[i] == ',' && s[i+1] == ',')
-				return(0);
-			if (s[i] == ',')
-				c++;
-			i++;
-		}
-	}
-	if (c == 2)
-		return(1);
-	else
-		return(0);
-}
-
-void check_color_range(t_data *d)
-{
-	if (d->F.R <= 255 && d->F.R >= 0)
-	{
-		if (d->F.G <= 255 && d->F.G >= 0)
-		{
-			if (d->F.B <= 255 && d->F.B >= 0)
-			{
-				if (d->C.R <= 255 && d->C.R >= 0)
-				{
-					if (d->C.G <= 255 && d->C.G >= 0)
-					{
-						if (d->C.B <= 255 && d->C.B >= 0)
-						{
-							return ;
-						}
-					}
-				}
-			}
-		}
-		
-	}
-	printf("Error\n");
-	exit(1);
-}
-
-void	get_colors(t_data *data, char **s)
-{
-	(void)data;
-	char **sp;
-	char **ss;
-	int i = search_indx(s, "F");
-	int j = 0;
-	if (i > 0)
-	{
-		char *t = ft_strdup(s[i]);
-		sp = ft_split(t,' ');
-		if (!sp[1] || sp[2])
-		{
-			printf("Error\n");
-			exit(1);
-		}
-		if (check_cama(sp[1]))
-		{
-			while(sp[1][j])
-			{
-				if (!ft_isdigit(sp[1][j]) && sp[1][j] != ',')
-				{
-					printf("Error\n");
-					exit(1);
-				}
-				j++;
-			}
-			ss = ft_split(sp[1],',');
-			data->F.R = ft_atoi(ss[0]);
-			data->F.G = ft_atoi(ss[1]);
-			data->F.B = ft_atoi(ss[2]);
-			i = search_indx(s, "C");
-			free(t);
-			if (i > 0)
-			{
-				t = ft_strdup(s[i]);
-				sp = ft_split(t,' ');
-				if (!sp[1] || sp[2])
-				{
-					printf("Error\n");
-					exit(1);
-				}
-				if (check_cama(sp[1]))
-				{
-					j = 0;
-					while(sp[1][j])
-					{
-						if (!ft_isdigit(sp[1][j]) && sp[1][j] != ',')
-						{
-							printf("Error\n");
-							exit(1);
-						}
-						j++;
-					}
-					ss = ft_split(sp[1],',');
-					data->C.R = ft_atoi(ss[0]);
-					data->C.G = ft_atoi(ss[1]);
-					data->C.B = ft_atoi(ss[2]);
-					
-					check_color_range(data);
-					return ;
-				}
-			}
-		}
-	}
-	printf("Error\n");
-	exit(1);
 }
 
 int    tab_len(char **str)
@@ -286,176 +167,6 @@ void    parse_walls(t_data *data, char **args)
     check_space(args[i]);
     data->EA = ft_strdup(ft_strchr(args[i], '.'));
     check_path(data->EA);
-}
-
-char *intial_map_check(char *s, char **t)
-{
-	int i = 0;
-	int len = 0;
-	char *a;
-	char *b;
-	int p_count = 0;
-
-	while(i< 6)
-	{
-		len+= ft_strlen(t[i]);
-		i++;
-	}
-	s = ft_strdup(&s[len + i]);
-	i = 0;
-	while(s[i] && s[i + 1])
-	{
-		if((s[i] == '\n' && s[i + 1] == '\n'))
-		{
-			break ;
-		}
-		if (check_player(s[i]))
-			p_count++;
-		i++;
-	}
-	if (p_count > 1 || p_count == 0)
-	{
-		printf("P Error\n");
-		exit(0);
-	}
-	while(s[i])
-	{
-		if (s[i] != ' ' && s[i] != '\n' && s[i] != '\t' && s[i] != '1')
-		{
-			printf("%c\n",s[i]);
-			printf("Errrrroooor\n");
-			exit(1);
-		}
-		i++;
-	}
-	t = ft_split(s, '\n');
-	len = 0;
-	i = 1;
-	while(t[i])
-	{
-		a = ft_strtrim(t[i]," ");
-		b = ft_strtrim(t[i-1]," ");
-		if (!a[0] && b[0])
-		{
-			len++;
-		}
-		i++;
-	}
-	if (len > 1)
-	{
-		printf("Errrrroooor7\n");
-		exit(1);
-	}
-	s = ft_strtrim2(s," \n\t");
-	return (s);
-}
-
-int check_valid(int c)
-{
-	if(c == '1' || c == '0' || c == 'N' || c == 'W' || c == 'E' || c == 'S' || c == ' ')
-		return(1);
-	return(0);
-}
-
-int check_player(char c)
-{
-	if (c == 'N' || c == 'W' || c == 'E' || c == 'S')
-		return(1);
-	return(0);
-}
-
-void check_zero(char **s, int i, int j)
-{
-	if (s[i - 1][j] == '1' || s[i - 1][j] == '0' || check_player(s[i - 1][j]))
-	{
-		if (s[i + 1][j] == '1' || s[i + 1][j] == '0' || check_player(s[i + 1][j]))
-		{
-			if (s[i][j+1] == '1' || s[i][j+1] == '0' || check_player(s[i][j+1]))
-			{
-				if (s[i][j-1] == '1' || s[i][j-1] == '0' || check_player(s[i][j-1]))
-					return ;
-			}
-		}
-		
-	}
-	printf("Error000\n");
-	exit(1);
-}
-
-void check_map(char **s)
-{
-	int i = 0;
-	int j = 0;
-	int len = tab_len(s) -1;
-	
-	s = ft_trima3(s);
-	while(s[i])
-	{
-		j = 0;
-		while(s[i][j])
-		{
-			if (!check_valid(s[i][j]))
-			{
-				printf("Erroop0\n");
-				exit(1);
-			}
-			j++;
-		}
-		i++;
-	}
-	i = 0;
-	j = 0;
-	while(s[0][j])
-	{
-		if (s[0][j] != ' ' && s[0][j] != '1')
-		{
-			printf("Erroop1\n");
-			exit(1);
-		}
-		j++;
-	}
-	j = 0;
-	while(s[len][j])
-	{
-		if (s[len][j] != ' ' && s[len][j] != '1')
-		{
-			printf("Erroop2\n");
-			exit(1);
-		}
-		j++;
-	}
-	j = 0;
-	while(s[i])
-	{
-		if ((s[i][0] != ' ' && s[i][0] != '1'))
-		{
-			printf("Erroop3\n");
-			exit(1);
-		}
-		i++;
-	}
-	i = 0;
-	while(s[i])
-	{
-		if ((s[i][ft_strlen(s[i]) - 1] != ' ' && s[i][ft_strlen(s[i]) - 1] != '1'))
-		{
-			printf("Erroop4\n");
-			exit(1);
-		}
-		i++;
-	}
-	i = 1;
-	while(s[i + 1])
-	{
-		j = 1;
-		while(s[i][j])
-		{
-			if (s[i][j] == '0' || check_player(s[i][j]))
-				check_zero(s, i, j);
-			j++;
-		}
-		i++;
-	}
 }
 
 int check_duplicates(char *str)
@@ -539,15 +250,6 @@ void get_player_data(t_data *data)
 	}
 }
 
-int get_map_width(t_data *data, int y)
-{
-	if (y <= data->map_height)
-	{
-		return(ft_strlen(data->map[y]));
-	}
-	return(-1);
-}
-
 void parse_data(t_data *data,char *temp)
 {
 	char **s = ft_split(temp,'\n');
@@ -612,6 +314,3 @@ int main(int ac, char **av)
 		init_window(data);
 	}
 }
-
-
-// putting F as First line in map

@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/02 23:50:00 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/03 00:08:28 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,45 +33,6 @@ int run(t_data *data)
 		draw(data);
 	return(0);
 }
-
-
-// void    draw_walls(t_data *data)
-// {
-// int i = 0;
-// int j;
-// int txtr_offx;
-// int txtr_offy;
-// int distfromtop;
-// double rad = (FOV) * (M_PI / 180);
-// double distance_to_proj = (W_width / 2)  / tan(rad / 2);
-
-// while(i < rays)
-// {
-// 	if(data->r[i].h_or_v == 2)
-// 		txtr_offx = (int)data->r[i].y % (Z);
-// 	else if (data->r[i].h_or_v == 1)
-// 		txtr_offx = (int)data->r[i].x % (Z);
-// 	double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
-// 	double proj_wall_height = (Z / per_distance) * distance_to_proj;
-// 	int temp = (int)proj_wall_height;
-// 	int wall_top_pixel = (W_height / 2) - (temp / 2);
-// 	if (wall_top_pixel < 0)
-// 		wall_top_pixel = 0;
-// 	int wall_bottom_pixel = (W_height / 2) + (temp / 2);
-// 	if (wall_bottom_pixel > W_height)
-// 		wall_bottom_pixel = W_height;
-// 	j = wall_top_pixel;
-// 	while(j < wall_bottom_pixel)
-// 	{
-// 		distfromtop = j + (temp / 2) - (W_height / 2);
-// 		txtr_offy = distfromtop * ((double)data->texture.height / proj_wall_height);
-// 		my_mlx_pixel_put(&data->window, i, j, data->texture.tab[data->texture.width *(txtr_offy + txtr_offx)]);
-// 		// my_mlx_pixel_put(&data->window, i, j, 0);
-// 		j++;
-// 	}
-// 	i++;
-// }
-// }
 
 t_texture which_texture(t_data *data,int i)
 {

@@ -3,7 +3,7 @@ SO ./textures/wall2.xpm
 WE ./textures/wall4.xpm
 EA ./textures/wall3.xpm
    
-F 70,77,79
+F 70,77,79,
 C 29,29,28
     
 				        
