@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/05 15:05:27 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/05 18:26:55 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,19 @@ char	*get_ext(char *filename)
 
 int ft_check_exten(char *s)
 {
-	if(ft_strcmp(get_ext(s), ".cub") == 0)
+	char *t;
+
+	t = get_ext(s);
+	if(ft_strcmp(t, ".cub") == 0)
+	{
+		free(t);
 		return 1;
+	}
 	else
+	{
+		free(t);
 		return(0);
+	}
 }
 
 int ft_trima(char **a, int i)
@@ -202,7 +211,6 @@ int	check_assets(char **s)
 	char *str;
 	char *tmp;
 	char **t;
-	char *tmp2;
 
 	str = ft_strdup("");
 	tmp = ft_strdup("");
@@ -216,14 +224,12 @@ int	check_assets(char **s)
 			|| !ft_strcmp(t[0], "C") || !ft_strcmp(t[0], "F"))
 		{
 			tmp[0] = s[i][0];
-			tmp2 = ft_strjoin(str, tmp);
-			if (str[0])
-				free(str);
-			str =tmp2;
+			str = ft_strjoin_2(str, tmp);
 			j++;
 		}
 		else
 		{
+			free(tmp);
 			free_tab(t);
 			break;
 		}
@@ -231,7 +237,11 @@ int	check_assets(char **s)
 		i++;
 	}
 	if(!check_duplicates(str) && j == 6)
+	{
+		free(str);
 		return(0);
+	}
+	free(str);
 	return(1);
 }
 
@@ -279,7 +289,6 @@ void parse_data(t_data *data,char *temp)
 	temp = intial_map_check(temp, s,data);
 	free_tab(s);
 	data->map = ft_split(temp,'\n');
-	
 	check_map(data->map,data);
 	get_player_data(data);
 	data->map_height = tab_len(data->map);
@@ -289,7 +298,6 @@ void get_data(int fd, t_data *data)
 {
 	char *str;
 	char *temp;
-	char *temp2;
 	int i = 0;
 	
 	str = malloc(1);
@@ -304,25 +312,29 @@ void get_data(int fd, t_data *data)
 			{
 				if (ft_trima(&str,i))
 				{
-					temp2 = ft_strjoin(str,"\n");
-					free(str);
-					str = temp2;
+					str = ft_strjoin_2(str,"\n");
 					i++;
 				}
 			}
-			temp2 = ft_strjoin(temp,str);
-			free(temp);
-			temp = temp2;
+			temp = ft_strjoin_2(temp,str);
 		}
+		if (str)
+			free(str);
 	}
 	parse_data(data,temp);
+	free(temp);
 }
 
 void exit_n_free(t_data *data, int t)
 {
 	(void)data;
-	// free_tab(data->map);
-	// system("leaks cub3d");
+	free(data->NO);
+	free(data->EA);
+	free(data->WE);
+	free(data->SO);
+	free_tab(data->map);
+	free(data->r);
+	free(data);
 	exit(t);	
 }
 
@@ -331,10 +343,16 @@ int main(int ac, char **av)
 	t_data *data;
 	data = malloc(sizeof(t_data));
 	int fd;
+	char *t;
 	if (ac != 2)
 		return(printf("Invalid Args\n"));
-	if (!ft_check_exten(get_ext(av[1])))
+	t = get_ext(av[1]);
+	if (!ft_check_exten(t))
+	{
+		free(t);
 		return(printf("Invalid Extention\n"));
+	}
+		free(t);
 	fd = open(av[1], O_RDONLY);
 	if (fd > 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/05 14:59:51 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/05 18:25:52 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int key_press(int key, t_data *data)
 	else if (key == KEY_ESC)
 	{
 		free_tab(data->map);
-		exit(EXIT_SUCCESS);
+		exit_n_free(data, 1);
 	}
 	return(0);
 }

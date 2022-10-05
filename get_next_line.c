@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 21:16:39 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/05 14:21:39 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/05 18:15:53 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*read_buff(int fd, char *rs)
 			return (NULL);
 		}
 		buff[a] = '\0';
-		rs = ft_strjoin(rs, buff);
+		rs = ft_strjoin_2(rs, buff);
 	}
 	free(buff);
 	return (rs);
