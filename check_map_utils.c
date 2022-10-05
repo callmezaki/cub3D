@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:47:00 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/03 01:02:49 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/05 10:32:25 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int check_player(char c)
 	return(0);
 }
 
-void check_zero(char **s, int i, int j)
+void check_zero(char **s, int i, int j, t_data *data)
 {
 	if (s[i - 1][j] == '1' || s[i - 1][j] == '0' || check_player(s[i - 1][j]))
 	{
@@ -50,5 +50,5 @@ void check_zero(char **s, int i, int j)
 		
 	}
 	printf("Error zero\n");
-	exit(1);
+	exit_n_free(data->trash, 1);
 }

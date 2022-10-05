@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:30:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/03 01:39:35 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/05 11:27:09 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ void check_color_range(t_color col)
 	exit(1);
 }
 
-t_color check_color(char **s, int i)
+t_color check_color(char **s, int i, t_data *data)
 {
 	t_color col;
 	char **sp;
 	char **ss;
-	char *t = ft_strdup(s[i]);
+	char *t = ft_strdup(s[i], data);
 	int j = 0;
-	sp = ft_split(t,' ');
+	sp = ft_split(t,' ', data);
 	if (!sp[1] || sp[2])
 	{
 		printf("Error0\n");
@@ -78,12 +78,12 @@ t_color check_color(char **s, int i)
 			}
 			j++;
 		}
-		ss = ft_split(sp[1],',');
+		ss = ft_split(sp[1],',', data);
 		col.R = ft_atoi(ss[0]);
 		col.G = ft_atoi(ss[1]);
 		col.B = ft_atoi(ss[2]);
 		check_color_range(col);
-		free(t);
+		// free(t);
 	}
 	else
 	{
@@ -98,11 +98,11 @@ void	get_colors(t_data *data, char **s)
 	int i = search_indx(s, "F");
 	if (i >= 0)
 	{
-		data->F =  check_color(s,i);
+		data->F =  check_color(s,i, data);
 		i = search_indx(s, "C");
 		if (i >= 0)
 		{
-			data->C = check_color(s,i);
+			data->C = check_color(s,i, data);
 		}
 		return;
 	}

@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 03:47:04 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/20 16:51:27 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/05 10:50:15 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "libft.h"
-
-#include<stdlib.h>
+#include "cub3d.h"
 
 static int	words_count(char *s, char c)
 {
@@ -87,7 +83,7 @@ static void	ft_lastpart(char **p, char const *s, char c)
 	}
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c, t_data *data)
 {
 	int		len;
 	char	**p;
@@ -98,6 +94,7 @@ char	**ft_split(char const *s, char c)
 	p = (char **)malloc(sizeof(char *) * (words_count((char *)s, c) + 1));
 	if (p == NULL)
 		return (NULL);
+	ft_addbackthegarbe(&data->trash, ft_newgarbage(p));
 	ft_lastpart(p, s, c);
 	p[len] = NULL;
 	return (p);

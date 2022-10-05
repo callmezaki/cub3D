@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/03 00:13:43 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/05 12:17:49 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,23 @@ void	draw_background(t_data *data)
 
 int draw(t_data *data)
 {
-	t_segment seg;
+	// t_segment seg;
 
-	mlx_clear_window(data->window.mlx, data->window.mlx_win);
-	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
-	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
-								&data->window.endian);
+	// mlx_clear_window(data->window.mlx, data->window.mlx_win);
+	// data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
+	// data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
+	// 							&data->window.endian);
 	move_map(data);
-	draw_background(data);
+	// draw_background(data);
 	move_player(data);
 	claculate_rays(data);
-	draw_walls(data);
-	draw_minimap_frame(data);
-	draw_rays(&seg, data);
-	draw_minimap(data);
-	player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
-	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
-	mlx_destroy_image(data->window.mlx, data->window.img);
+	// draw_walls(data);
+	// draw_minimap_frame(data);
+	// draw_rays(&seg, data);
+	// draw_minimap(data);
+	// player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
+	// mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
+	// mlx_destroy_image(data->window.mlx, data->window.img);
 	return(0);
 }
 

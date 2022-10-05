@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 11:24:11 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/20 16:50:52 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/05 11:30:03 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (s == NULL)
 		return (NULL);
 	s = move(s1, s2, s);
-	free(s1);
 	return (s);
 }

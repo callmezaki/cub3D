@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/03 01:01:23 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/05 10:32:52 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int  check_line(char **s)
 	return(1);
 }
 
-void check_map(char **s)
+void check_map(char **s, t_data *data)
 {
 	int i;
 	int j;
@@ -81,7 +81,7 @@ void check_map(char **s)
 		while(s[i][j])
 		{
 			if (s[i][j] == '0' || check_player(s[i][j]))
-				check_zero(s, i, j);
+				check_zero(s, i, j, data);
 			j++;
 		}
 		i++;
@@ -89,11 +89,11 @@ void check_map(char **s)
 	if (!check)
 	{
 		printf("Error check_map\n");
-		exit(1);
+		exit_n_free(data->trash, 1);
 	}
 }
 
-char *intial_map_check(char *s, char **t)
+char *intial_map_check(char *s, char **t, t_data *data)
 {
 	int i = 0;
 	int len = 0;
@@ -106,7 +106,7 @@ char *intial_map_check(char *s, char **t)
 		len+= ft_strlen(t[i]);
 		i++;
 	}
-	s = ft_strdup(&s[len + i]);
+	s = ft_strdup(&s[len + i], data);
 	i = 0;
 	while(s[i] && s[i + 1])
 	{
@@ -121,7 +121,7 @@ char *intial_map_check(char *s, char **t)
 	if (p_count > 1 || p_count == 0)
 	{
 		printf("P Error\n");
-		exit(0);
+		exit_n_free(data->trash, 1);
 	}
 	while(s[i])
 	{
@@ -129,11 +129,11 @@ char *intial_map_check(char *s, char **t)
 		{
 			printf("%c\n",s[i]);
 			printf("Errrrroooor\n");
-			exit(1);
+			exit_n_free(data->trash, 1);
 		}
 		i++;
 	}
-	t = ft_split(s, '\n');
+	t = ft_split(s, '\n', data);
 	len = 0;
 	i = 1;
 	while(t[i])
@@ -149,7 +149,7 @@ char *intial_map_check(char *s, char **t)
 	if (len > 1)
 	{
 		printf("Errrrroooor7\n");
-		exit(1);
+		exit_n_free(data->trash, 1);
 	}
 	s = ft_strtrim2(s," \n\t");
 	return (s);

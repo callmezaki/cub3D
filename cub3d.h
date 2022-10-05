@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/03 01:02:21 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/05 10:32:35 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define KEY_ESC 53
 # define LEFT	123
 # define RIGHT	124
+
 
 typedef struct s_color
 {
@@ -126,6 +127,11 @@ typedef struct	s_txtr {
 	t_texture west;
 }	t_txtr;
 
+typedef struct s_free{
+	void			*ptr;
+	struct s_free	*next;
+}t_free;
+
 typedef struct s_data
 {
 	char *NO;
@@ -143,6 +149,7 @@ typedef struct s_data
 	t_txtr txtr;
 	t_ray  *r;
 	t_distance distance;
+	t_free	*trash;
 	int map_width;
 	int map_height;
 	double map_x;
@@ -182,22 +189,30 @@ int		facing_down(double beta);
 int		rgb_to_dec(t_color color);
 void	move_map(t_data *data);
 void	player_symbol(t_data *data, double x, double y,int color);
+void	ft_addbackthegarbe(t_free **lst, t_free *nv);
+t_free	*ft_newgarbage(void *ptr);
+t_free	*ft_lstgarbage(t_free *lst);
+void	ft_freegarbe(t_free *list);
+void	exit_n_free(t_free *list, int exit_code);
 
 
 //parsing
 
 int		check_cama(char *s);
 void	check_color_range(t_color col);
-t_color	check_color(char **s, int i);
+t_color	check_color(char **s, int i, t_data *data);
 void	get_colors(t_data *data, char **s);
 int		search_indx(char **args, char *indx);
-void	check_map(char **s);
-char *intial_map_check(char *s, char **t);
+void check_map(char **s, t_data *data);
+char *intial_map_check(char *s, char **t, t_data *data);
 int    tab_len(char **str);
 int check_valid(int c);
 int check_player(char c);
-void check_zero(char **s, int i, int j);
+void 	check_zero(char **s, int i, int j, t_data *data);
 char  **ft_trima3(char **a);
-int get_map_width(t_data *data, int y);
+int 	get_map_width(t_data *data, int y);
+char	*ft_strdup(const char *src, t_data *data);
+char	*ft_substr(char const *s, unsigned int start, size_t len, t_data *data);
+char	**ft_split(char const *s, char c, t_data *data);
 
 #endif

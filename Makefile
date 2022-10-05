@@ -14,9 +14,12 @@ SRC =	cub3d.c         \
 		colors_parse.c \
 		check_map.c\
 		check_map_utils.c\
+		collector.c		\
+		lib_utils.c		\
+		ft_split.c		\
 
 
-CFLAGS = -Wall -Werror -Wextra -g 
+CFLAGS = -Wall -Werror -Wextra -g
 
 OBJS = $(SRC:.c=.o)
 

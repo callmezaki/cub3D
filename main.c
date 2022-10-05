@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/03 16:53:36 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/05 12:19:03 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@
 #include <mlx.h>
 #include "cub3d.h"
 
-char	*get_ext(char *filename)
+char	*get_ext(char *filename, t_data *data)
 {
 	int i;
 	char *ext;
 
 	i = ft_strlen(filename) - 4;
-	ext = ft_strdup(&filename[i]);
+	ext = ft_strdup(&filename[i], data);
 	return(ext);
 }
 
-int ft_check_exten(char *s)
+int ft_check_exten(char *s, t_data *data)
 {
-	if(ft_strcmp(get_ext(s), ".cub") == 0)
+	if(ft_strcmp(get_ext(s, data), ".cub") == 0)
 		return 1;
 	else
 		return(0);
@@ -110,21 +110,21 @@ int    tab_len(char **str)
     return(i); 
 }
 
-void    check_space(char *s)
+void    check_space(char *s, t_data *data)
 {
-    if(tab_len(ft_split(s, ' ')) != 2)
+    if(tab_len(ft_split(s, ' ', data)) != 2)
     {
         printf("Error!\n");
-        exit(1);
+        exit_n_free(data->trash, 1);
     }
 }
 
-void    check_path(char *data)
+void    check_path(char *d, t_data *data)
 {
-    if(access(data, F_OK | R_OK))
+    if(access(d, F_OK | R_OK))
     {
         printf("Error! Path not accessible\n");
-        exit(1);
+        exit_n_free(data->trash, 1);
     }
 }
 
@@ -143,28 +143,28 @@ void    parse_walls(t_data *data, char **args)
 	int i;
 	i = txtr_error(args, "NO");
 	if(i < 0)
-		exit(1);
-    check_space(args[i]);
-    data->NO = ft_strdup(ft_strchr(args[i], '.'));
-    check_path(data->NO);
+		exit_n_free(data->trash, 1);
+    check_space(args[i], data);
+    data->NO = ft_strdup(ft_strchr(args[i], '.'), data);
+    check_path(data->NO, data);
 	i = txtr_error(args, "SO");
 	if(i < 0)
-		exit(1);
-    check_space(args[i]);
-    data->SO = ft_strdup(ft_strchr(args[i], '.'));
-    check_path(data->SO);
+		exit_n_free(data->trash, 1);
+    check_space(args[i], data);
+    data->SO = ft_strdup(ft_strchr(args[i], '.'), data);
+    check_path(data->SO, data);
 	i = txtr_error(args, "WE");
 	if(i < 0)
-		exit(1);
-    check_space(args[i]);
-    data->WE = ft_strdup(ft_strchr(args[i], '.'));
-    check_path(data->WE);
+		exit_n_free(data->trash, 1);
+    check_space(args[i], data);
+    data->WE = ft_strdup(ft_strchr(args[i], '.'), data);
+    check_path(data->WE, data);
 	i = txtr_error(args, "EA");
 	if(i < 0)
-		exit(1);
-    check_space(args[i]);
-    data->EA = ft_strdup(ft_strchr(args[i], '.'));
-    check_path(data->EA);
+		exit_n_free(data->trash, 1);
+    check_space(args[i], data);
+    data->EA = ft_strdup(ft_strchr(args[i], '.'), data);
+    check_path(data->EA, data);
 }
 
 int check_duplicates(char *str)
@@ -188,22 +188,22 @@ int check_duplicates(char *str)
 	return(0);
 }
 
-int	check_assets(char **s)
+int	check_assets(char **s, t_data *data)
 {
 	int i;
 	int j;
 	char *str;
 	char *tmp;
 
-	str = ft_strdup("");
-	tmp = ft_strdup("");
+	str = ft_strdup("", data);
+	tmp = ft_strdup("", data);
 	i = 0;
 	j = 0;
 	while(s[i])
 	{
-		if(!ft_strcmp(ft_split(s[i], ' ')[0], "NO") || !ft_strcmp(ft_split(s[i], ' ')[0], "SO")
-			|| !ft_strcmp(ft_split(s[i], ' ')[0], "WE") || !ft_strcmp(ft_split(s[i], ' ')[0], "EA") 
-			|| !ft_strcmp(ft_split(s[i], ' ')[0], "C") || !ft_strcmp(ft_split(s[i], ' ')[0], "F"))
+		if(!ft_strcmp(ft_split(s[i], ' ', data)[0], "NO") || !ft_strcmp(ft_split(s[i], ' ', data)[0], "SO")
+			|| !ft_strcmp(ft_split(s[i], ' ', data)[0], "WE") || !ft_strcmp(ft_split(s[i], ' ', data)[0], "EA") 
+			|| !ft_strcmp(ft_split(s[i], ' ', data)[0], "C") || !ft_strcmp(ft_split(s[i], ' ', data)[0], "F"))
 		{
 			tmp[0] = s[i][0];
 			str = ft_strjoin(str, tmp);
@@ -250,17 +250,17 @@ void get_player_data(t_data *data)
 
 void parse_data(t_data *data,char *temp)
 {
-	char **s = ft_split(temp,'\n');
-	if(check_assets(s))
+	char **s = ft_split(temp,'\n', data);
+	if(check_assets(s, data))
 	{
 		puts("FAIL");
-		exit(1);
+		exit_n_free(data->trash, 1);
 	}
 	parse_walls(data,s);
 	get_colors(data, s);
-	temp = intial_map_check(temp, s);
-	data->map = ft_split(temp,'\n');
-	check_map(data->map);
+	temp = intial_map_check(temp, s, data);
+	data->map = ft_split(temp,'\n', data);
+	check_map(data->map, data);
 	get_player_data(data);
 	data->map_height = tab_len(data->map);
 }
@@ -272,6 +272,7 @@ void get_data(int fd, t_data *data)
 	int i = 0;
 	
 	str = malloc(1);
+	ft_addbackthegarbe(&data->trash, ft_newgarbage(str));
 	str[0] = '\0';
 	temp = str;
 	while(str)
@@ -288,7 +289,7 @@ void get_data(int fd, t_data *data)
 				}
 			}
 			temp = ft_strjoin(temp,str);
-			free(str);
+			// free(str);
 		}
 	}
 	parse_data(data,temp);
@@ -301,12 +302,13 @@ int main(int ac, char **av)
 	int fd;
 	if (ac != 2)
 		return(printf("Invalid Args\n"));
-	if (!ft_check_exten(get_ext(av[1])))
+	if (!ft_check_exten(get_ext(av[1], data), data))
 		return(printf("Invalid Extention\n"));
 	fd = open(av[1], O_RDONLY);
 	if (fd > 0)
 	{
 		get_data(fd,data);
 		init_window(data);
+		exit_n_free(data->trash, 0);
 	}
 }
