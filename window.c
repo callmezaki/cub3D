@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/05 12:18:12 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/05 14:59:51 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,7 @@ int key_press(int key, t_data *data)
 	else if (key == KEY_ESC)
 	{
 		free_tab(data->map);
-		// system("leaks cub3d");
-		// exit(EXIT_SUCCESS);
-		exit_n_free(data->trash, 0);
+		exit(EXIT_SUCCESS);
 	}
 	return(0);
 }
@@ -104,14 +102,13 @@ void	init_window(t_data *data)
 	data->player.turndirection = 0;
 	data->player.walkdirection = 0;
 	data->player.sides = 0;
-	// data->player.rotationspeed = (2 * M_PI / 180);
-	// data->window.mlx = mlx_init();
-	// data->window.mlx_win = mlx_new_window(data->window.mlx, W_width, W_height, "Cub3d");
-	// get_texture(data);
+	data->window.mlx = mlx_init();
+	data->window.mlx_win = mlx_new_window(data->window.mlx, W_width, W_height, "Cub3d");
+	get_texture(data);
 	draw(data);
-	// mlx_loop_hook(data->window.mlx, run, data);
-	// mlx_hook(data->window.mlx_win, 2, 1L << 0, key_press, data);
-	// mlx_hook(data->window.mlx_win, 3, 0L, key_release, data);
-	// mlx_hook(data->window.mlx_win, 17, 0, you_quit, NULL);
-	// mlx_loop(data->window.mlx);
+	mlx_loop_hook(data->window.mlx, run, data);
+	mlx_hook(data->window.mlx_win, 2, 1L << 0, key_press, data);
+	mlx_hook(data->window.mlx_win, 3, 0L, key_release, data);
+	mlx_hook(data->window.mlx_win, 17, 0, you_quit, NULL);
+	mlx_loop(data->window.mlx);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/05 10:32:52 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/05 14:26:24 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void check_map(char **s, t_data *data)
 		while(s[i][j])
 		{
 			if (s[i][j] == '0' || check_player(s[i][j]))
-				check_zero(s, i, j, data);
+				check_zero(s, i, j);
 			j++;
 		}
 		i++;
@@ -89,7 +89,7 @@ void check_map(char **s, t_data *data)
 	if (!check)
 	{
 		printf("Error check_map\n");
-		exit_n_free(data->trash, 1);
+		exit_n_free(data, 1);
 	}
 }
 
@@ -99,6 +99,7 @@ char *intial_map_check(char *s, char **t, t_data *data)
 	int len = 0;
 	char *a;
 	char *b;
+	char *h;
 	int p_count = 0;
 
 	while(i< 6)
@@ -106,7 +107,9 @@ char *intial_map_check(char *s, char **t, t_data *data)
 		len+= ft_strlen(t[i]);
 		i++;
 	}
-	s = ft_strdup(&s[len + i], data);
+	h = ft_strdup(&s[len + i]);
+	free(s);
+	s = h;
 	i = 0;
 	while(s[i] && s[i + 1])
 	{
@@ -121,7 +124,7 @@ char *intial_map_check(char *s, char **t, t_data *data)
 	if (p_count > 1 || p_count == 0)
 	{
 		printf("P Error\n");
-		exit_n_free(data->trash, 1);
+		exit_n_free(data, 1);
 	}
 	while(s[i])
 	{
@@ -129,11 +132,11 @@ char *intial_map_check(char *s, char **t, t_data *data)
 		{
 			printf("%c\n",s[i]);
 			printf("Errrrroooor\n");
-			exit_n_free(data->trash, 1);
+			exit_n_free(data, 1);
 		}
 		i++;
 	}
-	t = ft_split(s, '\n', data);
+	t = ft_split(s, '\n');
 	len = 0;
 	i = 1;
 	while(t[i])
@@ -144,13 +147,18 @@ char *intial_map_check(char *s, char **t, t_data *data)
 		{
 			len++;
 		}
+		if (a)
+			free(a);
+		if (b)
+			free(b);
 		i++;
 	}
+	free_tab(t);
 	if (len > 1)
 	{
 		printf("Errrrroooor7\n");
-		exit_n_free(data->trash, 1);
+		exit_n_free(data, 1);
 	}
-	s = ft_strtrim2(s," \n\t");
+	s = ft_strtrim2_f(s," \n\t");
 	return (s);
 }

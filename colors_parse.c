@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:30:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/05 11:27:09 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/05 14:49:40 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,21 @@ void check_color_range(t_color col)
 	exit(1);
 }
 
-t_color check_color(char **s, int i, t_data *data)
+t_color check_color(char **s, int i)
 {
 	t_color col;
 	char **sp;
 	char **ss;
-	char *t = ft_strdup(s[i], data);
+	char *t;
 	int j = 0;
-	sp = ft_split(t,' ', data);
+
+	t = ft_strdup(s[i]);
+	sp = ft_split(t,' ');
 	if (!sp[1] || sp[2])
 	{
+		if (sp[0])
+			free_tab(sp);
+		free(t);
 		printf("Error0\n");
 		exit(1);
 	}
@@ -73,20 +78,25 @@ t_color check_color(char **s, int i, t_data *data)
 		{
 			if (!ft_isdigit(sp[1][j]) && sp[1][j] != ',')
 			{
+				free_tab(sp);
 				printf("Error1\n");
 				exit(1);
 			}
 			j++;
 		}
-		ss = ft_split(sp[1],',', data);
+		ss = ft_split(sp[1],',');
 		col.R = ft_atoi(ss[0]);
 		col.G = ft_atoi(ss[1]);
 		col.B = ft_atoi(ss[2]);
+		free_tab(ss);
+		free_tab(sp);
 		check_color_range(col);
-		// free(t);
+		free(t);
 	}
 	else
 	{
+		free_tab(sp);
+		free(t);
 		printf("Error\n");
 		exit(0);	
 	}
@@ -98,11 +108,11 @@ void	get_colors(t_data *data, char **s)
 	int i = search_indx(s, "F");
 	if (i >= 0)
 	{
-		data->F =  check_color(s,i, data);
+		data->F =  check_color(s,i);
 		i = search_indx(s, "C");
 		if (i >= 0)
 		{
-			data->C = check_color(s,i, data);
+			data->C = check_color(s,i);
 		}
 		return;
 	}

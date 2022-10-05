@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/05 10:01:45 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/02 20:36:05 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,6 @@ void	claculate_rays(t_data *data)
 	int i = 0;
 	t_ray* r;
 	r = malloc(sizeof(t_ray) * rays);
-	if (!r)
-		return ;
-	ft_addbackthegarbe(&data->trash, ft_newgarbage(r));
 
 	while(i < rays)
 	{

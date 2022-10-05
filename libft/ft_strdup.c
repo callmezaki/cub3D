@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/01 16:07:25 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/05 14:45:28 by zait-sli         ###   ########.fr       */
+/*   Created: 2021/11/05 11:59:37 by zait-sli          #+#    #+#             */
+/*   Updated: 2021/11/19 08:33:13 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strdup(const char *src)
 {
-	int	i;
+	int		i;
+	char	*dup;
 
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (s[i] != (char)c)
+	i = ft_strlen(src);
+	dup = (char *)malloc(i + 1);
+	if (dup == NULL)
 	{
-		if (s[i] == '\0')
-			return (NULL);
+		return (0);
+	}
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dup[i] = src[i];
 		i++;
 	}
-	return ((char *)&s[i]);
+	dup[i] = '\0';
+	return (dup);
 }
