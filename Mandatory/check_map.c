@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/05 17:28:51 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:38:18 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,8 @@ char *intial_map_check(char *s, char **t, t_data *data)
 			free(b);
 		i++;
 	}
-	free_tab(t);
+	// if (t[0][0])
+	// 	free_tab(t);
 	if (len > 1)
 	{
 		printf("Errrrroooor7\n");

@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/05 18:26:55 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:20:38 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void    check_space(char *s, t_data *data)
     {
 		free_tab(t);
         printf("Error!\n");
-        exit_n_free(data, 1);;
+        exit_n_free(data, 1);
     }
 	free_tab(t);
 }
@@ -332,7 +332,7 @@ void exit_n_free(t_data *data, int t)
 	free(data->EA);
 	free(data->WE);
 	free(data->SO);
-	free_tab(data->map);
+	// free_tab(data->map);
 	free(data->r);
 	free(data);
 	exit(t);	

@@ -1,10 +1,10 @@
 C 0,19,255
 F 0,128,0
 
-NO ./texture/North.xpm
-SO ./texture/south.xpm
-EA ./texture/east.xpm
-WE ./texture/west.xpm
+NO ./assets/North.xpm
+SO ./assets/south.xpm
+EA ./assets/east.xpm
+WE ./assets/west.xpm
 
 111111111111111
 100000100000001
