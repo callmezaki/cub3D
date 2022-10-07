@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/03 17:05:24 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/07 16:21:17 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int get_color(char c)
 	}
 	else if (c == '1')
 		color = 35184;
+	else
+		color = 0x808080;
 	return (color);
 }
 
@@ -64,6 +66,7 @@ void    draw_walls(t_data *data)
 	double rad = (FOV) * (M_PI / 180);
 	t_texture tx;
 
+	printf("%d , %d\n",(int)(data->r[960].y / Z),(int)(data->r[960].x/ Z));
 	while(i < rays)
 	{
 		tx = which_texture(data,i);
@@ -173,7 +176,7 @@ void move_player(t_data *data)
 	}
 	t.x = (data->player.x - data->map_x + p.x) / Z;
 	t.y = (data->player.y - data->map_y + p.y) / Z;
-	if (data->map[(int)t.y][(int)t.x] == '0' || check_player(data->map[(int)t.y][(int)t.x]))
+	if (data->map[(int)t.y][(int)t.x] == '0' || data->map[(int)t.y][(int)t.x] == '2' ||check_player(data->map[(int)t.y][(int)t.x]))
 	{
 		data->player.x += p.x;
 		data->player.y += p.y;
