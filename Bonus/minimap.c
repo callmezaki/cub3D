@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/07 16:21:17 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/07 18:37:59 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,37 @@ t_texture which_texture(t_data *data,int i)
 	{
 		if (normalize(data->r[i].alpha) >= M_PI
 			&& normalize(data->r[i].alpha) < 2 * M_PI)
-			return(data->txtr.north);
+		{
+			if (data->map[(int)((data->r[i].y - data->map_y - step) / Z)][(int)((data->r[i].x - data->map_x) / Z)] == '2')
+				return(data->txtr.south);
+			else
+				return(data->txtr.north);
+		}
 		else
-			return(data->txtr.south);
+		{			
+			if (data->map[(int)((data->r[i].y - data->map_y + step) / Z)][(int)((data->r[i].x - data->map_x) / Z)] == '2')
+				return(data->txtr.north);
+			else
+				return(data->txtr.south);
+		}
 	}
 	else
 	{
 		if (normalize(data->r[i].alpha) >= (M_PI / 2)
 			&& normalize(data->r[i].alpha) < 3 * (M_PI / 2))
-			return(data->txtr.east);
+		{
+			if (data->map[(int)((data->r[i].y - data->map_y) / Z)][(int)((data->r[i].x - data->map_x - step) / Z)] == '2')
+				return(data->txtr.south);
+			else 
+				return(data->txtr.east);
+		}
 		else
-			return(data->txtr.west);
+		{
+			if (data->map[(int)((data->r[i].y - data->map_y) / Z)][(int)((data->r[i].x - data->map_x + step) / Z)] == '2')
+				return(data->txtr.south);
+			else 
+				return(data->txtr.west);
+		}
 	}	
 }
 
@@ -66,7 +86,7 @@ void    draw_walls(t_data *data)
 	double rad = (FOV) * (M_PI / 180);
 	t_texture tx;
 
-	printf("%d , %d\n",(int)(data->r[960].y / Z),(int)(data->r[960].x/ Z));
+	printf("%c\n",data->map[(int)((data->r[960].y - data->map_y - step) / Z)][(int)((data->r[960].x - data->map_x) / Z)]);
 	while(i < rays)
 	{
 		tx = which_texture(data,i);
