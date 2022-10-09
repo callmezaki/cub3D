@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/09 14:44:17 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/09 21:19:14 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,16 @@ int  check_line(char **s)
 	return(1);
 }
 
+int check_doors(char **s,int i,int j)
+{
+	if (s[i - 1][j] == '1' && s[i + 1][j] == '1')
+		return(1);
+	else if (s[i][j+1] == '1' && s[i][j-1] == '1')
+		return(1);
+	else
+		return(0);
+}
+
 void check_map(char **s, t_data *data)
 {
 	int i;
@@ -78,10 +88,12 @@ void check_map(char **s, t_data *data)
 	while(s[i + 1] && check)
 	{
 		j = 1;
-		while(s[i][j])
+		while(s[i][j] && check)
 		{
 			if (s[i][j] == '0' || s[i][j] == '2' ||check_player(s[i][j]))
 				check_zero(s, i, j);
+			if (s[i][j] == '2')
+				check = check_doors(s, i, j);
 			j++;
 		}
 		i++;
@@ -102,7 +114,7 @@ char *intial_map_check(char *s, char **t, t_data *data)
 	char *h;
 	int p_count = 0;
 
-	while(i< 6)
+	while(i < 7)
 	{
 		len+= ft_strlen(t[i]);
 		i++;

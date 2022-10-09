@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/09 14:32:33 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/09 20:10:07 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void    draw_walls(t_data *data)
 		txtr_off.x = txtr_off.x - floor(txtr_off.x);
 		txtr_off.x *= tx.width;
 		double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
+		// printf("%f\n",per_distance);
 		double distance_to_proj = (W_width / 2)  / tan(rad / 2);
 		double proj_wall_height = (Z / per_distance) * distance_to_proj;
 		a = (int)proj_wall_height;

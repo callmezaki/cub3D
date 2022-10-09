@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/09 14:14:17 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/09 15:11:31 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,12 @@ void    parse_walls(t_data *data, char **args)
     check_space(args[i], data);
     data->NO = ft_strdup(ft_strchr(args[i], '.'));
     check_path(data->NO, data);
+	i = txtr_error(args, "DO");
+	if(i < 0)
+		exit_n_free(data, 1);;
+    check_space(args[i], data);
+    data->DO = ft_strdup(ft_strchr(args[i], '.'));
+    check_path(data->NO, data);
 	i = txtr_error(args, "SO");
 	if(i < 0)
 		exit_n_free(data, 1);;
@@ -221,7 +227,7 @@ int	check_assets(char **s)
 		t = ft_split(s[i], ' ');
 		if(!ft_strcmp(t[0], "NO") || !ft_strcmp(t[0], "SO")
 			|| !ft_strcmp(t[0], "WE") || !ft_strcmp(t[0], "EA") 
-			|| !ft_strcmp(t[0], "C") || !ft_strcmp(t[0], "F"))
+			|| !ft_strcmp(t[0], "C") || !ft_strcmp(t[0], "F")|| !ft_strcmp(t[0], "DO"))
 		{
 			tmp[0] = s[i][0];
 			str = ft_strjoin_2(str, tmp);
@@ -230,13 +236,12 @@ int	check_assets(char **s)
 		else
 		{
 			free(tmp);
-			// free_tab(t);
 			break;
 		}
 		// free_tab(t);
 		i++;
 	}
-	if(!check_duplicates(str) && j == 6)
+	if(!check_duplicates(str) && j == 7)
 	{
 		free(str);
 		return(0);
@@ -308,7 +313,7 @@ void get_data(int fd, t_data *data)
 		str = get_next_line(fd);
 		if (str)
 		{
-			if (i < 7)
+			if (i < 8)
 			{
 				if (ft_trima(&str,i))
 				{

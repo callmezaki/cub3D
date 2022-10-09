@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:30:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/08 16:39:53 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/09 18:50:56 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_color check_color(char **s, int i)
 	if (!sp[1] || sp[2])
 	{
 		if (sp[0])
-			// free_tab(sp);
+			free_tab(sp);
 		free(t);
 		printf("Error0\n");
 		exit(1);
@@ -78,7 +78,7 @@ t_color check_color(char **s, int i)
 		{
 			if (!ft_isdigit(sp[1][j]) && sp[1][j] != ',')
 			{
-				// free_tab(sp);
+				free_tab(sp);
 				printf("Error1\n");
 				exit(1);
 			}
