@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/09 14:01:37 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/09 14:32:33 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ t_texture which_texture(t_data *data,int i)
 			&& normalize(data->r[i].alpha) < 2 * M_PI)
 		{
 			if (data->map[(int)((data->r[i].y - data->map_y - step) / Z)][(int)((data->r[i].x - data->map_x) / Z)] == '2')
-				return(data->txtr.south);
+				return(data->txtr.door);
 			else
 				return(data->txtr.north);
 		}
 		else
 		{			
 			if (data->map[(int)((data->r[i].y - data->map_y + step) / Z)][(int)((data->r[i].x - data->map_x) / Z)] == '2')
-				return(data->txtr.north);
+				return(data->txtr.door);
 			else
 				return(data->txtr.south);
 		}
@@ -62,14 +62,14 @@ t_texture which_texture(t_data *data,int i)
 			&& normalize(data->r[i].alpha) < 3 * (M_PI / 2))
 		{
 			if (data->map[(int)((data->r[i].y - data->map_y) / Z)][(int)((data->r[i].x - data->map_x - step) / Z)] == '2')
-				return(data->txtr.south);
+				return(data->txtr.door);
 			else 
 				return(data->txtr.east);
 		}
 		else
 		{
 			if (data->map[(int)((data->r[i].y - data->map_y) / Z)][(int)((data->r[i].x - data->map_x + step) / Z)] == '2')
-				return(data->txtr.south);
+				return(data->txtr.door);
 			else 
 				return(data->txtr.west);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/08 16:38:21 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/09 14:13:38 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	free_tab(char **tab)
 	{
 		while (tab[i])
 		{
-			free(tab[i]);
+			// free(tab[i]);
 			i++;
 		}
-		free(tab);
+		// free(tab);
 	}
 }
 

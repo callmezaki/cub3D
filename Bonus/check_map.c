@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/07 15:15:14 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/09 14:44:17 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char *intial_map_check(char *s, char **t, t_data *data)
 		i++;
 	}
 	h = ft_strdup(&s[len + i]);
-	free(s);
+	// free(s);
 	s = h;
 	i = 0;
 	while(s[i] && s[i + 1])
