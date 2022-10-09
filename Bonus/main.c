@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/06 14:20:38 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/08 16:39:28 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,11 @@ void    check_space(char *s, t_data *data)
 	t = ft_split(s, ' ');
     if(tab_len(t) != 2)
     {
-		free_tab(t);
+		// free_tab(t);
         printf("Error!\n");
         exit_n_free(data, 1);
     }
-	free_tab(t);
+	// free_tab(t);
 }
 
 void    check_path(char *d, t_data *data)
@@ -230,10 +230,10 @@ int	check_assets(char **s)
 		else
 		{
 			free(tmp);
-			free_tab(t);
+			// free_tab(t);
 			break;
 		}
-		free_tab(t);
+		// free_tab(t);
 		i++;
 	}
 	if(!check_duplicates(str) && j == 6)
@@ -280,14 +280,14 @@ void parse_data(t_data *data,char *temp)
 	char **s = ft_split(temp,'\n');
 	if(check_assets(s))
 	{
-		free_tab(s);
+		// free_tab(s);
 		puts("FAIL");
 		exit_n_free(data, 1);;
 	}
 	parse_walls(data,s);
 	get_colors(data, s);
 	temp = intial_map_check(temp, s,data);
-	free_tab(s);
+	// free_tab(s);
 	data->map = ft_split(temp,'\n');
 	check_map(data->map,data);
 	get_player_data(data);
@@ -332,7 +332,7 @@ void exit_n_free(t_data *data, int t)
 	free(data->EA);
 	free(data->WE);
 	free(data->SO);
-	// free_tab(data->map);
+	free_tab(data->map);
 	free(data->r);
 	free(data);
 	exit(t);	

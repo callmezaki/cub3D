@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/07 18:37:59 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/09 14:01:37 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void    draw_walls(t_data *data)
 	double rad = (FOV) * (M_PI / 180);
 	t_texture tx;
 
-	printf("%c\n",data->map[(int)((data->r[960].y - data->map_y - step) / Z)][(int)((data->r[960].x - data->map_x) / Z)]);
 	while(i < rays)
 	{
 		tx = which_texture(data,i);

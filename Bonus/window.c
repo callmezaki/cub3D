@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/06 14:24:36 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/08 16:38:21 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int key_press(int key, t_data *data)
 		data->player.turndirection = 1;
 	else if (key == KEY_ESC)
 	{
-		free_tab(data->map);
 		exit_n_free(data, 1);
 	}
 	return(0);
