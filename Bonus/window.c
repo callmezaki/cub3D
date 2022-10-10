@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/09 14:13:38 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/10 19:42:05 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,42 @@ int key_release(int key, t_data *data)
 	return(0);
 }
 
+int mouse_press(int key, int x, int y, t_data *data)
+{
+	(void)x;
+	(void)y;
+	if (key == 1)
+		data->player.is_m_pressed = 1;
+	return(0);
+}
+
+int mouse_release(int key, int x, int y, t_data *data)
+{
+	(void)x;
+	(void)y;
+	if (key == 1)
+		data->player.is_m_pressed = 0;
+	return(0);
+}
+
+int mouse_move(int x, int y, t_data *data)
+{
+	(void)y;
+	
+	if(!data->player.is_m_pressed)
+		data->player.turndirection = 0;
+	else if (data->player.is_m_pressed)
+	{
+		if (x <= W_width / 2)
+			data->player.turndirection = -1;
+		if (x > W_width / 2)
+			data->player.turndirection = 1;
+		if (x > W_width || x < 0)
+			data->player.turndirection = 0;
+		printf("%d | %d\n", x, data->player.turndirection);
+	}
+	return(0);
+}
 
 void	init_window(t_data *data)
 {
@@ -109,5 +145,8 @@ void	init_window(t_data *data)
 	mlx_hook(data->window.mlx_win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->window.mlx_win, 3, 0L, key_release, data);
 	mlx_hook(data->window.mlx_win, 17, 0, you_quit, NULL);
+	mlx_hook(data->window.mlx_win, 4, 0L, mouse_press, data);
+	mlx_hook(data->window.mlx_win, 5, 0L, mouse_release, data);
+	mlx_hook(data->window.mlx_win, 6, 0L, mouse_move, data);
 	mlx_loop(data->window.mlx);
 }

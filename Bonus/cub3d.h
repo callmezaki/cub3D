@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/09 15:11:01 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/10 19:41:13 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_player
 	int    walkdirection;
 	double rotationangle;
 	double teta;
+	int	is_m_pressed;
 	t_segment seg;
 	
 } t_player;
