@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:47:00 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/07 15:09:20 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:47:56 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int get_map_width(t_data *data, int y)
 
 int check_valid(int c)
 {
-	if(c == '1' || c == '0' || c == '2' || c == 'N' || c == 'W' || c == 'E' || c == 'S' || c == ' ')
+	if(c == '1' || c == '0' || c == '2' || c == 'N'
+		|| c == 'W' || c == 'E' || c == 'S' || c == ' ')
 		return(1);
 	return(0);
 }
@@ -37,13 +38,19 @@ int check_player(char c)
 
 void check_zero(char **s, int i, int j)
 {
-	if (s[i - 1][j] == '1' || s[i - 1][j] == '0' ||s[i - 1][j] == '2' || check_player(s[i - 1][j]))
+	char c;
+	
+	c = s[i - 1][j];
+	if (c == '1' || c == '0' ||c == '2' || check_player(c))
 	{
-		if (s[i + 1][j] == '1' || s[i + 1][j] == '0' ||s[i + 1][j] == '2' || check_player(s[i + 1][j]))
+		c = s[i + 1][j];
+		if (c == '1' || c == '0' ||c == '2' || check_player(c))
 		{
-			if (s[i][j+1] == '1' || s[i][j+1] == '0' ||s[i][j+1] == '2' || check_player(s[i][j+1]))
+			c = s[i][j + 1];
+			if (c == '1' || c == '0' ||c == '2' || check_player(c))
 			{
-				if (s[i][j-1] == '1' || s[i][j-1] == '0' || s[i][j-1] == '2' ||check_player(s[i][j-1]))
+				c = s[i][j - 1];
+				if (c == '1' || c == '0' || c == '2' ||check_player(c))
 					return ;
 			}
 		}

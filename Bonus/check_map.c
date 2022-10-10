@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/09 21:19:14 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:55:37 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int  check_line(char **s)
 	int i;
 	int j;
 	int len;
-	int t;
 	
 	i = 0;
 	j = 0;
@@ -57,8 +56,8 @@ int  check_line(char **s)
 	}
 	while(s[i])
 	{
-		t = ft_strlen(s[i]) - 1;
-		if ((s[i][t] != ' ' && s[i][t] != '1') || (s[i][0] != ' ' && s[i][0] != '1'))
+		len = ft_strlen(s[i]) - 1;
+		if ((s[i][len] != ' ' && s[i][len] != '1') || (s[i][0] != ' ' && s[i][0] != '1'))
 			return(0);
 		i++;
 	}
@@ -111,7 +110,6 @@ char *intial_map_check(char *s, char **t, t_data *data)
 	int len = 0;
 	char *a;
 	char *b;
-	char *h;
 	int p_count = 0;
 
 	while(i < 7)
@@ -119,9 +117,7 @@ char *intial_map_check(char *s, char **t, t_data *data)
 		len+= ft_strlen(t[i]);
 		i++;
 	}
-	h = ft_strdup(&s[len + i]);
-	// free(s);
-	s = h;
+	s = ft_strdup(&s[len + i]);
 	i = 0;
 	while(s[i] && s[i + 1])
 	{
@@ -142,7 +138,6 @@ char *intial_map_check(char *s, char **t, t_data *data)
 	{
 		if (s[i] != ' ' && s[i] != '\n' && s[i] != '\t' && s[i] != '1')
 		{
-			printf("%c\n",s[i]);
 			printf("Errrrroooor\n");
 			exit_n_free(data, 1);
 		}
@@ -154,11 +149,9 @@ char *intial_map_check(char *s, char **t, t_data *data)
 	while(t[i])
 	{
 		a = ft_strtrim(t[i]," ");
-		b = ft_strtrim(t[i-1]," ");
+		b = ft_strtrim(t[i - 1]," ");
 		if (!a[0] && b[0])
-		{
 			len++;
-		}
 		if (a)
 			free(a);
 		if (b)
