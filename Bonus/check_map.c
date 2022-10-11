@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/11 17:43:19 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 20:50:34 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+
+ //TODO: check last line error
 int check_valid_chars(char **s)
 {
 	int i;

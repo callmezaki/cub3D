@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/11 17:23:23 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 21:40:48 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,12 +222,13 @@ int	check_assets(char **s)
 	tmp = ft_strdup("");
 	i = 0;
 	j = 0;
-	while(s[i])
+	while(s[i] && i < 8)
 	{
 		t = ft_split(s[i], ' ');
 		if(!ft_strcmp(t[0], "NO") || !ft_strcmp(t[0], "SO")
 			|| !ft_strcmp(t[0], "WE") || !ft_strcmp(t[0], "EA") 
-			|| !ft_strcmp(t[0], "C") || !ft_strcmp(t[0], "F")|| !ft_strcmp(t[0], "DO"))
+			|| !ft_strcmp(t[0], "C") || !ft_strcmp(t[0], "F")
+			|| !ft_strcmp(t[0], "DO"))
 		{
 			tmp[0] = s[i][0];
 			str = ft_strjoin_2(str, tmp);
@@ -241,7 +242,7 @@ int	check_assets(char **s)
 		// free_tab(t);
 		i++;
 	}
-	if(!check_duplicates(str) && j == 7)
+	if(!check_duplicates(str))
 	{
 		free(str);
 		return(0);
