@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/11 17:41:53 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:01:28 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int key_press(int key, t_data *data)
 			data->oprn_door = 1;
 		else
 			data->oprn_door = 0;
+		draw(data);
 	}
 	return(0);
 }
