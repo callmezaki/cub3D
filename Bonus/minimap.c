@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/09 20:10:07 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:37:57 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,14 @@ void	draw_rays(t_segment *seg, t_data *data)
 	}
 }
 
+int door(t_data *data, char c)
+{
+	if (c == '2' && data->oprn_door == 1)
+		return(1);
+	else
+		return(0);
+}
+
 void move_player(t_data *data)
 {
 	t_point p;
@@ -196,7 +204,7 @@ void move_player(t_data *data)
 	}
 	t.x = (data->player.x - data->map_x + p.x) / Z;
 	t.y = (data->player.y - data->map_y + p.y) / Z;
-	if (data->map[(int)t.y][(int)t.x] == '0' || data->map[(int)t.y][(int)t.x] == '2' ||check_player(data->map[(int)t.y][(int)t.x]))
+	if (data->map[(int)t.y][(int)t.x] == '0' ||  door(data,data->map[(int)t.y][(int)t.x]) ||check_player(data->map[(int)t.y][(int)t.x]))
 	{
 		data->player.x += p.x;
 		data->player.y += p.y;

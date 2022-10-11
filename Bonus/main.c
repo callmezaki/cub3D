@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/09 15:11:31 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:23:23 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,7 +338,7 @@ void exit_n_free(t_data *data, int t)
 	free(data->WE);
 	free(data->SO);
 	free_tab(data->map);
-	free(data->r);
+	// free(data->r);
 	free(data);
 	exit(t);	
 }

@@ -6,11 +6,20 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/07 15:47:55 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:50:05 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
+int ch_door(t_data *data ,char c)
+{
+	if (c != '2' || data->oprn_door != 1)
+		return(1);
+	else
+		return(0);
+}
 
 double h_distance(t_data *data, double beta)
 {
@@ -46,7 +55,7 @@ double h_distance(t_data *data, double beta)
 			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
 			return(h);
 		}
-		if (data->map[(int)a.y][(int)a.x] != '0' && !check_player(data->map[(int)a.y][(int)a.x]))
+		if (data->map[(int)a.y][(int)a.x] != '0' &&  ch_door(data, data->map[(int)a.y][(int)a.x]) && !check_player(data->map[(int)a.y][(int)a.x]))
 		{
 			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
 			return(h);
@@ -92,7 +101,7 @@ double v_distance(t_data *data, double beta)
 			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
 			return(h);
 		}
-		if (data->map[(int)a.y][(int)a.x] != '0' && !check_player(data->map[(int)a.y][(int)a.x]))
+		if (data->map[(int)a.y][(int)a.x] != '0' && ch_door(data, data->map[(int)a.y][(int)a.x]) && !check_player(data->map[(int)a.y][(int)a.x]))
 		{
 			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
 			return(h);

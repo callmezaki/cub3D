@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/10 19:42:05 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/11 17:41:53 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,13 @@ int key_press(int key, t_data *data)
 	{
 		exit_n_free(data, 1);
 	}
+	else if (key == KEY_SPACE)
+	{
+		if (data->oprn_door == 0)
+			data->oprn_door = 1;
+		else
+			data->oprn_door = 0;
+	}
 	return(0);
 }
 
@@ -127,7 +134,7 @@ int mouse_move(int x, int y, t_data *data)
 			data->player.turndirection = 1;
 		if (x > W_width || x < 0)
 			data->player.turndirection = 0;
-		printf("%d | %d\n", x, data->player.turndirection);
+		// printf("%d | %d\n", x, data->player.turndirection);
 	}
 	return(0);
 }

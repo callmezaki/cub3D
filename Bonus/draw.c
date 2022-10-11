@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/05 18:25:05 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:28:17 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int draw(t_data *data)
 	draw_walls(data);
 	draw_minimap_frame(data);
 	draw_rays(&seg, data);
+	free(data->r);
 	draw_minimap(data);
 	player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
@@ -70,6 +71,7 @@ void	rotate_player(t_data *data)
 	draw_walls(data);
 	draw_minimap_frame(data);
 	draw_rays(&seg, data);
+	free(data->r);
 	draw_minimap(data);
 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
 	mlx_destroy_image(data->window.mlx, data->window.img);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/10 19:41:13 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/11 17:19:30 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define KEY_S 1
 # define KEY_D 2
 # define KEY_ESC 53
+# define KEY_SPACE 49
 # define LEFT	123
 # define RIGHT	124
 
@@ -150,6 +151,7 @@ typedef struct s_data
 	int map_height;
 	double map_x;
 	double map_y;
+	int oprn_door;
 	t_point centre_p;
 } t_data;
 

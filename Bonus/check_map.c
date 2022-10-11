@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/10 15:55:37 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:43:19 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int check_doors(char **s,int i,int j)
 {
 	if (s[i - 1][j] == '1' && s[i + 1][j] == '1')
 		return(1);
-	else if (s[i][j+1] == '1' && s[i][j-1] == '1')
+	else if (s[i][j + 1] == '1' && s[i][j - 1] == '1')
 		return(1);
 	else
 		return(0);
