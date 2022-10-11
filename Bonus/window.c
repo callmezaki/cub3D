@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/11 18:44:57 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:52:38 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ int	you_quit(void)
 
 int key_press(int key, t_data *data)
 {
+	t_point p;
+	p.y = data->player.y - data->map_y;
+	p.x = data->player.x - data->map_x;
 	if (key == KEY_W)
 	{
 		data->player.sides = 0;
@@ -77,10 +80,19 @@ int key_press(int key, t_data *data)
 	}
 	else if (key == KEY_SPACE)
 	{
-		if (data->oprn_door == 0)
-			data->oprn_door = 1;
+		if (data->open_door == 0)
+		{
+			if (data->map[(int)((p.y - Z) / Z)][(int)((p.x) / Z)] == '2' || data->map[(int)((p.y + Z) / Z)][(int)((p.x) / Z)] == '2'\
+			|| data->map[(int)((p.y) / Z)][(int)((p.x - Z) / Z)] == '2' || data->map[(int)((p.y) / Z)][(int)((p.x + Z) / Z)] == '2' || data->map[(int)((p.y) / Z)][(int)((p.x) / Z)] == '2')
+			{
+				data->open_door = 1;
+			}
+		}
 		else
-			data->oprn_door = 0;
+		{
+			if (data->map[(int)((p.y) / Z)][(int)((p.x) / Z)] != '2')
+				data->open_door = 0;
+		}
 		draw(data);
 	}
 	return(0);
@@ -100,6 +112,18 @@ int key_release(int key, t_data *data)
 		data->player.turndirection = 0;
 	else if (key == RIGHT)
 		data->player.turndirection = 0;
+	// else if (key == KEY_SPACE)
+	// {
+	// 	// if (!fork())
+	// 	// {
+	// 	// 	data->open_door = 0;
+	// 	// 	exit(0);
+	// 	// }
+	// 	// sleep(1);
+	// 	// if (data->map[][])
+	// 	data->open_door = 0;
+	// 	draw(data);
+	// }
 	return(0);
 }
 

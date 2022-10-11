@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/11 17:19:30 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:06:51 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ typedef struct s_data
 	int map_height;
 	double map_x;
 	double map_y;
-	int oprn_door;
+	int open_door;
 	t_point centre_p;
 } t_data;
 

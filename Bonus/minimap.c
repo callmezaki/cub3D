@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/11 17:37:57 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:51:54 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ int get_color(char c)
 
 int run(t_data *data)
 {
+	t_point p;
+	p.y = data->player.y - data->map_y; 
+	p.x = data->player.x - data->map_x; 
+
+	if (data->map[(int)((p.y - Z) / Z)][(int)((p.x) / Z)] != '2' && data->map[(int)((p.y + Z) / Z)][(int)((p.x) / Z)] != '2'\
+	&& data->map[(int)((p.y) / Z)][(int)((p.x - Z) / Z)] != '2' && data->map[(int)((p.y) / Z)][(int)((p.x + Z) / Z)] != '2' && data->map[(int)((p.y) / Z)][(int)((p.x) / Z)] != '2')
+	{
+		data->open_door = 0;
+	}
 	if (data->player.walkdirection != 0)
 		draw(data);
 	else if (data->player.turndirection != 0)
@@ -38,19 +47,22 @@ int run(t_data *data)
 
 t_texture which_texture(t_data *data,int i)
 {
+	t_point p;
+	p.y = data->r[i].y - data->map_y; 
+	p.x = data->r[i].x - data->map_x; 
 	if (data->r[i].h_or_v == 1)
 	{
 		if (normalize(data->r[i].alpha) >= M_PI
 			&& normalize(data->r[i].alpha) < 2 * M_PI)
 		{
-			if (data->map[(int)((data->r[i].y - data->map_y - step) / Z)][(int)((data->r[i].x - data->map_x) / Z)] == '2')
+			if (data->map[(int)((p.y - step) / Z)][(int)((p.x) / Z)] == '2')
 				return(data->txtr.door);
 			else
 				return(data->txtr.north);
 		}
 		else
 		{			
-			if (data->map[(int)((data->r[i].y - data->map_y + step) / Z)][(int)((data->r[i].x - data->map_x) / Z)] == '2')
+			if (data->map[(int)((p.y + step) / Z)][(int)((p.x) / Z)] == '2')
 				return(data->txtr.door);
 			else
 				return(data->txtr.south);
@@ -61,14 +73,14 @@ t_texture which_texture(t_data *data,int i)
 		if (normalize(data->r[i].alpha) >= (M_PI / 2)
 			&& normalize(data->r[i].alpha) < 3 * (M_PI / 2))
 		{
-			if (data->map[(int)((data->r[i].y - data->map_y) / Z)][(int)((data->r[i].x - data->map_x - step) / Z)] == '2')
+			if (data->map[(int)((p.y) / Z)][(int)((p.x - step) / Z)] == '2')
 				return(data->txtr.door);
 			else 
 				return(data->txtr.east);
 		}
 		else
 		{
-			if (data->map[(int)((data->r[i].y - data->map_y) / Z)][(int)((data->r[i].x - data->map_x + step) / Z)] == '2')
+			if (data->map[(int)((p.y) / Z)][(int)((p.x + step) / Z)] == '2')
 				return(data->txtr.door);
 			else 
 				return(data->txtr.west);
@@ -179,7 +191,7 @@ void	draw_rays(t_segment *seg, t_data *data)
 
 int door(t_data *data, char c)
 {
-	if (c == '2' && data->oprn_door == 1)
+	if (c == '2' && data->open_door == 1)
 		return(1);
 	else
 		return(0);

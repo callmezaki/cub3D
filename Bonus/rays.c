@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/11 17:50:05 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:07:08 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int ch_door(t_data *data ,char c)
 {
-	if (c != '2' || data->oprn_door != 1)
+	if (c != '2' || data->open_door != 1)
 		return(1);
 	else
 		return(0);
