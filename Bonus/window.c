@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/11 19:52:38 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/12 19:18:13 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,18 +112,6 @@ int key_release(int key, t_data *data)
 		data->player.turndirection = 0;
 	else if (key == RIGHT)
 		data->player.turndirection = 0;
-	// else if (key == KEY_SPACE)
-	// {
-	// 	// if (!fork())
-	// 	// {
-	// 	// 	data->open_door = 0;
-	// 	// 	exit(0);
-	// 	// }
-	// 	// sleep(1);
-	// 	// if (data->map[][])
-	// 	data->open_door = 0;
-	// 	draw(data);
-	// }
 	return(0);
 }
 

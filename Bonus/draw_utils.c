@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:11:26 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/09 15:11:56 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:26:40 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	get_texture(t_data *data)
 {
 	void *img;
 		
+	img = mlx_xpm_file_to_image(data->window.mlx, "../barrel.xpm", &data->txtr.sp.width, &data->txtr.sp.height);
+	data->txtr.sp.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
 	img = mlx_xpm_file_to_image(data->window.mlx, data->NO, &data->txtr.north.width, &data->txtr.north.height);
 	data->txtr.north.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
 	img = mlx_xpm_file_to_image(data->window.mlx, data->SO, &data->txtr.south.width, &data->txtr.south.height);

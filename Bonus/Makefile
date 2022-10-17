@@ -27,6 +27,8 @@ $(NAME): $(OBJS)
 	@gcc  $(CFLAGS) -I  $(INCLUDE) libft/libft.a -o $@ $^   -lmlx -framework OpenGL -framework AppKit 
 
 
+man:
+	@cat README.md
 clean:
 	@rm -f $(OBJS)
 fclean: clean

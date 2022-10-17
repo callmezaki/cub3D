@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/11 17:43:19 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/17 19:38:20 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,12 @@ void check_map(char **s, t_data *data)
 		j = 1;
 		while(s[i][j] && check)
 		{
-			if (s[i][j] == '0' || s[i][j] == '2' ||check_player(s[i][j]))
+			if (s[i][j] == '0' || s[i][j] == '2' || s[i][j] == '3' || check_player(s[i][j]))
 				check_zero(s, i, j);
 			if (s[i][j] == '2')
 				check = check_doors(s, i, j);
+			if (s[i][j] == '3')
+				data->sp++;
 			j++;
 		}
 		i++;

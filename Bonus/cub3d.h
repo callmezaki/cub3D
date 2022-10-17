@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/11 19:06:51 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:46:51 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,16 @@ typedef struct s_texture
 	int height;
 } t_texture;
 
+typedef struct s_sprite
+{
+	double x;
+	double y;
+	double distance;
+	t_texture tx;
+	double angle;
+	int vis;
+} t_sprite;
+
 typedef struct s_distance
 {
 	double distance;
@@ -127,6 +137,7 @@ typedef struct	s_txtr {
 	t_texture east;
 	t_texture west;
 	t_texture door;
+	t_texture sp;
 }	t_txtr;
 
 typedef struct s_data
@@ -153,6 +164,8 @@ typedef struct s_data
 	double map_y;
 	int open_door;
 	t_point centre_p;
+	t_sprite *sprites;
+	int sp;
 } t_data;
 
 char	*get_next_line(int fd);

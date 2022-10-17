@@ -6,19 +6,11 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:47:40 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/09/27 22:45:13 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:48:11 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-double ft_abs(double d)
-{
-	if(d < 0)
-		d *=-1;
-	return(d);
-}
-
 
 void DDA(t_data *data, t_segment segment,int color)
 {

@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/11 19:07:08 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:13:36 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ double h_distance(t_data *data, double beta)
 			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
 			return(h);
 		}
-		if (data->map[(int)a.y][(int)a.x] != '0' &&  ch_door(data, data->map[(int)a.y][(int)a.x]) && !check_player(data->map[(int)a.y][(int)a.x]))
+		if (data->map[(int)a.y][(int)a.x] != '0' && data->map[(int)a.y][(int)a.x] != '3' && ch_door(data, data->map[(int)a.y][(int)a.x]) && !check_player(data->map[(int)a.y][(int)a.x]))
 		{
 			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
 			return(h);
@@ -101,7 +101,7 @@ double v_distance(t_data *data, double beta)
 			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
 			return(h);
 		}
-		if (data->map[(int)a.y][(int)a.x] != '0' && ch_door(data, data->map[(int)a.y][(int)a.x]) && !check_player(data->map[(int)a.y][(int)a.x]))
+		if (data->map[(int)a.y][(int)a.x] != '0' && data->map[(int)a.y][(int)a.x] != '3' &&  ch_door(data, data->map[(int)a.y][(int)a.x]) && !check_player(data->map[(int)a.y][(int)a.x]))
 		{
 			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
 			return(h);

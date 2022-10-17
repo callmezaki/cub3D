@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/11 19:51:54 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:08:15 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void    draw_walls(t_data *data)
 	int i = 0;
 	int j;
 	t_point txtr_off;
-	double x;
+	double k;
 	double a;
 	double rad = (FOV) * (M_PI / 180);
 	t_texture tx;
@@ -101,6 +101,7 @@ void    draw_walls(t_data *data)
 	while(i < rays)
 	{
 		tx = which_texture(data,i);
+		// printf("%d\n\n", tx.tab[0]);
 		if(data->r[i].h_or_v == 2)
 			txtr_off.x = (data->r[i].y - data->map_y) / Z;
 		else
@@ -108,7 +109,6 @@ void    draw_walls(t_data *data)
 		txtr_off.x = txtr_off.x - floor(txtr_off.x);
 		txtr_off.x *= tx.width;
 		double per_distance = data->r[i].distance * cos(data->r[i].alpha - data->player.teta);
-		// printf("%f\n",per_distance);
 		double distance_to_proj = (W_width / 2)  / tan(rad / 2);
 		double proj_wall_height = (Z / per_distance) * distance_to_proj;
 		a = (int)proj_wall_height;
@@ -116,14 +116,15 @@ void    draw_walls(t_data *data)
 			proj_wall_height =  W_height;
 		int wall_top_pixel = (W_height / 2) - ((int)proj_wall_height / 2);
 		int wall_bottom_pixel = (W_height / 2) + ((int)proj_wall_height / 2);
-		x =  (a / 2) - (W_height / 2);
+		k =  (a / 2) - (W_height / 2);
 		j = wall_top_pixel;
 		while(j < wall_bottom_pixel)
 		{
-			txtr_off.y = (j + x) * (tx.height / (a));
+			txtr_off.y = (j + k) * (tx.height / (a));
 			txtr_off.y = floor(txtr_off.y);
 			txtr_off.y *= tx.width;
-			my_mlx_pixel_put(&data->window, i, j, tx.tab[(int)txtr_off.x + (int)txtr_off.y]);
+			// if (tx.tab[(int)txtr_off.x + (int)txtr_off.y] != 16711935)
+				my_mlx_pixel_put(&data->window, i, j, tx.tab[(int)txtr_off.x + (int)txtr_off.y]);
 			j++;
 		}
 		i++;
