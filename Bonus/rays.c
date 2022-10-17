@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/13 17:13:36 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/17 21:44:18 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void	claculate_rays(t_data *data)
 
 	while(i < rays)
 	{
+		data->player.teta = normalize(data->player.teta);
 		sigma = data->player.teta + (t);
 		best_distance(data,sigma);
 		r[i].x = data->player.x + (cos(sigma) * data->distance.distance);

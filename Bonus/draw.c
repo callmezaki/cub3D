@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/17 20:27:38 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/17 22:21:10 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,31 @@ void	draw_background(t_data *data)
 }
 
 
+void sort_sprites(t_data *data)
+{
+	int i = 0;
+	int j = 0;
+	t_sprite t;
+
+	while(i < data->sp)
+	{
+		j = 0;
+		while(j + 1 < data->sp)
+		{
+			if (data->sprites[j].distance < data->sprites[j + 1].distance)
+			{
+				t = data->sprites[j + 1];
+				data->sprites[j + 1] = data->sprites[j];
+				data->sprites[j] = t;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void draw_sprites(t_data *data)
 {
-	// printf("sp == %d\n",data->sp);
 	int i;
 	int j = 0;
 	int x = 0;
@@ -58,17 +80,14 @@ void draw_sprites(t_data *data)
 				data->sprites[x].tx = data->txtr.sp;
 				t.y =  data->sprites[x].y - data->player.y;
 				t.x =  data->sprites[x].x - data->player.x;
-				data->sprites[x].angle = (atan2(t.y, t.x) - data->player.teta);
+				data->sprites[x].angle = data->player.teta - atan2(t.y, t.x);
 				if (data->sprites[x].angle > M_PI)
 					data->sprites[x].angle -= 2 * M_PI; 
 				if (data->sprites[x].angle < -M_PI)
 					data->sprites[x].angle += 2 * M_PI;
 				data->sprites[x].angle = fabs(data->sprites[x].angle);
-				// printf("angle %f \n\n", data->sprites[x].angle);
-				// printf("plyaer %f \n\n", data->player.teta);
-				// printf("atan2 %f \n\n", atan2(t.y, t.x));
 				data->sprites[x].vis = 0;
-				if (data->sprites[x].angle < D_rays)
+				if (data->sprites[x].angle < D_rays + 0.2)
 					data->sprites[x].vis = 1;
 				data->sprites[x].distance = sqrt(pow(data->sprites[x].x - data->player.x,2) + pow(data->sprites[x].y - data->player.y,2));
 				x++;
@@ -77,39 +96,46 @@ void draw_sprites(t_data *data)
 		}
 		j++;
 	}
-	// if (data->sprites[0].vis == 1)
-	// {
-		t_point txtr_off;
-		double distance_to_proj = (W_width / 2)  / tan(rad / 2);
-		double sprite_height = (Z / data->sprites[0].distance) * distance_to_proj;
-		double sprite_width = sprite_height;
-		double sprite_topY = (W_height / 2) - (sprite_height /  2);
-		if (sprite_topY < 0)
-			sprite_topY = 0;
-		double sprite_bottomY = (W_height / 2) + (sprite_height /  2);
-		if (sprite_bottomY > W_height)
-			sprite_bottomY = W_height;
-		double sprite_sc_posX = tan(data->sprites[0].angle) * distance_to_proj;
-		double sprite_leftX = (W_width / 2) + sprite_sc_posX;
-		double sprite_rightX = sprite_leftX + sprite_width;
-		i = sprite_leftX;
-		t_texture tx = data->sprites[0].tx;
-		while(i < sprite_rightX)
+	sort_sprites(data);
+	x = 0;
+	while(x < data->sp)
+	{
+		if (data->sprites[x].vis == 1)
 		{
-			double t = (tx.width / sprite_width);
-			txtr_off.x = (i - sprite_leftX) * t;
-			j = sprite_topY;
-			while(j < sprite_bottomY)
+			t_point txtr_off;
+			double distance_to_proj = (W_width / 2)  / tan(rad / 2);
+			double sprite_height = (Z / data->sprites[x].distance) * distance_to_proj;
+			double sprite_width = sprite_height;
+			double sprite_topY = (W_height / 2) - (sprite_height /  2);
+			if (sprite_topY < 0)
+				sprite_topY = 0;
+			double sprite_bottomY = (W_height / 2) + (sprite_height /  2);
+			if (sprite_bottomY > W_height)
+				sprite_bottomY = W_height;
+			data->sprites[x].angle = normalize(atan2(t.y, t.x) - data->player.teta);
+			double sprite_sc_posX = tan(data->sprites[x].angle) * distance_to_proj;
+			double sprite_leftX = (W_width / 2) + sprite_sc_posX;
+			double sprite_rightX = sprite_leftX + sprite_width;
+			i = sprite_leftX;
+			t_texture tx = data->sprites[x].tx;
+			while(i < sprite_rightX)
 			{
-				double distance_from_top = j + (sprite_height / 2 ) - (W_height / 2);
-				txtr_off.y = distance_from_top * (tx.height / sprite_height);
-				if (tx.tab[(tx.width * (int)txtr_off.y) + (int)txtr_off.x] != 16711935)
-					my_mlx_pixel_put(&data->window, i, j, tx.tab[(tx.width * (int)txtr_off.y) + (int)txtr_off.x]);
-				j++;
+				double t = (tx.width / sprite_width);
+				txtr_off.x = (i - sprite_leftX) * t;
+				j = sprite_topY;
+				while(j < sprite_bottomY)
+				{
+					double distance_from_top = j + (sprite_height / 2 ) - (W_height / 2);
+					txtr_off.y = distance_from_top * (tx.height / sprite_height);
+					if (tx.tab[(tx.width * (int)txtr_off.y) + (int)txtr_off.x] != 16711935 && data->sprites[x].distance < data->r[i].distance)
+						my_mlx_pixel_put(&data->window, i, j, tx.tab[(tx.width * (int)txtr_off.y) + (int)txtr_off.x]);
+					j++;
+				}
+				i++;
 			}
-			i++;
 		}
-	// }
+		x++;
+	}
 	
 }
 
@@ -188,6 +214,17 @@ int draw_minimap(t_data *data)
 			p.x += Z;
 			j++;
 		}
+		i++;
+	}
+	i = 0;
+	while(i < data->sp)
+	{
+		t.x = data->sprites[i].x + (Z / 2) - 2;
+		t.y = data->sprites[i].y + (Z / 2) - 2;
+		if (data->sprites[0].vis == 1)
+			player_symbol(data,t.x,t.y, 0xEEC643);
+		else
+			player_symbol(data,t.x,t.y, 0);
 		i++;
 	}
 	return(0);

@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/17 17:08:15 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/17 21:42:49 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,7 @@ void    draw_walls(t_data *data)
 			txtr_off.y = (j + k) * (tx.height / (a));
 			txtr_off.y = floor(txtr_off.y);
 			txtr_off.y *= tx.width;
-			// if (tx.tab[(int)txtr_off.x + (int)txtr_off.y] != 16711935)
-				my_mlx_pixel_put(&data->window, i, j, tx.tab[(int)txtr_off.x + (int)txtr_off.y]);
+			my_mlx_pixel_put(&data->window, i, j, tx.tab[(int)txtr_off.x + (int)txtr_off.y]);
 			j++;
 		}
 		i++;

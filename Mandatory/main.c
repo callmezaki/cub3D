@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/06 14:20:38 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/11 22:10:29 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ int	check_assets(char **s)
 	tmp = ft_strdup("");
 	i = 0;
 	j = 0;
-	while(s[i])
+	while(s[i] && i < 7)
 	{
 		t = ft_split(s[i], ' ');
 		if(!ft_strcmp(t[0], "NO") || !ft_strcmp(t[0], "SO")
@@ -236,7 +236,7 @@ int	check_assets(char **s)
 		free_tab(t);
 		i++;
 	}
-	if(!check_duplicates(str) && j == 6)
+	if(!check_duplicates(str))
 	{
 		free(str);
 		return(0);
