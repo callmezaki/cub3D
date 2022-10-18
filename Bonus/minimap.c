@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/17 21:42:49 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:54:54 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ void	draw_rays(t_segment *seg, t_data *data)
 	{
 		seg->x1 = data->r[i].x;
 		seg->y1 = data->r[i].y;
-		DDA2(data, *seg,0xFFFFFFF);
+		dda2(data, *seg,0xFFFFFFF);
 		i++;
 	}
 }

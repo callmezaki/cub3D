@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/06 14:24:36 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/18 21:49:26 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ void	my_mlx_pixel_put(t_window *data, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < W_width && x >=  0 && y < W_height && y >= 0)
+	if (x < W_width && x >= 0 && y < W_height && y >= 0)
 	{
-		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-		*(unsigned int*)dst = color;
+		dst = data->addr + (y * data->line_length
+				+ x * (data->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
 	}
 }
 
@@ -45,7 +46,7 @@ int	you_quit(void)
 	exit(EXIT_SUCCESS);
 }
 
-int key_press(int key, t_data *data)
+int	key_press(int key, t_data *data)
 {
 	if (key == KEY_W)
 	{
@@ -76,10 +77,10 @@ int key_press(int key, t_data *data)
 		free_tab(data->map);
 		exit_n_free(data, 1);
 	}
-	return(0);
+	return (0);
 }
 
-int key_release(int key, t_data *data)
+int	key_release(int key, t_data *data)
 {
 	if (key == KEY_W)
 		data->player.walkdirection = 0;
@@ -93,9 +94,8 @@ int key_release(int key, t_data *data)
 		data->player.turndirection = 0;
 	else if (key == RIGHT)
 		data->player.turndirection = 0;
-	return(0);
+	return (0);
 }
-
 
 void	init_window(t_data *data)
 {
@@ -103,7 +103,8 @@ void	init_window(t_data *data)
 	data->player.walkdirection = 0;
 	data->player.sides = 0;
 	data->window.mlx = mlx_init();
-	data->window.mlx_win = mlx_new_window(data->window.mlx, W_width, W_height, "Cub3d");
+	data->window.mlx_win = mlx_new_window(data->window.mlx,
+			W_width, W_height, "Cub3d");
 	get_texture(data);
 	draw(data);
 	mlx_loop_hook(data->window.mlx, run, data);

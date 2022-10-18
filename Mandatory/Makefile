@@ -7,7 +7,7 @@ SRC =	cub3d.c         \
 		window.c        \
 		ft_block.c      \
 		minimap.c	\
-		DDA.c	\
+		dda.c	\
 		draw.c \
 		rays.c \
 		draw_utils.c \

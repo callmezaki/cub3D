@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   DDA.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:47:40 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/12 18:48:11 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:54:54 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void DDA(t_data *data, t_segment segment,int color)
+void dda(t_data *data, t_segment segment,int color)
 {
 	float incx;
 	float incy;
@@ -39,7 +39,7 @@ void DDA(t_data *data, t_segment segment,int color)
 }
 
 
-void DDA2(t_data *data, t_segment s,int color)
+void dda2(t_data *data, t_segment s,int color)
 {
 	float incx;
 	float incy;

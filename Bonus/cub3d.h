@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/17 17:46:51 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:54:54 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ int 	draw_minimap(t_data *data);
 void	move_player(t_data *data);
 void	rotate_player(t_data *data);
 void	draw_walls(t_data *data);
-void 	DDA(t_data *data, t_segment segment, int color);
+void 	dda(t_data *data, t_segment segment, int color);
 void	claculate_rays(t_data *data);
 void	draw_rays(t_segment *seg, t_data *data);
 int		get_map_width(t_data *data, int y);
@@ -186,7 +186,7 @@ int		run(t_data *data);
 int		draw_minimap_frame(t_data *data);
 int		draw_minimap2(t_data *data);
 void    ft_block2(t_data *data, double x, double y,int color);
-void	DDA2(t_data *data, t_segment segment,int color);
+void	dda2(t_data *data, t_segment segment,int color);
 void	draw_background(t_data *data);
 int		get_color(char c);
 void	get_texture(t_data *data);

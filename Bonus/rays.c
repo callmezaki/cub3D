@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/17 21:44:18 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/18 21:35:52 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int ch_door(t_data *data ,char c)
 double h_distance(t_data *data, double beta)
 {
 	t_point a; 
-	t_point First_inter;
+	t_point first_inter;
 	t_point t;
 	t_point stp;
 	double h;
@@ -32,10 +32,10 @@ double h_distance(t_data *data, double beta)
 
 	ply.x = data->player.x - data->map_x;
 	ply.y = data->player.y - data->map_y;
-	First_inter.y = floor(ply.y / Z) * Z;
+	first_inter.y = floor(ply.y / Z) * Z;
 	if (facing_down(beta))
-		First_inter.y += Z;
-	First_inter.x = ply.x + ((First_inter.y - ply.y) / tan(beta));
+		first_inter.y += Z;
+	first_inter.x = ply.x + ((first_inter.y - ply.y) / tan(beta));
 	stp.y = Z;
 	if (!facing_down(beta))
 		stp.y *= -1;
@@ -44,31 +44,31 @@ double h_distance(t_data *data, double beta)
 		stp.x *= -1;
 	while(1)
 	{
-		t.x = First_inter.x;
-		t.y = First_inter.y;
+		t.x = first_inter.x;
+		t.y = first_inter.y;
 		if (!facing_down(beta))
 			t.y -= 1;
 		a.x = t.x / Z;
 		a.y = t.y / Z;
 		if (a.y >= data->map_height || a.y < 0 || a.x > get_map_width(data,a.y) || a.x < 0)
 		{			
-			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
+			h = sqrt(pow(first_inter.x - ply.x,2) + pow(first_inter.y - ply.y,2));
 			return(h);
 		}
 		if (data->map[(int)a.y][(int)a.x] != '0' && data->map[(int)a.y][(int)a.x] != '3' && ch_door(data, data->map[(int)a.y][(int)a.x]) && !check_player(data->map[(int)a.y][(int)a.x]))
 		{
-			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
+			h = sqrt(pow(first_inter.x - ply.x,2) + pow(first_inter.y - ply.y,2));
 			return(h);
 		}
-		First_inter.x += stp.x;
-		First_inter.y += stp.y;
+		first_inter.x += stp.x;
+		first_inter.y += stp.y;
 	}
 }
 
 double v_distance(t_data *data, double beta)
 {
 	t_point a; 
-	t_point First_inter;
+	t_point first_inter;
 	t_point t;
 	t_point stp;
 	double h;
@@ -78,10 +78,10 @@ double v_distance(t_data *data, double beta)
 	ply.y = data->player.y - data->map_y;
 	
 	
-	First_inter.x = floor(ply.x / Z) * Z;
+	first_inter.x = floor(ply.x / Z) * Z;
 	if (facing_right(beta))
-		First_inter.x += Z;
-	First_inter.y = ply.y + ((First_inter.x - ply.x) * tan(beta));
+		first_inter.x += Z;
+	first_inter.y = ply.y + ((first_inter.x - ply.x) * tan(beta));
 	stp.x = Z;
 	if (!facing_right(beta))
 		stp.x *= -1;
@@ -90,24 +90,24 @@ double v_distance(t_data *data, double beta)
 		stp.y *= -1;
 	while(1)
 	{
-		t.x = First_inter.x;
-		t.y = First_inter.y;
+		t.x = first_inter.x;
+		t.y = first_inter.y;
 		if (!facing_right(beta))
 			t.x -= 1;
 		a.x = t.x / Z;
 		a.y = t.y / Z;
 		if (a.y >= data->map_height || a.y < 0 || a.x > get_map_width(data,a.y) || a.x < 0)
 		{			
-			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
+			h = sqrt(pow(first_inter.x - ply.x,2) + pow(first_inter.y - ply.y,2));
 			return(h);
 		}
 		if (data->map[(int)a.y][(int)a.x] != '0' && data->map[(int)a.y][(int)a.x] != '3' &&  ch_door(data, data->map[(int)a.y][(int)a.x]) && !check_player(data->map[(int)a.y][(int)a.x]))
 		{
-			h = sqrt(pow(First_inter.x - ply.x,2) + pow(First_inter.y - ply.y,2));
+			h = sqrt(pow(first_inter.x - ply.x,2) + pow(first_inter.y - ply.y,2));
 			return(h);
 		}
-		First_inter.x += stp.x;
-		First_inter.y += stp.y;
+		first_inter.x += stp.x;
+		first_inter.y += stp.y;
 	}
 }
 
