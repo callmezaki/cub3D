@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/18 21:34:47 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:30:42 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	draw_walls(t_data *data)
 
 	rad = (FOV) * (M_PI / 180);
 	i = 0;
-	while (i < rays)
+	while (i < RAYS)
 	{
 		tx = which_texture(data, i);
 		if (data->r[i].h_or_v == 2)
@@ -83,14 +83,14 @@ void	draw_walls(t_data *data)
 		txtr_off.x *= tx.width;
 		per_distance = data->r[i].distance * cos(data->r[i].alpha
 				- data->player.teta);
-		distance_to_proj = (W_width / 2) / tan(rad / 2);
+		distance_to_proj = (W_WIDTH / 2) / tan(rad / 2);
 		proj_wall_height = (Z / per_distance) * distance_to_proj;
 		a = (int)proj_wall_height;
-		if (proj_wall_height > W_height)
-			proj_wall_height = W_height;
-		wall_top_pixel = (W_height / 2) - ((int)proj_wall_height / 2);
-		wall_bottom_pixel = (W_height / 2) + ((int)proj_wall_height / 2);
-		x = (a / 2) - (W_height / 2);
+		if (proj_wall_height > W_HEIGHT)
+			proj_wall_height = W_HEIGHT;
+		wall_top_pixel = (W_HEIGHT / 2) - ((int)proj_wall_height / 2);
+		wall_bottom_pixel = (W_HEIGHT / 2) + ((int)proj_wall_height / 2);
+		x = (a / 2) - (W_HEIGHT / 2);
 		j = wall_top_pixel;
 		while (j < wall_bottom_pixel)
 		{
@@ -151,7 +151,7 @@ void	draw_rays(t_segment *seg, t_data *data)
 	i = 0;
 	seg->x0 = data->player.x;
 	seg->y0 = data->player.y;
-	while (i < rays)
+	while (i < RAYS)
 	{
 		seg->x1 = data->r[i].x;
 		seg->y1 = data->r[i].y;
@@ -166,16 +166,16 @@ void	move_player(t_data *data)
 	t_point	t;
 
 	data->player.teta = normalize(data->player.teta);
-	data->player.teta += data->player.turndirection * rotationspeed;
+	data->player.teta += data->player.turndirection * ROTATIONSPEED;
 	if (data->player.sides == 0 && (data->player.walkdirection != 0))
 	{
-		p.x += (cos(data->player.teta) * data->player.walkdirection * step);
-		p.y += (sin(data->player.teta) * data->player.walkdirection * step);
+		p.x += (cos(data->player.teta) * data->player.walkdirection * STEP);
+		p.y += (sin(data->player.teta) * data->player.walkdirection * STEP);
 	}
 	if (data->player.sides == 1 && (data->player.walkdirection != 0))
 	{
-		p.x -= (sin(data->player.teta) * data->player.walkdirection * step);
-		p.y += (cos(data->player.teta) * data->player.walkdirection * step);
+		p.x -= (sin(data->player.teta) * data->player.walkdirection * STEP);
+		p.y += (cos(data->player.teta) * data->player.walkdirection * STEP);
 	}
 	t.x = (data->player.x - data->map_x + p.x) / Z;
 	t.y = (data->player.y - data->map_y + p.y) / Z;

@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:11:26 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/18 21:02:24 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:32:36 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	get_texture(t_data *data)
 
 void	move_map(t_data *data)
 {
-	data->centre_p.x = data->player.x - (mini_cub * Z / 2);
-	data->centre_p.y = data->player.y - (mini_cub * Z / 2);
+	data->centre_p.x = data->player.x - (MINI_CUB * Z / 2);
+	data->centre_p.y = data->player.y - (MINI_CUB * Z / 2);
 	data->player.x -= data->centre_p.x;
 	data->player.y -= data->centre_p.y;
 	data->map_x -= data->centre_p.x;
@@ -72,6 +72,6 @@ int	rgb_to_dec(t_color color)
 {
 	int	dec;
 
-	dec = (color.R << 16) + (color.G << 8) + color.B;
+	dec = (color.r << 16) + (color.g << 8) + color.b;
 	return (dec);
 }

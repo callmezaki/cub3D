@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:28:14 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/18 21:14:53 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:23:12 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_block2(t_data *data, double x, double y,int color)
 		y = tmp;
 		while (y < ty)
 		{
-			if (x > Z && x < Z * (mini_cub - 1)
-				&& y > Z && y < Z * (mini_cub - 1))
+			if (x > Z && x < Z * (MINI_CUB - 1)
+				&& y > Z && y < Z * (MINI_CUB - 1))
 				my_mlx_pixel_put(&data->window, x, y, color);
 			y++;
 		}

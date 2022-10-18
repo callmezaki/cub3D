@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:30:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/18 20:53:16 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:33:44 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int	check_cama(char *s)
 
 void	check_color_range(t_color col)
 {
-	if (col.R <= 255 && col.R >= 0)
+	if (col.r <= 255 && col.r >= 0)
 	{
-		if (col.G <= 255 && col.G >= 0)
+		if (col.g <= 255 && col.g >= 0)
 		{
-			if (col.B <= 255 && col.B >= 0)
+			if (col.b <= 255 && col.b >= 0)
 			{
 				return ;
 			}
@@ -89,10 +89,10 @@ t_color	check_color(char **s, int i)
 			}
 			j++;
 		}
-		ss = ft_split(sp[1],',');
-		col.R = ft_atoi(ss[0]);
-		col.G = ft_atoi(ss[1]);
-		col.B = ft_atoi(ss[2]);
+		ss = ft_split(sp[1], ',');
+		col.r = ft_atoi(ss[0]);
+		col.g = ft_atoi(ss[1]);
+		col.b = ft_atoi(ss[2]);
 		free_tab(ss);
 		free_tab(sp);
 		check_color_range(col);

@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/18 21:08:45 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:23:12 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	draw_background(t_data *data)
 	x = 0;
 	y = 0;
 	c = rgb_to_dec(data->C);
-	while (y < W_height)
+	while (y < W_HEIGHT)
 	{
 		x = 0;
-		if (y == W_height / 2)
+		if (y == W_HEIGHT / 2)
 			c = rgb_to_dec(data->F);
-		while (x < W_width)
+		while (x < W_WIDTH)
 		{
 			my_mlx_pixel_put(&data->window, x, y, c);
 			x++;
@@ -38,7 +38,7 @@ void	draw_background(t_data *data)
 int	draw(t_data *data)
 {
 	mlx_clear_window(data->window.mlx, data->window.mlx_win);
-	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
+	data->window.img = mlx_new_image(data->window.mlx, W_WIDTH, W_HEIGHT);
 	data->window.addr = mlx_get_data_addr(data->window.img,
 			&data->window.bits_per_pixel,
 			&data->window.line_length, &data->window.endian);
@@ -55,7 +55,7 @@ int	draw(t_data *data)
 void	rotate_player(t_data *data)
 {
 	mlx_clear_window(data->window.mlx, data->window.mlx_win);
-	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
+	data->window.img = mlx_new_image(data->window.mlx, W_WIDTH, W_HEIGHT);
 	data->window.addr = mlx_get_data_addr(data->window.img,
 			&data->window.bits_per_pixel,
 			&data->window.line_length, &data->window.endian);
@@ -103,15 +103,15 @@ int	draw_minimap_frame(t_data *data)
 
 	i = 0;
 	j = 0;
-	while (i < mini_cub)
+	while (i < MINI_CUB)
 	{
 		p.x = 0;
 		p.y = i * Z ;
 		j = 0;
-		while (j < mini_cub)
+		while (j < MINI_CUB)
 		{
-			if ((i == 0 || (i == mini_cub - 1))
-				|| (j == 0 || (j == mini_cub - 1)))
+			if ((i == 0 || (i == MINI_CUB - 1))
+				|| (j == 0 || (j == MINI_CUB - 1)))
 				ft_block(data, p.x, p.y, 0);
 			else
 				ft_block(data, p.x, p.y, 10676939);

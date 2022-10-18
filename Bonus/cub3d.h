@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/18 20:54:54 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:30:42 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 #include "libft/libft.h"
 #include "mlx.h"
 
-# define W_height 1080
-# define W_width 1920
+# define W_HEIGHT 1080
+# define W_WIDTH 1920
 # define Z 10
-# define mini_cub 20
-# define step 1
+# define MINI_CUB 20
+# define STEP 1
 # define FOV 60
-# define rotationspeed (3 * M_PI / 180)
-# define D_rays (FOV / 2) * (M_PI / 180) 
-# define rays W_width
-# define inc_rays D_rays / (W_width / 2)
+# define ROTATIONSPEED (3 * M_PI / 180)
+# define D_RAYS (FOV / 2) * (M_PI / 180) 
+# define RAYS W_WIDTH
+# define inc_rays D_RAYS / (W_WIDTH / 2)
 
 # define KEY_W 13 
 # define KEY_A 0

@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/18 21:46:04 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:29:36 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,14 +133,14 @@ void	claculate_rays(t_data *data)
 {
 	double	sigma;
 	double	t;
-	double	t;
 	int		i;
 	t_ray	*r;
 
+	t = D_RAYS;
 	i = 0;
 	t *= -1;
-	r = malloc(sizeof(t_ray) * rays);
-	while (i < rays)
+	r = malloc(sizeof(t_ray) * RAYS);
+	while (i < RAYS)
 	{
 		sigma = data->player.teta + (t);
 		best_distance(data, sigma);

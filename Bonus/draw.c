@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/17 22:21:10 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/19 00:27:19 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	draw_background(t_data *data)
 	x = 0;
 	y = 0;
 	c = rgb_to_dec(data->C);
-	while(y < W_height)
+	while(y < W_HEIGHT)
 	{
 		x = 0;
-		if(y == W_height / 2)
+		if(y == W_HEIGHT / 2)
 			c = rgb_to_dec(data->F);
-		while(x < W_width)
+		while(x < W_WIDTH)
 		{
 			my_mlx_pixel_put(&data->window, x, y, c);
 			x++;
@@ -87,7 +87,7 @@ void draw_sprites(t_data *data)
 					data->sprites[x].angle += 2 * M_PI;
 				data->sprites[x].angle = fabs(data->sprites[x].angle);
 				data->sprites[x].vis = 0;
-				if (data->sprites[x].angle < D_rays + 0.2)
+				if (data->sprites[x].angle < D_RAYS + 0.2)
 					data->sprites[x].vis = 1;
 				data->sprites[x].distance = sqrt(pow(data->sprites[x].x - data->player.x,2) + pow(data->sprites[x].y - data->player.y,2));
 				x++;
@@ -103,18 +103,18 @@ void draw_sprites(t_data *data)
 		if (data->sprites[x].vis == 1)
 		{
 			t_point txtr_off;
-			double distance_to_proj = (W_width / 2)  / tan(rad / 2);
+			double distance_to_proj = (W_WIDTH / 2)  / tan(rad / 2);
 			double sprite_height = (Z / data->sprites[x].distance) * distance_to_proj;
 			double sprite_width = sprite_height;
-			double sprite_topY = (W_height / 2) - (sprite_height /  2);
+			double sprite_topY = (W_HEIGHT / 2) - (sprite_height /  2);
 			if (sprite_topY < 0)
 				sprite_topY = 0;
-			double sprite_bottomY = (W_height / 2) + (sprite_height /  2);
-			if (sprite_bottomY > W_height)
-				sprite_bottomY = W_height;
+			double sprite_bottomY = (W_HEIGHT / 2) + (sprite_height /  2);
+			if (sprite_bottomY > W_HEIGHT)
+				sprite_bottomY = W_HEIGHT;
 			data->sprites[x].angle = normalize(atan2(t.y, t.x) - data->player.teta);
 			double sprite_sc_posX = tan(data->sprites[x].angle) * distance_to_proj;
-			double sprite_leftX = (W_width / 2) + sprite_sc_posX;
+			double sprite_leftX = (W_WIDTH / 2) + sprite_sc_posX;
 			double sprite_rightX = sprite_leftX + sprite_width;
 			i = sprite_leftX;
 			t_texture tx = data->sprites[x].tx;
@@ -125,7 +125,7 @@ void draw_sprites(t_data *data)
 				j = sprite_topY;
 				while(j < sprite_bottomY)
 				{
-					double distance_from_top = j + (sprite_height / 2 ) - (W_height / 2);
+					double distance_from_top = j + (sprite_height / 2 ) - (W_HEIGHT / 2);
 					txtr_off.y = distance_from_top * (tx.height / sprite_height);
 					if (tx.tab[(tx.width * (int)txtr_off.y) + (int)txtr_off.x] != 16711935 && data->sprites[x].distance < data->r[i].distance)
 						my_mlx_pixel_put(&data->window, i, j, tx.tab[(tx.width * (int)txtr_off.y) + (int)txtr_off.x]);
@@ -144,7 +144,7 @@ int draw(t_data *data)
 	t_segment seg;
 
 	mlx_clear_window(data->window.mlx, data->window.mlx_win);
-	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
+	data->window.img = mlx_new_image(data->window.mlx, W_WIDTH, W_HEIGHT);
 	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
 								&data->window.endian);
 	move_map(data);
@@ -168,7 +168,7 @@ void	rotate_player(t_data *data)
 	t_segment seg;
 
 	mlx_clear_window(data->window.mlx, data->window.mlx_win);
-	data->window.img = mlx_new_image(data->window.mlx, W_width, W_height);
+	data->window.img = mlx_new_image(data->window.mlx, W_WIDTH, W_HEIGHT);
 	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
 								&data->window.endian);
 	draw_background(data);
@@ -236,14 +236,14 @@ int draw_minimap_frame(t_data *data)
 	int j = 0;
 	t_point p;
 	
-	while(i < mini_cub)
+	while(i < MINI_CUB)
 	{
 		p.x = 0;
 		p.y = i * Z ;
 		j = 0;
-		while(j < mini_cub)
+		while(j < MINI_CUB)
 		{
-			if ((i == 0 || (i == mini_cub - 1)) || (j == 0 || (j == mini_cub - 1)))
+			if ((i == 0 || (i == MINI_CUB - 1)) || (j == 0 || (j == MINI_CUB - 1)))
 				ft_block(data, p.x,p.y,0);	
 			else
 				ft_block(data, p.x,p.y,10676939);	
