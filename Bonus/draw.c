@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/19 00:27:19 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/19 19:46:07 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void draw_sprites(t_data *data)
 		{
 			if (data->map[j][i] == '3')
 			{
-				data->sprites[x].y = (j * Z) + data->map_y;
-				data->sprites[x].x = (i * Z) + data->map_x;
+				data->sprites[x].y = (j * Z) + data->map_y + (Z / 2);
+				data->sprites[x].x = (i * Z) + data->map_x + (Z / 2);
 				data->sprites[x].tx = data->txtr.sp;
 				t.y =  data->sprites[x].y - data->player.y;
 				t.x =  data->sprites[x].x - data->player.x;
@@ -112,9 +112,11 @@ void draw_sprites(t_data *data)
 			double sprite_bottomY = (W_HEIGHT / 2) + (sprite_height /  2);
 			if (sprite_bottomY > W_HEIGHT)
 				sprite_bottomY = W_HEIGHT;
+			t.y =  data->sprites[x].y - data->player.y;
+			t.x =  data->sprites[x].x - data->player.x;
 			data->sprites[x].angle = normalize(atan2(t.y, t.x) - data->player.teta);
 			double sprite_sc_posX = tan(data->sprites[x].angle) * distance_to_proj;
-			double sprite_leftX = (W_WIDTH / 2) + sprite_sc_posX;
+			double sprite_leftX = (W_WIDTH / 2) + sprite_sc_posX  - (sprite_width / 2);
 			double sprite_rightX = sprite_leftX + sprite_width;
 			i = sprite_leftX;
 			t_texture tx = data->sprites[x].tx;
@@ -199,16 +201,7 @@ int draw_minimap(t_data *data)
 		while(data->map[i][j])
 		{
 			if (data->map[i][j] == ' ');
-			else if ((data->map[i][j] == '0') || check_player(data->map[i][j]));
-			else if (data->map[i][j] == '3')
-			{
-				t.x = (j * Z) - 2 + data->map_x + (Z / 2);
-				t.y = (i * Z) - 2 + data->map_y + (Z / 2);
-				if (data->sprites[0].vis == 1)
-					player_symbol(data,t.x,t.y, 0xEEC643);
-				else
-					player_symbol(data,t.x,t.y, 0);
-			}
+			else if ((data->map[i][j] == '0') || (data->map[i][j] == '3') || check_player(data->map[i][j]));
 			else
 				ft_block2(data, p.x,p.y,get_color(data->map[i][j]));
 			p.x += Z;
@@ -219,8 +212,8 @@ int draw_minimap(t_data *data)
 	i = 0;
 	while(i < data->sp)
 	{
-		t.x = data->sprites[i].x + (Z / 2) - 2;
-		t.y = data->sprites[i].y + (Z / 2) - 2;
+		t.x = data->sprites[i].x - 2;
+		t.y = data->sprites[i].y - 2;
 		if (data->sprites[0].vis == 1)
 			player_symbol(data,t.x,t.y, 0xEEC643);
 		else
