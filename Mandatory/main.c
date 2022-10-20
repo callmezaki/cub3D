@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/18 21:52:10 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/20 22:01:54 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,12 +247,12 @@ void get_player_data(t_data *data)
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 0;
-	while (data->map[i])
+	i = -1;
+	j = -1;
+	while (data->map[++i])
 	{
-		j = 1;
-		while (data->map[i][j])
+		j = 0;
+		while (data->map[i][++j])
 		{
 			if (check_player(data->map[i][j]))
 			{
@@ -269,9 +269,7 @@ void get_player_data(t_data *data)
 					data->player.teta = M_PI;
 				break ;
 			}
-			j++;
 		}
-		i++;
 	}
 }
 

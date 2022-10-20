@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/18 20:49:52 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/20 23:47:55 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,19 @@ int	check_valid_chars(char **s)
 	return (1);
 }
 
+int	check_line_comp(char **s, int t, int i)
+{
+	while (s[i])
+	{
+		t = ft_strlen(s[i]) - 1;
+		if ((s[i][t] != ' ' && s[i][t] != '1')
+			|| (s[i][0] != ' ' && s[i][0] != '1'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	check_line(char **s)
 {
 	int	i;
@@ -39,6 +52,7 @@ int	check_line(char **s)
 	int	len;
 	int	t;
 
+	t = 0;
 	i = 0;
 	j = 0;
 	len = tab_len(s) -1;
@@ -55,14 +69,8 @@ int	check_line(char **s)
 			return (0);
 		j++;
 	}
-	while (s[i])
-	{
-		t = ft_strlen(s[i]) - 1;
-		if ((s[i][t] != ' ' && s[i][t] != '1')
-			|| (s[i][0] != ' ' && s[i][0] != '1'))
-			return (0);
-		i++;
-	}
+	if (!check_line_comp(s, t, i))
+		return (0);
 	return (1);
 }
 
@@ -101,7 +109,7 @@ char	*intial_map_check(char *s, char **t, t_data *data)
 	char	*a;
 	char	*b;
 	char	*h;
-	int 	p_count;
+	int		p_count;
 
 	i = 0;
 	len = 0;
@@ -143,8 +151,8 @@ char	*intial_map_check(char *s, char **t, t_data *data)
 	i = 1;
 	while (t[i])
 	{
-		a = ft_strtrim(t[i]," ");
-		b = ft_strtrim(t[i-1]," ");
+		a = ft_strtrim(t[i], " ");
+		b = ft_strtrim(t[i - 1], " ");
 		if (!a[0] && b[0])
 		{
 			len++;
