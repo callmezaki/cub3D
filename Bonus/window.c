@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/19 00:22:26 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/20 00:14:11 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,7 @@ int key_press(int key, t_data *data)
 	{
 		exit_n_free(data, 0);
 	}
-	else if (key == KEY_SPACE)
-	{
-		if (data->open_door == 0)
-		{
-			if (data->map[(int)((p.y - Z) / Z)][(int)((p.x) / Z)] == '2' || data->map[(int)((p.y + Z) / Z)][(int)((p.x) / Z)] == '2'\
-			|| data->map[(int)((p.y) / Z)][(int)((p.x - Z) / Z)] == '2' || data->map[(int)((p.y) / Z)][(int)((p.x + Z) / Z)] == '2' || data->map[(int)((p.y) / Z)][(int)((p.x) / Z)] == '2')
-			{
-				data->open_door = 1;
-			}
-		}
-		else
-		{
-			if (data->map[(int)((p.y) / Z)][(int)((p.x) / Z)] != '2')
-				data->open_door = 0;
-		}
-		draw(data);
-	}
+
 	return(0);
 }
 

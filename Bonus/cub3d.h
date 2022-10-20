@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/19 19:34:06 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/20 01:14:15 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,20 @@ typedef struct s_ray
 	double distance;
 	double alpha;
 	int	h_or_v;
+	int	h_or_v_door;
+	int hit_door;
+	double x_door;
+	double y_door;
+	double dis_door;
 } t_ray;
+
+typedef struct s_door
+{
+	int is_door;
+	int v_door;
+	int h_door;
+	int	h_or_v;
+} t_door;
 
 typedef struct s_block
 {
@@ -155,6 +168,7 @@ typedef struct s_data
 	t_player player;
 	t_window window;
 	t_block  block;
+	t_door door;
 	t_txtr txtr;
 	t_ray  *r;
 	t_distance distance;
