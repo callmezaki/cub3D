@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/20 22:48:18 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:43:46 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,22 +125,6 @@ typedef struct s_txtr
 	t_texture	west;
 }	t_txtr;
 
-typedef struct s_dwvars
-{
-	int			i;
-	int			j;
-	t_point		txtr_off;
-	double		x;
-	double		a;
-	double		rad;
-	t_texture	tx;
-	double		per_distance;
-	double		distance_to_proj;
-	double		proj_wall_height;
-	int			wall_top_pixel;
-	int			wall_bottom_pixel;
-}	t_dwvars;
-
 typedef struct s_data
 {
 	char		*NO;
@@ -156,11 +140,6 @@ typedef struct s_data
 	t_txtr		txtr;
 	t_ray		*r;
 	t_distance	distance;
-	t_point		ply;
-	t_point		stp;
-	t_point		first_inter;
-	t_point		a;
-	t_point		t;
 	int			map_width;
 	int			map_height;
 	double		map_x;

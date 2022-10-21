@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/20 01:14:15 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:57:07 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ typedef struct s_ray
 
 typedef struct s_door
 {
-	int is_door;
+	int h_is_door;
+	int v_is_door;
 	int v_door;
 	int h_door;
 	int	h_or_v;

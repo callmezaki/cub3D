@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/20 01:42:25 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:45:16 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,46 +90,21 @@ t_texture which_texture(t_data *data,int i)
 t_texture which_door_texture(t_data *data,int i)
 {
 	(void)i;
-	return(data->txtr.door);
-	// t_point p;
-	// p.y = data->r[i].y - data->map_y; 
-	// p.x = data->r[i].x - data->map_x; 
-	// if (data->r[i].h_or_v == 1)
-	// {
-	// 	if (normalize(data->r[i].alpha) >= M_PI
-	// 		&& normalize(data->r[i].alpha) < 2 * M_PI)
-	// 	{
-	// 		if (data->map[(int)((p.y - STEP) / Z)][(int)((p.x) / Z)] == '2')
-	// 			return(data->txtr.door);
-	// 		else
-	// 			return(data->txtr.north);
-	// 	}
-	// 	else
-	// 	{			
-	// 		if (data->map[(int)((p.y + STEP) / Z)][(int)((p.x) / Z)] == '2')
-	// 			return(data->txtr.door);
-	// 		else
-	// 			return(data->txtr.south);
-	// 	}
-	// }
-	// else
-	// {
-	// 	if (normalize(data->r[i].alpha) >= (M_PI / 2)
-	// 		&& normalize(data->r[i].alpha) < 3 * (M_PI / 2))
-	// 	{
-	// 		if (data->map[(int)((p.y) / Z)][(int)((p.x - STEP) / Z)] == '2')
-	// 			return(data->txtr.door);
-	// 		else 
-	// 			return(data->txtr.east);
-	// 	}
-	// 	else
-	// 	{
-	// 		if (data->map[(int)((p.y) / Z)][(int)((p.x + STEP) / Z)] == '2')
-	// 			return(data->txtr.door);
-	// 		else 
-	// 			return(data->txtr.west);
-	// 	}
-	// }	
+	// double perp = data->r[i].dis_door * cos(data->r[i].alpha - data->player.teta);
+	if (data->r[i].dis_door > 44)
+	{
+
+		return(data->txtr.door);
+	}
+	else if (data->r[i].dis_door < 44 && data->r[i].dis_door > 34)
+	{
+		return(data->txtr.south);
+	}
+	else
+	{
+		return(data->txtr.sp);
+	}
+		
 }
 void cast_door_ray(t_data *data, int i)
 {
@@ -149,6 +124,8 @@ void cast_door_ray(t_data *data, int i)
 	txtr_off.x = txtr_off.x - floor(txtr_off.x);
 	txtr_off.x *= tx.width;
 	double per_distance = data->r[i].dis_door * cos(data->r[i].alpha - data->player.teta);
+	if ((data->r[i].distance * cos(data->r[i].alpha - data->player.teta)) < per_distance)
+		return ;
 	double distance_to_proj = (W_WIDTH / 2)  / tan(rad / 2);
 	double proj_wall_height = (Z / per_distance) * distance_to_proj;
 	a = (int)proj_wall_height;
@@ -163,8 +140,7 @@ void cast_door_ray(t_data *data, int i)
 		txtr_off.y = (j + k) * (tx.height / (a));
 		txtr_off.y = floor(txtr_off.y);
 		txtr_off.y *= tx.width;
-		if (data->r[i].distance >= data->r[i].dis_door) 
-			my_mlx_pixel_put(&data->window, i, j, 0xfffffff);
+		my_mlx_pixel_put(&data->window, i, j, 0xfffffff);
 		j++;
 	}
 }
