@@ -6,105 +6,119 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/19 00:29:36 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/20 23:15:15 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	h_distance_calc(t_data *data, double beta)
+{
+	data->ply.x = data->player.x - data->map_x;
+	data->ply.y = data->player.y - data->map_y;
+	data->first_inter.y = floor(data->ply.y / Z) * Z;
+	if (facing_down(beta))
+		data->first_inter.y += Z;
+	data->first_inter.x = data->ply.x
+		+ ((data->first_inter.y - data->ply.y) / tan(beta));
+	data->stp.y = Z;
+	if (!facing_down(beta))
+		data->stp.y *= -1;
+	data->stp.x = Z / tan(beta);
+	if ((!facing_right(beta) && data->stp.x > 0)
+		|| (facing_right(beta) && data->stp.x < 0))
+		data->stp.x *= -1;
+}
+
+void	h_distance_calc2(t_data *data, double beta)
+{
+	data->t.x = data->first_inter.x;
+	data->t.y = data->first_inter.y;
+	if (!facing_down(beta))
+		data->t.y -= 1;
+	data->a.x = data->t.x / Z;
+	data->a.y = data->t.y / Z;
+}
+
 double	h_distance(t_data *data, double beta)
 {
-	t_point	a;
-	t_point	first_inter;
-	t_point	t;
-	t_point	stp;
 	double	h;
-	t_point	ply;
 
-	ply.x = data->player.x - data->map_x;
-	ply.y = data->player.y - data->map_y;
-	first_inter.y = floor(ply.y / Z) * Z;
-	if (facing_down(beta))
-		first_inter.y += Z;
-	first_inter.x = ply.x + ((first_inter.y - ply.y) / tan(beta));
-	stp.y = Z;
-	if (!facing_down(beta))
-		stp.y *= -1;
-	stp.x = Z / tan(beta);
-	if ((!facing_right(beta) && stp.x > 0) || (facing_right(beta) && stp.x < 0))
-		stp.x *= -1;
+	h_distance_calc(data, beta);
 	while (1)
 	{
-		t.x = first_inter.x;
-		t.y = first_inter.y;
-		if (!facing_down(beta))
-			t.y -= 1;
-		a.x = t.x / Z;
-		a.y = t.y / Z;
-		if (a.y >= data->map_height || a.y < 0
-			|| a.x > get_map_width(data, a.y) || a.x < 0)
+		h_distance_calc2(data, beta);
+		if (data->a.y >= data->map_height || data->a.y < 0
+			|| data->a.x > get_map_width(data, data->a.y) || data->a.x < 0)
 		{			
-			h = sqrt(pow(first_inter.x - ply.x, 2)
-					+ pow(first_inter.y - ply.y, 2));
+			h = sqrt(pow(data->first_inter.x - data->ply.x, 2)
+					+ pow(data->first_inter.y - data->ply.y, 2));
 			return (h);
 		}
-		if (data->map[(int)a.y][(int)a.x] != '0'
-			&& !check_player(data->map[(int)a.y][(int)a.x]))
+		if (data->map[(int)data->a.y][(int)data->a.x] != '0'
+			&& !check_player(data->map[(int)data->a.y][(int)data->a.x]))
 		{
-			h = sqrt(pow(first_inter.x - ply.x, 2)
-					+ pow(first_inter.y - ply.y, 2));
+			h = sqrt(pow(data->first_inter.x - data->ply.x, 2)
+					+ pow(data->first_inter.y - data->ply.y, 2));
 			return (h);
 		}
-		first_inter.x += stp.x;
-		first_inter.y += stp.y;
+		data->first_inter.x += data->stp.x;
+		data->first_inter.y += data->stp.y;
 	}
+}
+
+void	v_distance_calc(t_data *data, double beta)
+{
+	data->ply.x = data->player.x - data->map_x;
+	data->ply.y = data->player.y - data->map_y;
+	data->first_inter.x = floor(data->ply.x / Z) * Z;
+	if (facing_right(beta))
+		data->first_inter.x += Z;
+	data->first_inter.y = data->ply.y
+		+ ((data->first_inter.x - data->ply.x) * tan(beta));
+	data->stp.x = Z;
+	if (!facing_right(beta))
+		data->stp.x *= -1;
+	data->stp.y = Z * tan(beta);
+	if ((!facing_down(beta) && data->stp.y > 0)
+		|| (facing_down(beta) && data->stp.y < 0))
+		data->stp.y *= -1;
+}
+
+void	v_distance_calc2(t_data *data, double beta)
+{
+	data->t.x = data->first_inter.x;
+	data->t.y = data->first_inter.y;
+	if (!facing_right(beta))
+		data->t.x -= 1;
+	data->a.x = data->t.x / Z;
+	data->a.y = data->t.y / Z;
 }
 
 double	v_distance(t_data *data, double beta)
 {
-	t_point	a;
-	t_point	first_inter;
-	t_point	t;
-	t_point	stp;
 	double	h;
-	t_point	ply;
 
-	ply.x = data->player.x - data->map_x;
-	ply.y = data->player.y - data->map_y;
-	first_inter.x = floor(ply.x / Z) * Z;
-	if (facing_right(beta))
-		first_inter.x += Z;
-	first_inter.y = ply.y + ((first_inter.x - ply.x) * tan(beta));
-	stp.x = Z;
-	if (!facing_right(beta))
-		stp.x *= -1;
-	stp.y = Z * tan(beta);
-	if ((!facing_down(beta) && stp.y > 0) || (facing_down(beta) && stp.y < 0))
-		stp.y *= -1;
+	v_distance_calc(data, beta);
 	while (1)
 	{
-		t.x = first_inter.x;
-		t.y = first_inter.y;
-		if (!facing_right(beta))
-			t.x -= 1;
-		a.x = t.x / Z;
-		a.y = t.y / Z;
-		if (a.y >= data->map_height || a.y < 0
-			|| a.x > get_map_width(data, a.y) || a.x < 0)
+		v_distance_calc2(data, beta);
+		if (data->a.y >= data->map_height || data->a.y < 0
+			|| data->a.x > get_map_width(data, data->a.y) || data->a.x < 0)
 		{			
-			h = sqrt(pow(first_inter.x - ply.x, 2)
-					+ pow(first_inter.y - ply.y, 2));
+			h = sqrt(pow(data->first_inter.x - data->ply.x, 2)
+					+ pow(data->first_inter.y - data->ply.y, 2));
 			return (h);
 		}
-		if (data->map[(int)a.y][(int)a.x] != '0'
-				&& !check_player(data->map[(int)a.y][(int)a.x]))
+		if (data->map[(int)data->a.y][(int)data->a.x] != '0'
+				&& !check_player(data->map[(int)data->a.y][(int)data->a.x]))
 		{
-			h = sqrt(pow(first_inter.x - ply.x, 2)
-					+ pow(first_inter.y - ply.y, 2));
+			h = sqrt(pow(data->first_inter.x - data->ply.x, 2)
+					+ pow(data->first_inter.y - data->ply.y, 2));
 			return (h);
 		}
-		first_inter.x += stp.x;
-		first_inter.y += stp.y;
+		data->first_inter.x += data->stp.x;
+		data->first_inter.y += data->stp.y;
 	}
 }
 

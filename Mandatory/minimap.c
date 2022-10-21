@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/19 00:30:42 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/20 23:36:38 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,53 +55,47 @@ t_texture	which_texture(t_data *data, int i)
 	}	
 }
 
+void	draw_walls_calc(t_data *data, t_dwvars	*dw)
+{
+	dw->txtr_off.x = dw->txtr_off.x - floor(dw->txtr_off.x);
+	dw->txtr_off.x *= dw->tx.width;
+	dw->per_distance = data->r[dw->i].distance * cos(data->r[dw->i].alpha
+			- data->player.teta);
+	dw->distance_to_proj = (W_WIDTH / 2) / tan(dw->rad / 2);
+	dw->proj_wall_height = (Z / dw->per_distance) * dw->distance_to_proj;
+	dw->a = (int)dw->proj_wall_height;
+	if (dw->proj_wall_height > W_HEIGHT)
+	dw->proj_wall_height = W_HEIGHT;
+	dw->wall_top_pixel = (W_HEIGHT / 2) - ((int)dw->proj_wall_height / 2);
+	dw->wall_bottom_pixel = (W_HEIGHT / 2) + ((int)dw->proj_wall_height / 2);
+	dw->x = (dw->a / 2) - (W_HEIGHT / 2);
+	dw->j = dw->wall_top_pixel;
+}
+
 void	draw_walls(t_data *data)
 {
-	int			i;
-	int			j;
-	t_point		txtr_off;
-	double		x;
-	double		a;
-	double		rad;
-	t_texture	tx;
-	double 		per_distance;
-	double 		distance_to_proj;
-	double		proj_wall_height;
-	int			wall_top_pixel;
-	int			wall_bottom_pixel;
+	t_dwvars	dw;
 
-	rad = (FOV) * (M_PI / 180);
-	i = 0;
-	while (i < RAYS)
+	dw.rad = (FOV) * (M_PI / 180);
+	dw.i = 0;
+	while (dw.i < RAYS)
 	{
-		tx = which_texture(data, i);
-		if (data->r[i].h_or_v == 2)
-			txtr_off.x = (data->r[i].y - data->map_y) / Z;
+		dw.tx = which_texture(data, dw.i);
+		if (data->r[dw.i].h_or_v == 2)
+			dw.txtr_off.x = (data->r[dw.i].y - data->map_y) / Z;
 		else
-			txtr_off.x = (data->r[i].x - data->map_x) / Z;
-		txtr_off.x = txtr_off.x - floor(txtr_off.x);
-		txtr_off.x *= tx.width;
-		per_distance = data->r[i].distance * cos(data->r[i].alpha
-				- data->player.teta);
-		distance_to_proj = (W_WIDTH / 2) / tan(rad / 2);
-		proj_wall_height = (Z / per_distance) * distance_to_proj;
-		a = (int)proj_wall_height;
-		if (proj_wall_height > W_HEIGHT)
-			proj_wall_height = W_HEIGHT;
-		wall_top_pixel = (W_HEIGHT / 2) - ((int)proj_wall_height / 2);
-		wall_bottom_pixel = (W_HEIGHT / 2) + ((int)proj_wall_height / 2);
-		x = (a / 2) - (W_HEIGHT / 2);
-		j = wall_top_pixel;
-		while (j < wall_bottom_pixel)
+			dw.txtr_off.x = (data->r[dw.i].x - data->map_x) / Z;
+		draw_walls_calc(data, &dw);
+		while (dw.j < dw.wall_bottom_pixel)
 		{
-			txtr_off.y = (j + x) * (tx.height / (a));
-			txtr_off.y = floor(txtr_off.y);
-			txtr_off.y *= tx.width;
-			my_mlx_pixel_put(&data->window, i, j,
-				tx.tab[(int)txtr_off.x + (int)txtr_off.y]);
-			j++;
+			dw.txtr_off.y = (dw.j + dw.x) * (dw.tx.height / (dw.a));
+			dw.txtr_off.y = floor(dw.txtr_off.y);
+			dw.txtr_off.y *= dw.tx.width;
+			my_mlx_pixel_put(&data->window, dw.i, dw.j,
+				dw.tx.tab[(int)dw.txtr_off.x + (int)dw.txtr_off.y]);
+			dw.j++;
 		}
-		i++;
+		dw.i++;
 	}
 }
 
@@ -119,7 +113,7 @@ int	facing_right(double beta)
 	return (0);
 }
 
-double	findMod(double a, double b)
+double	findmod(double a, double b)
 {
 	double	mod;
 
@@ -138,7 +132,7 @@ double	findMod(double a, double b)
 
 double	normalize(double teta)
 {
-	teta = findMod(teta, 2 * M_PI);
+	teta = findmod(teta, 2 * M_PI);
 	if (teta < 0)
 		teta += (M_PI * 2);
 	return (teta);
