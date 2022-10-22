@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda.c                                              :+:      :+:    :+:   */
+/*   DDA.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:47:40 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/19 00:23:12 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/21 19:30:42 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void dda(t_data *data, t_segment segment,int color)
 {
-	float incx;
-	float incy;
+	double incx;
+	double incy;
 	int dx;
 	int dy;
 	int stp;
@@ -27,8 +27,8 @@ void dda(t_data *data, t_segment segment,int color)
 		stp = abs(dx);
 	else
 		stp = abs(dy);
-	incx = (float)dx/stp;
-	incy = (float)dy/stp;
+	incx = (double)dx/stp;
+	incy = (double)dy/stp;
 	while(i <= stp)
 	{
 		my_mlx_pixel_put(&data->window, segment.x0, segment.y0, color);
@@ -41,8 +41,8 @@ void dda(t_data *data, t_segment segment,int color)
 
 void dda2(t_data *data, t_segment s,int color)
 {
-	float incx;
-	float incy;
+	double incx;
+	double incy;
 	int dx;
 	int dy;
 	int stp;
@@ -54,8 +54,8 @@ void dda2(t_data *data, t_segment s,int color)
 		stp = abs(dx);
 	else
 		stp = abs(dy);
-	incx = (float)dx/stp;
-	incy = (float)dy/stp;
+	incx = (double)dx/stp;
+	incy = (double)dy/stp;
 	while(i <= stp)
 	{
 		if (s.x0 > Z && s.x0 < Z * (MINI_CUB -1) && s.y0 > Z && s.y0 < Z * (MINI_CUB -1))

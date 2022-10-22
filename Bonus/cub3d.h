@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/20 17:57:07 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/22 01:25:14 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ typedef struct s_door
 {
 	int h_is_door;
 	int v_is_door;
-	int v_door;
-	int h_door;
+	double v_door;
+	double h_door;
 	int	h_or_v;
 } t_door;
 
@@ -178,6 +178,7 @@ typedef struct s_data
 	double map_x;
 	double map_y;
 	int open_door;
+	int an;
 	t_point centre_p;
 	t_sprite *sprites;
 	int sp;
@@ -215,6 +216,7 @@ int		facing_down(double beta);
 int		rgb_to_dec(t_color color);
 void	move_map(t_data *data);
 void	player_symbol(t_data *data, double x, double y,int color);
+void draw_sprites(t_data *data);
 
 
 //parsing

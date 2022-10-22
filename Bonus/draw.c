@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/19 19:46:07 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/22 00:11:20 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,40 @@ void sort_sprites(t_data *data)
 	}
 }
 
-void draw_sprites(t_data *data)
+t_texture which_sprite_texture(t_data *data)
+{
+	if (data->an > 60)
+		data->an  = 0;
+	if (data->an >= 0 && data->an <= 20)
+	{
+		data->an++;
+		return(data->txtr.door);
+	}
+	else if (data->an > 20 && data->an <= 40)
+	{
+		// printf("here\n");
+		data->an++;	
+		return(data->txtr.south);
+	}
+	else if(data->an > 40 && data->an <= 60)
+	{
+		data->an++;	
+		return(data->txtr.sp);
+	}
+	else
+	{
+		data->an++;
+		return(data->txtr.sp);
+	}
+	// return(data->txtr.sp);
+}
+
+void get_sprite_data(t_data *data)
 {
 	int i;
 	int j = 0;
 	int x = 0;
 	t_point t;
-	double rad = (FOV) * (M_PI / 180);
 
 	data->sprites = malloc(sizeof(t_sprite) * data->sp);
 	while(data->map[j])
@@ -97,11 +124,23 @@ void draw_sprites(t_data *data)
 		j++;
 	}
 	sort_sprites(data);
+}
+
+void draw_sprites(t_data *data)
+{
+	int i;
+	int j = 0;
+	int x = 0;
+	t_point t;
+	double rad = (FOV) * (M_PI / 180);
+
 	x = 0;
+	
 	while(x < data->sp)
 	{
 		if (data->sprites[x].vis == 1)
 		{
+			t_texture tx = which_sprite_texture(data);
 			t_point txtr_off;
 			double distance_to_proj = (W_WIDTH / 2)  / tan(rad / 2);
 			double sprite_height = (Z / data->sprites[x].distance) * distance_to_proj;
@@ -119,7 +158,6 @@ void draw_sprites(t_data *data)
 			double sprite_leftX = (W_WIDTH / 2) + sprite_sc_posX  - (sprite_width / 2);
 			double sprite_rightX = sprite_leftX + sprite_width;
 			i = sprite_leftX;
-			t_texture tx = data->sprites[x].tx;
 			while(i < sprite_rightX)
 			{
 				double t = (tx.width / sprite_width);
@@ -137,8 +175,7 @@ void draw_sprites(t_data *data)
 			}
 		}
 		x++;
-	}
-	
+	}	
 }
 
 int draw(t_data *data)
@@ -154,37 +191,38 @@ int draw(t_data *data)
 	move_player(data);
 	claculate_rays(data);
 	draw_walls(data);
+	get_sprite_data(data);
 	draw_sprites(data);
 	draw_minimap_frame(data);
 	draw_rays(&seg, data);
-	free(data->r);
 	draw_minimap(data);
+	free(data->r);
 	player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
 	mlx_destroy_image(data->window.mlx, data->window.img);
 	return(0);
 }
 
-void	rotate_player(t_data *data)
-{
-	t_segment seg;
+// void	rotate_player(t_data *data)
+// {
+// 	t_segment seg;
 
-	mlx_clear_window(data->window.mlx, data->window.mlx_win);
-	data->window.img = mlx_new_image(data->window.mlx, W_WIDTH, W_HEIGHT);
-	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
-								&data->window.endian);
-	draw_background(data);
-	claculate_rays(data);
-	draw_walls(data);
-	draw_sprites(data);
-	draw_minimap_frame(data);
-	draw_rays(&seg, data);
-	free(data->r);
-	draw_minimap(data);
-	player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
-	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
-	mlx_destroy_image(data->window.mlx, data->window.img);
-}
+// 	mlx_clear_window(data->window.mlx, data->window.mlx_win);
+// 	data->window.img = mlx_new_image(data->window.mlx, W_WIDTH, W_HEIGHT);
+// 	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
+// 								&data->window.endian);
+// 	draw_background(data);
+// 	claculate_rays(data);
+// 	draw_walls(data);
+// 	draw_sprites(data);
+// 	draw_minimap_frame(data);
+// 	draw_rays(&seg, data);
+// 	free(data->r);
+// 	draw_minimap(data);
+// 	player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
+// 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
+// 	mlx_destroy_image(data->window.mlx, data->window.img);
+// }
 
 int draw_minimap(t_data *data)
 {
