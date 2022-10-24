@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/21 22:19:51 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/24 22:47:11 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,11 +146,5 @@ void	init_window(t_data *data)
 	get_texture(data);
 	draw(data);
 	mlx_loop_hook(data->window.mlx, run, data);
-	mlx_hook(data->window.mlx_win, 2, 1L << 0, key_press, data);
-	mlx_hook(data->window.mlx_win, 3, 0L, key_release, data);
-	mlx_hook(data->window.mlx_win, 17, 0, you_quit, NULL);
-	mlx_hook(data->window.mlx_win, 4, 0L, mouse_press, data);
-	mlx_hook(data->window.mlx_win, 5, 0L, mouse_release, data);
-	mlx_hook(data->window.mlx_win, 6, 0L, mouse_move, data);
 	mlx_loop(data->window.mlx);
 }

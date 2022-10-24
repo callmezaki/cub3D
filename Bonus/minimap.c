@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/22 01:24:26 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/24 23:09:39 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,18 @@ int run(t_data *data)
 	// data->window.img = mlx_new_image(data->window.mlx, W_WIDTH, W_HEIGHT);
 	// data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
 	// 							&data->window.endian);
-	// if (data->player.walkdirection != 0 || data->player.turndirection != 0)
+	if (data->player.walkdirection != 0)
+		draw(data);
+	else if (data->player.turndirection != 0)
 		draw(data);
 	// else 
 		// draw_sprites(data);
+	mlx_hook(data->window.mlx_win, 2, 1L << 0, key_press, data);
+	mlx_hook(data->window.mlx_win, 3, 0L, key_release, data);
+	mlx_hook(data->window.mlx_win, 17, 0, you_quit, NULL);
+	mlx_hook(data->window.mlx_win, 4, 0L, mouse_press, data);
+	mlx_hook(data->window.mlx_win, 5, 0L, mouse_release, data);
+	mlx_hook(data->window.mlx_win, 6, 0L, mouse_move, data);
 	// mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
 	// mlx_destroy_image(data->window.mlx, data->window.img);
 	return(0);
@@ -132,8 +140,8 @@ void cast_door_ray(t_data *data, int i)
 	a = (int)proj_wall_height;
 	if (proj_wall_height > W_HEIGHT)
 		proj_wall_height =  W_HEIGHT;
-	int wall_top_pixel = (W_HEIGHT / 2) - (a / 2);
-	int wall_bottom_pixel = (W_HEIGHT / 2) + (a / 2);
+	int wall_top_pixel = (W_HEIGHT / 2) - ((int)proj_wall_height / 2);
+	int wall_bottom_pixel = (W_HEIGHT / 2) + ((int)proj_wall_height / 2);
 	k =  (a / 2) - (W_HEIGHT / 2);
 	j = wall_top_pixel;
 	// printf("door %d \n", j);
@@ -241,17 +249,16 @@ double normalize(double teta)
 
 void	draw_rays(t_segment *seg, t_data *data)
 {
+	
 	int i = 0;
 	seg->x0 = data->player.x;
 	seg->y0 = data->player.y;
 		while(i < RAYS)
 		{
-			// if (data->r[i].hit_door)
-			// {
-					seg->x1 = data->r[i].x;
-					seg->y1 = data->r[i].y;
-					dda2(data, *seg,0xFFFFFFF);
-			// }
+
+			seg->x1 = data->r[i].x;
+			seg->y1 = data->r[i].y;
+			dda2(data, *seg,0xFFFFFFF);
 			i++;
 		}
 }
@@ -269,6 +276,10 @@ void move_player(t_data *data)
 	t_point p;
 	t_point t;
 	
+	p.x = 0.0;
+	p.y = 0.0;
+	t.x = 0.0;
+	t.y = 0.0;
 	data->player.teta = normalize(data->player.teta);
 	data->player.teta += data->player.turndirection * ROTATIONSPEED;
 	if(data->player.sides == 0 && (data->player.walkdirection != 0))

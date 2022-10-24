@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/22 01:25:14 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/24 22:49:08 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,12 @@ int		rgb_to_dec(t_color color);
 void	move_map(t_data *data);
 void	player_symbol(t_data *data, double x, double y,int color);
 void draw_sprites(t_data *data);
+int mouse_press(int key, int x, int y, t_data *data);
+int mouse_release(int key, int x, int y, t_data *data);
+int mouse_move(int x, int y, t_data *data);
+int key_release(int key, t_data *data);
+int key_press(int key, t_data *data);
+int	you_quit(void);
 
 
 //parsing

@@ -16,7 +16,7 @@ SRC =	cub3d.c         \
 		check_map_utils.c\
 
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -Ofast
 
 OBJS = $(SRC:.c=.o)
 
@@ -24,7 +24,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C libft 
-	@gcc  $(CFLAGS) -I  $(INCLUDE) libft/libft.a -o $@ $^   -lmlx -framework OpenGL -framework AppKit 
+	@gcc  $(CFLAGS) -I  $(INCLUDE) libft/libft.a -o $@ $^   -lmlx -framework OpenGL -framework AppKit
 
 
 man:
