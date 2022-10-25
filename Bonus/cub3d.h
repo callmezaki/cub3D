@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/24 23:45:39 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/25 01:47:16 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,10 @@ typedef struct	s_txtr {
 	t_texture d_f4;
 	t_texture d_f5;
 	t_texture d_f6;
+	t_texture s0;
+	t_texture s1;
+	t_texture s2;
+	t_texture s3;
 	t_texture sp;
 }	t_txtr;
 

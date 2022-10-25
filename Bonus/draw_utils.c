@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:11:26 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/25 01:09:47 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/25 01:53:09 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,18 @@ void	get_texture(t_data *data)
 
 	img = mlx_xpm_file_to_image(data->window.mlx, "../F6.xpm", &data->txtr.d_f6.width, &data->txtr.d_f6.height);
 	data->txtr.d_f6.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+	
+	// img = mlx_xpm_file_to_image(data->window.mlx, "/assets/sprite/R0.xpm", &data->txtr.s0.width, &data->txtr.s0.height);
+	// data->txtr.s0.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+	
+	// img = mlx_xpm_file_to_image(data->window.mlx, "/assets/sprite/R1.xpm", &data->txtr.s1.width, &data->txtr.s1.height);
+	// data->txtr.s1.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+	
+	// img = mlx_xpm_file_to_image(data->window.mlx, "/assets/sprite/R3.xpm", &data->txtr.s2.width, &data->txtr.s2.height);
+	// data->txtr.s2.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+	
+	// img = mlx_xpm_file_to_image(data->window.mlx, "/assets/sprite/R5.xpm", &data->txtr.s3.width, &data->txtr.s3.height);
+	// data->txtr.s3.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
 	
 }
 
