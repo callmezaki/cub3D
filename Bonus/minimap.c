@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/24 23:09:39 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/25 01:23:43 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,13 @@ int get_color(char c)
 
 int run(t_data *data)
 {
-	t_point p;
-	p.y = data->player.y - data->map_y; 
-	p.x = data->player.x - data->map_x; 
-
-	// mlx_clear_window(data->window.mlx, data->window.mlx_win);
-	// data->window.img = mlx_new_image(data->window.mlx, W_WIDTH, W_HEIGHT);
-	// data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
-	// 							&data->window.endian);
-	if (data->player.walkdirection != 0)
-		draw(data);
-	else if (data->player.turndirection != 0)
-		draw(data);
-	// else 
-		// draw_sprites(data);
+	draw(data);
 	mlx_hook(data->window.mlx_win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->window.mlx_win, 3, 0L, key_release, data);
 	mlx_hook(data->window.mlx_win, 17, 0, you_quit, NULL);
 	mlx_hook(data->window.mlx_win, 4, 0L, mouse_press, data);
 	mlx_hook(data->window.mlx_win, 5, 0L, mouse_release, data);
 	mlx_hook(data->window.mlx_win, 6, 0L, mouse_move, data);
-	// mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
-	// mlx_destroy_image(data->window.mlx, data->window.img);
 	return(0);
 }
 
@@ -64,17 +49,11 @@ t_texture which_texture(t_data *data,int i)
 		if (normalize(data->r[i].alpha) >= M_PI
 			&& normalize(data->r[i].alpha) < 2 * M_PI)
 		{
-			if (data->map[(int)((p.y - STEP) / Z)][(int)((p.x) / Z)] == '2')
-				return(data->txtr.door);
-			else
-				return(data->txtr.north);
+			return(data->txtr.north);
 		}
 		else
 		{			
-			if (data->map[(int)((p.y + STEP) / Z)][(int)((p.x) / Z)] == '2')
-				return(data->txtr.door);
-			else
-				return(data->txtr.south);
+			return(data->txtr.south);
 		}
 	}
 	else
@@ -82,38 +61,43 @@ t_texture which_texture(t_data *data,int i)
 		if (normalize(data->r[i].alpha) >= (M_PI / 2)
 			&& normalize(data->r[i].alpha) < 3 * (M_PI / 2))
 		{
-			if (data->map[(int)((p.y) / Z)][(int)((p.x - STEP) / Z)] == '2')
-				return(data->txtr.door);
-			else 
-				return(data->txtr.east);
+			return(data->txtr.east);
 		}
 		else
 		{
-			if (data->map[(int)((p.y) / Z)][(int)((p.x + STEP) / Z)] == '2')
-				return(data->txtr.door);
-			else 
-				return(data->txtr.west);
+			return(data->txtr.west);
 		}
 	}	
 }
 t_texture which_door_texture(t_data *data,int i)
 {
 	(void)i;
-	// // double perp = data->r[i].dis_door * cos(data->r[i].alpha - data->player.teta);
-	// if (data->r[i].dis_door > 44)
+	// if (data->r[i].dis_door <= 35 && data->r[i].dis_door > 30)
 	// {
-
-	// 	return(data->txtr.door);
+	// 	return(data->txtr.d_f1);
 	// }
-	// else if (data->r[i].dis_door < 44 && data->r[i].dis_door > 34)
+	// else if (data->r[i].dis_door <= 30 && data->r[i].dis_door > 25)
 	// {
-	// 	return(data->txtr.south);
+	// 	return(data->txtr.d_f2);
+	// }
+	// else if (data->r[i].dis_door <= 25 && data->r[i].dis_door > 20)
+	// {
+	// 	return(data->txtr.d_f3);
+	// }	
+	// else if (data->r[i].dis_door <= 20 && data->r[i].dis_door > 15)
+	// {
+	// 	return(data->txtr.d_f4);
+	// }
+	// else if (data->r[i].dis_door <= 15 && data->r[i].dis_door > 10)
+	// {
+	// 	return(data->txtr.d_f5);
+	// }
+	// else if (data->r[i].dis_door <= 10)
+	// {
+	// 	return(data->txtr.d_f6);
 	// }
 	// else
-	// {
 		return(data->txtr.door);
-	// }
-		
 }
 
 void cast_door_ray(t_data *data, int i)
@@ -144,14 +128,17 @@ void cast_door_ray(t_data *data, int i)
 	int wall_bottom_pixel = (W_HEIGHT / 2) + ((int)proj_wall_height / 2);
 	k =  (a / 2) - (W_HEIGHT / 2);
 	j = wall_top_pixel;
-	// printf("door %d \n", j);
 	while(j < wall_bottom_pixel)
 	{
 		txtr_off.y = (j + k) * (tx.height / (a));
 		txtr_off.y = floor(txtr_off.y);
 		txtr_off.y *= tx.width;
-		if (tx.tab[(int)txtr_off.x + (int)txtr_off.y] != 14680319)
-			my_mlx_pixel_put(&data->window, i, j,tx.tab[(int)txtr_off.x + (int)txtr_off.y]);
+		if (data->r[i].distance == 0)
+			printf("%d \n",(int)txtr_off.x + (int)txtr_off.y);
+		if (((int)txtr_off.x + (int)txtr_off.y) < (tx.height * tx.width))
+		{
+			my_mlx_pixel_put(&data->window, i, j,0);
+		}
 		j++;
 	}
 }
@@ -168,7 +155,6 @@ void    draw_walls(t_data *data)
 	while(i < RAYS)
 	{
 		tx = which_texture(data,i);
-		// printf("%d\n\n", tx.tab[0]);
 		if(data->r[i].h_or_v == 2)
 			txtr_off.x = (data->r[i].y - data->map_y) / Z;
 		else
@@ -185,7 +171,6 @@ void    draw_walls(t_data *data)
 		int wall_bottom_pixel = (W_HEIGHT / 2) + ((int)proj_wall_height / 2);
 		k =  (a / 2) - (W_HEIGHT / 2);
 		j = wall_top_pixel;
-		// printf("wall %d \n", j);
 		while(j < wall_bottom_pixel)
 		{
 			txtr_off.y = (j + k) * (tx.height / (a));
@@ -278,8 +263,6 @@ void move_player(t_data *data)
 	
 	p.x = 0.0;
 	p.y = 0.0;
-	t.x = 0.0;
-	t.y = 0.0;
 	data->player.teta = normalize(data->player.teta);
 	data->player.teta += data->player.turndirection * ROTATIONSPEED;
 	if(data->player.sides == 0 && (data->player.walkdirection != 0))

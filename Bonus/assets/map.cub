@@ -2,7 +2,7 @@ NO ./assets/wall1.xpm
 SO ./assets/wall2.xpm
 WE ./assets/wall4.xpm
 EA ./assets/wall3.xpm
-DO ../F2.xpm
+DO ./assets/door.xpm
    
 F 70,77,79
 C 29,29,28

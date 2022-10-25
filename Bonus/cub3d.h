@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/24 22:49:08 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/24 23:45:39 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,13 @@ typedef struct	s_txtr {
 	t_texture east;
 	t_texture west;
 	t_texture door;
+	t_texture d_f0;
+	t_texture d_f1;
+	t_texture d_f2;
+	t_texture d_f3;
+	t_texture d_f4;
+	t_texture d_f5;
+	t_texture d_f6;
 	t_texture sp;
 }	t_txtr;
 

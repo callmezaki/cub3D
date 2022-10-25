@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:11:26 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/19 00:32:36 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/25 01:09:47 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,31 @@ void	get_texture(t_data *data)
 	data->txtr.east.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
 	img = mlx_xpm_file_to_image(data->window.mlx, data->WE, &data->txtr.west.width, &data->txtr.west.height);
 	data->txtr.west.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+
 	img = mlx_xpm_file_to_image(data->window.mlx, data->DO, &data->txtr.door.width, &data->txtr.door.height);
 	data->txtr.door.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+	
+	img = mlx_xpm_file_to_image(data->window.mlx, "../F0.xpm", &data->txtr.d_f0.width, &data->txtr.d_f0.height);
+	data->txtr.d_f0.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+	
+	img = mlx_xpm_file_to_image(data->window.mlx, "../F1.xpm", &data->txtr.d_f1.width, &data->txtr.d_f1.height);
+	data->txtr.d_f1.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+
+	img = mlx_xpm_file_to_image(data->window.mlx, "../F2.xpm", &data->txtr.d_f2.width, &data->txtr.d_f2.height);
+	data->txtr.d_f2.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+
+	img = mlx_xpm_file_to_image(data->window.mlx, "../F3.xpm", &data->txtr.d_f3.width, &data->txtr.d_f3.height);
+	data->txtr.d_f3.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+
+	img = mlx_xpm_file_to_image(data->window.mlx, "../F4.xpm", &data->txtr.d_f4.width, &data->txtr.d_f4.height);
+	data->txtr.d_f4.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+
+	img = mlx_xpm_file_to_image(data->window.mlx, "../F5.xpm", &data->txtr.d_f5.width, &data->txtr.d_f5.height);
+	data->txtr.d_f5.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+
+	img = mlx_xpm_file_to_image(data->window.mlx, "../F6.xpm", &data->txtr.d_f6.width, &data->txtr.d_f6.height);
+	data->txtr.d_f6.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
+	
 }
 
 void move_map(t_data *data)

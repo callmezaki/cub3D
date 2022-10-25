@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/24 23:10:01 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/24 23:36:15 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_texture which_sprite_texture(t_data *data)
 	if (data->an >= 0 && data->an <= 20)
 	{
 		data->an++;
-		return(data->txtr.door);
+		return(data->txtr.d_f0);
 	}
 	else if (data->an > 20 && data->an <= 40)
 	{
