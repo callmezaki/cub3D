@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/24 23:36:15 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:57:15 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,28 @@ t_texture which_sprite_texture(t_data *data)
 	if (data->an >= 0 && data->an <= 20)
 	{
 		data->an++;
-		return(data->txtr.d_f0);
+		return(data->txtr.s0);
 	}
 	else if (data->an > 20 && data->an <= 40)
 	{
-		// printf("here\n");
 		data->an++;	
-		return(data->txtr.south);
+		return(data->txtr.s1);
 	}
 	else if(data->an > 40 && data->an <= 60)
 	{
 		data->an++;	
-		return(data->txtr.sp);
+		return(data->txtr.s2);
 	}
+	// else if(data->an > 60 && data->an <= 80)
+	// {
+	// 	data->an++;	
+	// 	return(data->txtr.s3);
+	// }
 	else
 	{
 		data->an++;
-		return(data->txtr.sp);
+		return(data->txtr.s3);
 	}
-	// return(data->txtr.sp);
 }
 
 void get_sprite_data(t_data *data)
@@ -167,7 +170,7 @@ void draw_sprites(t_data *data)
 				{
 					double distance_from_top = j + (sprite_height / 2 ) - (W_HEIGHT / 2);
 					txtr_off.y = distance_from_top * (tx.height / sprite_height);
-					if (tx.tab[(tx.width * (int)txtr_off.y) + (int)txtr_off.x] != 16711935 && data->sprites[x].distance < data->r[i].distance)
+					if (tx.tab[(tx.width * (int)txtr_off.y) + (int)txtr_off.x] != 3642478 && data->sprites[x].distance < data->r[i].distance)
 						my_mlx_pixel_put(&data->window, i, j, tx.tab[(tx.width * (int)txtr_off.y) + (int)txtr_off.x]);
 					j++;
 				}

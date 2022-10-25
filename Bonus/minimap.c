@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/25 01:23:43 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:55:13 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,33 +71,33 @@ t_texture which_texture(t_data *data,int i)
 }
 t_texture which_door_texture(t_data *data,int i)
 {
-	(void)i;
-	// if (data->r[i].dis_door <= 35 && data->r[i].dis_door > 30)
-	// {
-	// 	return(data->txtr.d_f1);
-	// }
-	// else if (data->r[i].dis_door <= 30 && data->r[i].dis_door > 25)
-	// {
-	// 	return(data->txtr.d_f2);
-	// }
-	// else if (data->r[i].dis_door <= 25 && data->r[i].dis_door > 20)
-	// {
-	// 	return(data->txtr.d_f3);
-	// }	
-	// else if (data->r[i].dis_door <= 20 && data->r[i].dis_door > 15)
-	// {
-	// 	return(data->txtr.d_f4);
-	// }
-	// else if (data->r[i].dis_door <= 15 && data->r[i].dis_door > 10)
-	// {
-	// 	return(data->txtr.d_f5);
-	// }
-	// else if (data->r[i].dis_door <= 10)
-	// {
-	// 	return(data->txtr.d_f6);
-	// }
-	// else
-		return(data->txtr.door);
+	// (void)i;
+	if (data->r[i].dis_door <= 35 && data->r[i].dis_door > 30)
+	{
+		return(data->txtr.d_f1);
+	}
+	else if (data->r[i].dis_door <= 30 && data->r[i].dis_door > 25)
+	{
+		return(data->txtr.d_f2);
+	}
+	else if (data->r[i].dis_door <= 25 && data->r[i].dis_door > 20)
+	{
+		return(data->txtr.d_f3);
+	}	
+	else if (data->r[i].dis_door <= 20 && data->r[i].dis_door > 15)
+	{
+		return(data->txtr.d_f4);
+	}
+	else if (data->r[i].dis_door <= 15 && data->r[i].dis_door > 10)
+	{
+		return(data->txtr.d_f5);
+	}
+	else if (data->r[i].dis_door <= 10)
+	{
+		return(data->txtr.d_f6);
+	}
+	else
+		return(data->txtr.d_f0);
 }
 
 void cast_door_ray(t_data *data, int i)
@@ -135,9 +135,9 @@ void cast_door_ray(t_data *data, int i)
 		txtr_off.y *= tx.width;
 		if (data->r[i].distance == 0)
 			printf("%d \n",(int)txtr_off.x + (int)txtr_off.y);
-		if (((int)txtr_off.x + (int)txtr_off.y) < (tx.height * tx.width))
+		if (tx.tab[(int)txtr_off.x + (int)txtr_off.y] != 16711935 && ((int)txtr_off.x + (int)txtr_off.y) < (tx.height * tx.width))
 		{
-			my_mlx_pixel_put(&data->window, i, j,0);
+			my_mlx_pixel_put(&data->window, i, j,tx.tab[(int)txtr_off.x + (int)txtr_off.y]);
 		}
 		j++;
 	}
