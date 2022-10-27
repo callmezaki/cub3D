@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:11:26 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/25 17:05:23 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/26 23:26:44 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	get_texture(t_data *data)
 	data->txtr.east = get_t(data->EA, data->txtr.east,data);
 	data->txtr.west = get_t(data->WE, data->txtr.west,data);
 	data->txtr.door = get_t(data->DO, data->txtr.door,data);
-
+	
 	
 	data->txtr.d_f0 = get_t("../F0.xpm", data->txtr.d_f0,data);
 	data->txtr.d_f1 = get_t("../F1.xpm", data->txtr.d_f1,data);

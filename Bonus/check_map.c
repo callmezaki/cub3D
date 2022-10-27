@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/17 21:28:36 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/26 20:47:33 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void check_map(char **s, t_data *data)
 	int check;
 	
 	s = ft_trima3(s);
+	data->sp = 0;
 	check = check_valid_chars(s);
 	check = check_line(s);
 	i = 1;

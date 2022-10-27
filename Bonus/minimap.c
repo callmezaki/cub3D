@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/25 18:55:13 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/26 23:44:59 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,11 @@ void cast_door_ray(t_data *data, int i)
 	double a;
 	double rad = (FOV) * (M_PI / 180);
 	t_texture tx;
+	double proj_wall_height = 0;
+	
 
 	tx = which_door_texture(data,i);
+	// printf("W:%d, H : %d\n", tx.width, tx.height);
 	if(data->r[i].h_or_v_door == 2)
 		txtr_off.x = (data->r[i].y_door - data->map_y) / Z;
 	else
@@ -120,21 +123,21 @@ void cast_door_ray(t_data *data, int i)
 	if (data->r[i].distance <= data->r[i].dis_door)
 		return ;
 	double distance_to_proj = (W_WIDTH / 2)  / tan(rad / 2);
-	double proj_wall_height = (Z / data->r[i].dis_door) * distance_to_proj;
-	a = (int)proj_wall_height;
+	proj_wall_height = (Z / data->r[i].dis_door) * distance_to_proj;
+	a = proj_wall_height;
 	if (proj_wall_height > W_HEIGHT)
 		proj_wall_height =  W_HEIGHT;
 	int wall_top_pixel = (W_HEIGHT / 2) - ((int)proj_wall_height / 2);
 	int wall_bottom_pixel = (W_HEIGHT / 2) + ((int)proj_wall_height / 2);
-	k =  (a / 2) - (W_HEIGHT / 2);
+	if (wall_bottom_pixel > W_HEIGHT)
+		wall_bottom_pixel = W_HEIGHT;
+	k =  ((int)a / 2) - (W_HEIGHT / 2);
 	j = wall_top_pixel;
 	while(j < wall_bottom_pixel)
 	{
-		txtr_off.y = (j + k) * (tx.height / (a));
+		txtr_off.y = (j + k) * (tx.height / a);
 		txtr_off.y = floor(txtr_off.y);
 		txtr_off.y *= tx.width;
-		if (data->r[i].distance == 0)
-			printf("%d \n",(int)txtr_off.x + (int)txtr_off.y);
 		if (tx.tab[(int)txtr_off.x + (int)txtr_off.y] != 16711935 && ((int)txtr_off.x + (int)txtr_off.y) < (tx.height * tx.width))
 		{
 			my_mlx_pixel_put(&data->window, i, j,tx.tab[(int)txtr_off.x + (int)txtr_off.y]);
@@ -169,11 +172,11 @@ void    draw_walls(t_data *data)
 			proj_wall_height =  W_HEIGHT;
 		int wall_top_pixel = (W_HEIGHT / 2) - ((int)proj_wall_height / 2);
 		int wall_bottom_pixel = (W_HEIGHT / 2) + ((int)proj_wall_height / 2);
-		k =  (a / 2) - (W_HEIGHT / 2);
+		k =  ((int)a / 2) - (W_HEIGHT / 2);
 		j = wall_top_pixel;
 		while(j < wall_bottom_pixel)
 		{
-			txtr_off.y = (j + k) * (tx.height / (a));
+			txtr_off.y = (j + k) * (tx.height / a);
 			txtr_off.y = floor(txtr_off.y);
 			txtr_off.y *= tx.width;
 			my_mlx_pixel_put(&data->window, i, j, tx.tab[(int)txtr_off.x + (int)txtr_off.y]);

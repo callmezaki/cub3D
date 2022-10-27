@@ -8,9 +8,9 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "/Users/sgmira/Desktop/cub3d/Bonus/cub3d",
-			"args": "map.cub",
-			"cwd": "${workspaceFolder}"
+			"program": "/Users/zait-sli/Desktop/cub3d/Bonus/cub3d",
+			"args": "assets/map.cub",
+			"cwd": "/Users/zait-sli/Desktop/cub3d/Bonus/"
 		}
 	]
 }

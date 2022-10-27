@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/25 18:57:15 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/27 17:38:31 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,9 @@ void get_sprite_data(t_data *data)
 	int j = 0;
 	int x = 0;
 	t_point t;
+	t_sprite *sps;
 
-	data->sprites = malloc(sizeof(t_sprite) * data->sp);
+	sps = malloc(sizeof(t_sprite) * data->sp);
 	while(data->map[j])
 	{
 		i = 0;
@@ -105,33 +106,48 @@ void get_sprite_data(t_data *data)
 		{
 			if (data->map[j][i] == '3')
 			{
-				data->sprites[x].y = (j * Z) + data->map_y + (Z / 2);
-				data->sprites[x].x = (i * Z) + data->map_x + (Z / 2);
-				data->sprites[x].tx = data->txtr.sp;
-				t.y =  data->sprites[x].y - data->player.y;
-				t.x =  data->sprites[x].x - data->player.x;
-				data->sprites[x].angle = data->player.teta - atan2(t.y, t.x);
-				if (data->sprites[x].angle > M_PI)
-					data->sprites[x].angle -= 2 * M_PI; 
-				if (data->sprites[x].angle < -M_PI)
-					data->sprites[x].angle += 2 * M_PI;
-				data->sprites[x].angle = fabs(data->sprites[x].angle);
-				data->sprites[x].vis = 0;
-				if (data->sprites[x].angle < D_RAYS + 0.2)
-					data->sprites[x].vis = 1;
-				data->sprites[x].distance = sqrt(pow(data->sprites[x].x - data->player.x,2) + pow(data->sprites[x].y - data->player.y,2));
+				sps[x].y = (j * Z) + data->map_y + (Z / 2);
+				sps[x].x = (i * Z) + data->map_x + (Z / 2);
+				sps[x].tx = data->txtr.sp;
+				t.y =  sps[x].y - data->player.y;
+				t.x =  sps[x].x - data->player.x;
+				sps[x].angle = data->player.teta - atan2(t.y, t.x);
+				if (sps[x].angle > M_PI)
+					sps[x].angle -= 2 * M_PI; 
+				if (sps[x].angle < -M_PI)
+					sps[x].angle += 2 * M_PI;
+				sps[x].angle = fabs(sps[x].angle);
+				sps[x].vis = 0;
+				if (sps[x].angle < D_RAYS + 0.2)
+					sps[x].vis = 1;
+				sps[x].distance = sqrt(pow(sps[x].x - data->player.x,2) + pow(sps[x].y - data->player.y,2));
 				x++;
 			}
 			i++;
 		}
 		j++;
 	}
+	data->sprites = sps;
 	sort_sprites(data);
+}
+
+
+int check_dis(t_data *data, int x, int i)
+{
+	// if (data->r[i].hit_door)
+	// {
+	// 	if (data->sprites[x].distance <  data->r[i].dis_door)
+	// 		return(1);
+	// }
+		if (data->sprites[x].distance < data->r[i].distance)
+			return(1);
+	// }
+	return(0);
 }
 
 void draw_sprites(t_data *data)
 {
-	int i;
+	int i = 0;
 	int j = 0;
 	int x = 0;
 	t_point t;
@@ -160,19 +176,25 @@ void draw_sprites(t_data *data)
 			double sprite_sc_posX = tan(data->sprites[x].angle) * distance_to_proj;
 			double sprite_leftX = (W_WIDTH / 2) + sprite_sc_posX  - (sprite_width / 2);
 			double sprite_rightX = sprite_leftX + sprite_width;
-			i = sprite_leftX;
+			i = (int)sprite_leftX;
 			while(i < sprite_rightX)
 			{
-				double t = (tx.width / sprite_width);
-				txtr_off.x = (i - sprite_leftX) * t;
-				j = sprite_topY;
-				while(j < sprite_bottomY)
+				if (i >= 0 && i < W_WIDTH  && check_dis(data, x, i))
 				{
-					double distance_from_top = j + (sprite_height / 2 ) - (W_HEIGHT / 2);
-					txtr_off.y = distance_from_top * (tx.height / sprite_height);
-					if (tx.tab[(tx.width * (int)txtr_off.y) + (int)txtr_off.x] != 3642478 && data->sprites[x].distance < data->r[i].distance)
-						my_mlx_pixel_put(&data->window, i, j, tx.tab[(tx.width * (int)txtr_off.y) + (int)txtr_off.x]);
-					j++;
+					double t = (tx.width / sprite_width);
+					txtr_off.x = (i - sprite_leftX) * t;
+					j = sprite_topY;
+					while(j < sprite_bottomY)
+					{
+						double distance_from_top = j + ((int)sprite_height / 2 ) - (W_HEIGHT / 2);
+						txtr_off.y = distance_from_top * (tx.height / sprite_height);
+						int h = (tx.width * (int)txtr_off.y) + (int)txtr_off.x;
+						if (h >=0 && h < (tx.height * tx.width) && tx.tab[h] != 3642478)
+						{
+							my_mlx_pixel_put(&data->window, i, j, tx.tab[h]);
+						}
+						j++;
+					}
 				}
 				i++;
 			}
@@ -180,6 +202,8 @@ void draw_sprites(t_data *data)
 		x++;
 	}	
 }
+
+
 
 int draw(t_data *data)
 {
@@ -196,10 +220,11 @@ int draw(t_data *data)
 	draw_walls(data);
 	get_sprite_data(data);
 	draw_sprites(data);
+	// free(data->sprites);
 	draw_minimap_frame(data);
 	draw_rays(&seg, data);
 	draw_minimap(data);
-	free(data->r);
+	// free(data->r);
 	player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
 	mlx_destroy_image(data->window.mlx, data->window.img);
