@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/28 22:44:26 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/28 23:57:59 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void get_sprite_data(t_data *data)
 				if (sps[x].angle < D_RAYS + 0.2)
 					sps[x].vis = 1;
 				sps[x].distance = sqrt(pow(sps[x].x - data->player.x,2) + pow(sps[x].y - data->player.y,2));
+				sps[x].drown = 0;
 				x++;
 			}
 			i++;
@@ -145,18 +146,18 @@ int check_dis(t_data *data, int x, int i)
 	return(0);
 }
 
-void draw_sprites(t_data *data)
+void draw_sprite(t_data *data,int x)
 {
 	int i = 0;
 	int j = 0;
-	int x = 0;
+	// int x = 0;
 	t_point t;
 	double rad = (FOV) * (M_PI / 180);
 
-	x = 0;
-	
-	while(x < data->sp)
-	{
+	// x = 0;
+	data->sprites[x].drown = 1;
+	// while(x < data->sp)
+	// {dro
 		if (data->sprites[x].vis == 1)
 		{
 			t_texture tx = which_sprite_texture(data);
@@ -199,11 +200,21 @@ void draw_sprites(t_data *data)
 				i++;
 			}
 		}
-		x++;
-	}	
+	// 	x++;
+	// }	
 }
 
+void draw_rest_sprites(t_data *data)
+{
+	int x = 0;
 
+	while(x < data->sp)
+	{
+		if (data->sprites[x].drown == 0)
+			draw_sprite(data,x);
+		x++;
+	}
+}
 
 int draw(t_data *data)
 {
@@ -220,12 +231,13 @@ int draw(t_data *data)
 	draw_walls(data);
 	get_sprite_data(data);
 	draw_doors(data);
-	draw_sprites(data);
-	// free(data->sprites);
+	draw_rest_sprites(data);
+	// draw_sprites(data);
+	free(data->sprites);
 	draw_minimap_frame(data);
 	draw_rays(&seg, data);
 	draw_minimap(data);
-	// free(data->r);
+	free(data->r);
 	player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
 	mlx_destroy_image(data->window.mlx, data->window.img);

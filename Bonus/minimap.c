@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/28 20:41:41 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/29 00:04:38 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,15 +144,32 @@ void cast_door_ray(t_door *door,t_data *data,int i)
 	}
 }
 
+void free_list(t_door *door)
+{			
+	while(door->next)
+	{
+		free(door);
+		door = door->next;
+	}
+	
+}
+
 void draw_doors(t_data *data)
 {
 	int i = 0;
+	int x = 0;
 	t_door *door;
 	while(i < RAYS)
 	{
 		if (data->r[i].hit_door == 1)
 		{
 			door = data->r[i].door;
+			if  (x < data->sp && data->sprites[x].distance > door->dis_door)
+			{
+				// printf("x = %d\n",x);
+				draw_sprite(data, x);
+				x--;
+			}
 			while(door)
 			{
 				// printf("ddd\n");
@@ -160,7 +177,7 @@ void draw_doors(t_data *data)
 				// printf("%f\n",door->dis_door);
 				door = door->next;
 			}
-			// while(1);
+			free_list(data->r[i].door);
 		}
 		i++;
 	}
