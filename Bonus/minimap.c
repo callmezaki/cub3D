@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/26 23:44:59 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/28 20:41:41 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,30 +69,29 @@ t_texture which_texture(t_data *data,int i)
 		}
 	}	
 }
-t_texture which_door_texture(t_data *data,int i)
+t_texture which_door_texture(t_data *data, t_door *door)
 {
-	// (void)i;
-	if (data->r[i].dis_door <= 35 && data->r[i].dis_door > 30)
+	if (door->dis_door <= 35 && door->dis_door > 30)
 	{
 		return(data->txtr.d_f1);
 	}
-	else if (data->r[i].dis_door <= 30 && data->r[i].dis_door > 25)
+	else if (door->dis_door <= 30 && door->dis_door > 25)
 	{
 		return(data->txtr.d_f2);
 	}
-	else if (data->r[i].dis_door <= 25 && data->r[i].dis_door > 20)
+	else if (door->dis_door <= 25 && door->dis_door > 20)
 	{
 		return(data->txtr.d_f3);
 	}	
-	else if (data->r[i].dis_door <= 20 && data->r[i].dis_door > 15)
+	else if (door->dis_door <= 20 && door->dis_door > 15)
 	{
 		return(data->txtr.d_f4);
 	}
-	else if (data->r[i].dis_door <= 15 && data->r[i].dis_door > 10)
+	else if (door->dis_door <= 15 && door->dis_door > 10)
 	{
 		return(data->txtr.d_f5);
 	}
-	else if (data->r[i].dis_door <= 10)
+	else if (door->dis_door <= 10)
 	{
 		return(data->txtr.d_f6);
 	}
@@ -100,7 +99,7 @@ t_texture which_door_texture(t_data *data,int i)
 		return(data->txtr.d_f0);
 }
 
-void cast_door_ray(t_data *data, int i)
+void cast_door_ray(t_door *door,t_data *data,int i)
 {
 	int j;
 	t_point txtr_off;
@@ -111,19 +110,18 @@ void cast_door_ray(t_data *data, int i)
 	double proj_wall_height = 0;
 	
 
-	tx = which_door_texture(data,i);
-	// printf("W:%d, H : %d\n", tx.width, tx.height);
-	if(data->r[i].h_or_v_door == 2)
-		txtr_off.x = (data->r[i].y_door - data->map_y) / Z;
+	tx = which_door_texture(data,door);
+	if(door->h_or_v == 2)
+		txtr_off.x = (door->y_door - data->map_y) / Z;
 	else
-		txtr_off.x = (data->r[i].x_door - data->map_x) / Z;
+		txtr_off.x = (door->x_door - data->map_x) / Z;
 	txtr_off.x = txtr_off.x - floor(txtr_off.x);
 	txtr_off.x *= tx.width;
-	data->r[i].dis_door = data->r[i].dis_door * cos(data->r[i].alpha - data->player.teta);
-	if (data->r[i].distance <= data->r[i].dis_door)
+	door->dis_door = door->dis_door * cos(data->r[i].alpha - data->player.teta);
+	if (data->r[i].distance <= door->dis_door)
 		return ;
 	double distance_to_proj = (W_WIDTH / 2)  / tan(rad / 2);
-	proj_wall_height = (Z / data->r[i].dis_door) * distance_to_proj;
+	proj_wall_height = (Z / door->dis_door) * distance_to_proj;
 	a = proj_wall_height;
 	if (proj_wall_height > W_HEIGHT)
 		proj_wall_height =  W_HEIGHT;
@@ -145,6 +143,29 @@ void cast_door_ray(t_data *data, int i)
 		j++;
 	}
 }
+
+void draw_doors(t_data *data)
+{
+	int i = 0;
+	t_door *door;
+	while(i < RAYS)
+	{
+		if (data->r[i].hit_door == 1)
+		{
+			door = data->r[i].door;
+			while(door)
+			{
+				// printf("ddd\n");
+				cast_door_ray(door, data,i);
+				// printf("%f\n",door->dis_door);
+				door = door->next;
+			}
+			// while(1);
+		}
+		i++;
+	}
+}
+
 void    draw_walls(t_data *data)
 {
 	int i = 0;
@@ -181,10 +202,6 @@ void    draw_walls(t_data *data)
 			txtr_off.y *= tx.width;
 			my_mlx_pixel_put(&data->window, i, j, tx.tab[(int)txtr_off.x + (int)txtr_off.y]);
 			j++;
-		}
-		if (data->r[i].hit_door == 1)
-		{
-			cast_door_ray(data, i);
 		}
 		i++;
 	}

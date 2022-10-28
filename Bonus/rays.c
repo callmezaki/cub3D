@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/22 00:59:36 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/28 00:34:30 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,38 @@
 // 		return(0);
 // }
 
-double h_distance(t_data *data, double beta)
+t_door	*ft_new(t_door d)
+{
+	t_door	*new;
+
+	new = malloc(sizeof(t_door));
+	if (!new)
+		return (NULL);
+	*new  = d;
+	new -> next = NULL;
+	return (new);
+}
+
+void	ft_add_front(t_door **lst, t_door *new)
+{
+	if (!(*lst))
+	{
+		*lst = new;
+		return ;
+	}
+	new -> next = *lst;
+	*lst = new;
+}
+
+double h_distance(t_data *data, double beta,t_ray *ray)
 {
 	t_point a; 
 	t_point first_inter;
 	t_point t;
 	t_point stp;
 	double h;
+	t_door door;
 	t_point ply;
-	int done = 0;
 
 	ply.x = data->player.x - data->map_x;
 	ply.y = data->player.y - data->map_y;
@@ -45,6 +68,10 @@ double h_distance(t_data *data, double beta)
 		stp.x *= -1;
 	while(1)
 	{
+		door.h_or_v = 0;
+		door.dis_door = 0;
+		door.x_door  = 0;
+		door.y_door  = 0;
 		t.x = first_inter.x;
 		t.y = first_inter.y;
 		if (!facing_down(beta))
@@ -57,11 +84,14 @@ double h_distance(t_data *data, double beta)
 			h = sqrt(pow(first_inter.x - ply.x,2) + pow(first_inter.y - ply.y,2));
 			return(h);
 		}
-		if (data->map[(int)a.y][(int)a.x] == '2' && done == 0)
+		if (data->map[(int)a.y][(int)a.x] == '2')
 		{
-			data->door.h_is_door = 1;
-			data->door.h_door = sqrt(pow(first_inter.x - ply.x,2) + pow(first_inter.y - ply.y,2));
-			done = 1;
+			ray->hit_door = 1;
+			door.h_or_v = 1;
+			door.dis_door = sqrt(pow(first_inter.x - ply.x,2) + pow(first_inter.y - ply.y,2));
+			door.x_door  = data->player.x + (cos(beta) * door.dis_door);
+			door.y_door  = data->player.y + (sin(beta) * door.dis_door);
+			ft_add_front(&ray->door,ft_new(door));
 		}
 		if (data->map[(int)a.y][(int)a.x] != '0' && data->map[(int)a.y][(int)a.x] != '2' && data->map[(int)a.y][(int)a.x] != '3' && !check_player(data->map[(int)a.y][(int)a.x]))
 		{
@@ -73,7 +103,7 @@ double h_distance(t_data *data, double beta)
 	}
 }
 
-double v_distance(t_data *data, double beta)
+double v_distance(t_data *data, double beta,t_ray *ray)
 {
 	t_point a; 
 	t_point first_inter;
@@ -81,7 +111,8 @@ double v_distance(t_data *data, double beta)
 	t_point stp;
 	double h;
 	t_point ply;
-	int done = 0;
+	// int done = 0;
+	t_door door;
 
 	ply.x = data->player.x - data->map_x;
 	ply.y = data->player.y - data->map_y;
@@ -99,6 +130,10 @@ double v_distance(t_data *data, double beta)
 		stp.y *= -1;
 	while(1)
 	{
+		door.h_or_v = 0;
+		door.dis_door = 0;
+		door.x_door  = 0;
+		door.y_door  = 0;
 		t.x = first_inter.x;
 		t.y = first_inter.y;
 		if (!facing_right(beta))
@@ -111,11 +146,14 @@ double v_distance(t_data *data, double beta)
 			h = sqrt(pow(first_inter.x - ply.x,2) + pow(first_inter.y - ply.y,2));
 			return(h);
 		}
-		if (data->map[(int)a.y][(int)a.x] == '2' && done == 0)
+		if (data->map[(int)a.y][(int)a.x] == '2')
 		{
-			data->door.v_is_door = 1;
-			data->door.v_door = sqrt(pow(first_inter.x - ply.x,2) + pow(first_inter.y - ply.y,2));
-			done = 1;
+			ray->hit_door = 1;
+			door.h_or_v = 2;
+			door.dis_door = sqrt(pow(first_inter.x - ply.x,2) + pow(first_inter.y - ply.y,2));
+			door.x_door  = data->player.x + (cos(beta) * door.dis_door);
+			door.y_door  = data->player.y + (sin(beta) * door.dis_door);
+			ft_add_front(&ray->door,ft_new(door));
 		}	
 		if (data->map[(int)a.y][(int)a.x] != '0'  && data->map[(int)a.y][(int)a.x] != '2' && data->map[(int)a.y][(int)a.x] != '3'&& !check_player(data->map[(int)a.y][(int)a.x]))
 		{
@@ -127,15 +165,15 @@ double v_distance(t_data *data, double beta)
 	}
 }
 
-void best_distance(t_data *data, double beta)
+void best_distance(t_data *data, double beta, t_ray *ray)
 {
 	data->distance.distance = 0;
 	double h;
 	double v;
 	
 	beta = normalize(beta);
-	h = h_distance(data, beta);
-	v = v_distance(data, beta);
+	h = h_distance(data, beta,ray);
+	v = v_distance(data, beta,ray);
 	if (h < v)
 	{
 		data->distance.h_or_v = 1;
@@ -155,56 +193,55 @@ void	claculate_rays(t_data *data)
 	t *= -1;
 
 	int i = 0;
-	t_ray* r;
-	r = malloc(sizeof(t_ray) * RAYS);
+	data->r = malloc(sizeof(t_ray) * RAYS);
 
 	while(i < RAYS)
 	{
-		data->door.v_is_door = 0;
-		data->door.h_is_door = 0;
-		data->door.v_door = 0;
-		data->door.h_door = 0;
+		data->r[i].hit_door = 0;
+		data->r[i].door = calloc(sizeof(t_door),1);
 		data->player.teta = normalize(data->player.teta);
 		sigma = data->player.teta + (t);
-		best_distance(data,sigma);
-		r[i].x = data->player.x + (cos(sigma) * data->distance.distance);
-		r[i].y = data->player.y + (sin(sigma) * data->distance.distance);
-		r[i].distance = data->distance.distance;
-		r[i].alpha = normalize(sigma);
-		r[i].h_or_v = data->distance.h_or_v;
-		r[i].hit_door = 0;
+		data->r[i].alpha = normalize(sigma);
+		best_distance(data,sigma,&data->r[i]);
+		data->r[i].x = data->player.x + (cos(sigma) * data->distance.distance);
+		data->r[i].y = data->player.y + (sin(sigma) * data->distance.distance);
+		data->r[i].distance = data->distance.distance;
+		data->r[i].h_or_v = data->distance.h_or_v;
 		
-		if (data->door.v_is_door || data->door.h_is_door)
-		{
-			if (data->door.v_is_door && data->door.h_is_door)
-			{
-				if (data->door.h_door < data->door.v_door)
-				{
-					r[i].h_or_v_door = 1;
-					r[i].dis_door  = data->door.h_door;
-				}
-				else 
-				{
-					r[i].h_or_v_door = 2;
-					r[i].dis_door  = data->door.v_door;
-				}
-			}
-			else if (data->door.h_is_door)
-			{
-				r[i].h_or_v_door = 1;
-				r[i].dis_door  = data->door.h_door;
-			}
-			else
-			{
-				r[i].h_or_v_door  = 2;
-				r[i].dis_door = data->door.v_door;
-			}
-			r[i].hit_door = 1;
-			r[i].x_door  = data->player.x + (cos(sigma) * r[i].dis_door);
-			r[i].y_door  = data->player.y + (sin(sigma) * r[i].dis_door);
-		}
+		// if (data->r[i].v_is_door || data->r[i].h_is_door)
+		// {
+			
+		// 	if (data->r[i].v_is_door && data->r[i].h_is_door)
+		// 	{
+		// 		if (data->r[i].h_door < data->r[i].v_door)
+		// 		{
+		// 			door.h_or_v_door = 1;
+		// 			door.dis_door  = data->r[i].h_door;
+		// 		}
+		// 		else 
+		// 		{
+		// 			door.h_or_v_door = 2;
+		// 			door.dis_door  = data->r[i].v_door;
+		// 		}
+		// 	}
+		// 	else if (data->r[i].h_is_door)
+		// 	{
+		// 		door.h_or_v_door = 1;
+		// 		door.dis_door  = data->r[i].h_door;
+		// 	}
+		// 	else
+		// 	{
+		// 		door.h_or_v_door  = 2;
+		// 		door.dis_door = data->r[i].v_door;
+		// 	}
+		// 	data->r[i].hit_door = 1;
+		// 	door.x_door  = data->player.x + (cos(sigma) * door.dis_door);
+		// 	door.y_door  = data->player.y + (sin(sigma) * door.dis_door);
+		// 	// ft_add_front(&data->r[i].door,ft_new(door));
+		// 	data->r[i].door = ft_new(door);
+		// }
 		i++;
 		t += inc_rays;
 	}
-	data->r = r;
+	// data->r = r;
 }

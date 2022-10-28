@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/25 01:47:16 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/27 21:47:17 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,36 @@ typedef struct s_point
 	double x;
 } t_point;
 
-typedef struct s_ray
+typedef struct s_door
 {
-	double x;
-	double y;
-	double distance;
-	double alpha;
+
 	int	h_or_v;
 	int	h_or_v_door;
 	int hit_door;
 	double x_door;
 	double y_door;
 	double dis_door;
-} t_ray;
 
-typedef struct s_door
+	struct s_door *next;
+} t_door;
+
+typedef struct s_ray
 {
+	double x;
+	double y;
+	double distance;
+	double alpha;
+	int hit_door;
+
 	int h_is_door;
 	int v_is_door;
 	double v_door;
 	double h_door;
 	int	h_or_v;
-} t_door;
+	t_door *door;
+} t_ray;
+
+
 
 typedef struct s_block
 {
@@ -217,10 +225,10 @@ void	dda2(t_data *data, t_segment segment,int color);
 void	draw_background(t_data *data);
 int		get_color(char c);
 void	get_texture(t_data *data);
-double	h_distance(t_data *data, double beta);
-double	v_distance(t_data *data, double beta);
+double	h_distance(t_data *data, double beta,t_ray *ray);
+double	v_distance(t_data *data, double beta,t_ray *ray);
 void	claculate_rays(t_data *data);
-void	best_distance(t_data *data, double beta);
+void	best_distance(t_data *data, double beta,t_ray *ray);
 double	normalize(double teta);
 int		facing_right(double beta);
 int		facing_down(double beta);
@@ -234,6 +242,7 @@ int mouse_move(int x, int y, t_data *data);
 int key_release(int key, t_data *data);
 int key_press(int key, t_data *data);
 int	you_quit(void);
+void draw_doors(t_data *data);
 
 
 //parsing

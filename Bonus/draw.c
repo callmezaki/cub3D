@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/27 17:38:31 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/28 22:44:26 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void sort_sprites(t_data *data)
 
 t_texture which_sprite_texture(t_data *data)
 {
-	if (data->an > 60)
+	if (data->an > 80)
 		data->an  = 0;
 	if (data->an >= 0 && data->an <= 20)
 	{
@@ -78,11 +78,11 @@ t_texture which_sprite_texture(t_data *data)
 		data->an++;	
 		return(data->txtr.s2);
 	}
-	// else if(data->an > 60 && data->an <= 80)
-	// {
-	// 	data->an++;	
-	// 	return(data->txtr.s3);
-	// }
+	else if(data->an > 60 && data->an <= 80)
+	{
+		data->an++;	
+		return(data->txtr.s3);
+	}
 	else
 	{
 		data->an++;
@@ -219,6 +219,7 @@ int draw(t_data *data)
 	claculate_rays(data);
 	draw_walls(data);
 	get_sprite_data(data);
+	draw_doors(data);
 	draw_sprites(data);
 	// free(data->sprites);
 	draw_minimap_frame(data);
