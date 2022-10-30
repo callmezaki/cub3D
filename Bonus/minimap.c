@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/29 00:04:38 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:40:44 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,13 +145,29 @@ void cast_door_ray(t_door *door,t_data *data,int i)
 }
 
 void free_list(t_door *door)
-{			
+{
+	t_door *d;
+	
 	while(door->next)
 	{
-		free(door);
+		d = door;
 		door = door->next;
+		free(d);
 	}
-	
+}
+
+int return_firstx(t_data *data, t_sprite sp)
+{
+	t_point t;
+	double rad = (FOV) * (M_PI / 180);
+	double distance_to_proj = (W_WIDTH / 2)  / tan(rad / 2);
+	double sprite_width = (Z / sp.distance) * distance_to_proj;
+	t.y =  sp.y - data->player.y;
+	t.x =  sp.x - data->player.x;
+	sp.angle = normalize(atan2(t.y, t.x) - data->player.teta);
+	double sprite_sc_posX = tan(sp.angle) * distance_to_proj;
+	double sprite_leftX = (W_WIDTH / 2) + sprite_sc_posX  - (sprite_width / 2);
+	return((int)sprite_leftX);
 }
 
 void draw_doors(t_data *data)
@@ -164,17 +180,20 @@ void draw_doors(t_data *data)
 		if (data->r[i].hit_door == 1)
 		{
 			door = data->r[i].door;
-			if  (x < data->sp && data->sprites[x].distance > door->dis_door)
+			while(door->next)
 			{
-				// printf("x = %d\n",x);
-				draw_sprite(data, x);
-				x--;
-			}
-			while(door)
-			{
-				// printf("ddd\n");
+				x = 0;
+				while (x < data->sp)
+				{
+					// printf("x = %d, i = %d\n",return_firstx(data, data->sprites[x]),i);
+					if (return_firstx(data, data->sprites[x]) == i && data->sprites[x].distance > door->dis_door && data->sprites[x].drown == 0)
+					{
+						// printf("sp_dis = %f > d_dis = %f,\n",data->sprites[x].angle ,data->r[i].alpha);
+						draw_sprite(data, x);
+					}
+					x++;
+				}
 				cast_door_ray(door, data,i);
-				// printf("%f\n",door->dis_door);
 				door = door->next;
 			}
 			free_list(data->r[i].door);
@@ -182,6 +201,7 @@ void draw_doors(t_data *data)
 		i++;
 	}
 }
+
 
 void    draw_walls(t_data *data)
 {
@@ -316,7 +336,12 @@ void move_player(t_data *data)
 	t.y = (data->player.y - data->map_y + p.y) / Z;
 	if (data->map[(int)t.y][(int)t.x] == '0' || data->map[(int)t.y][(int)t.x] == '2' || check_player(data->map[(int)t.y][(int)t.x]))
 	{
-		data->player.x += p.x;
-		data->player.y += p.y;
+		if(data->map[(int)t.y][(int)t.x] == '0' && data->map[(int)t.y][(int)t.x - 1] == '1'
+			&& data->map[(int)t.y + 1][(int)t.x] == '1' && data->map[(int)t.y + 1][(int)t.x - 1] == '0');
+		else
+		{
+			data->player.x += p.x;
+			data->player.y += p.y;
+		}
 	}
 }

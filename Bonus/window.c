@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/24 22:47:11 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/29 23:30:12 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	free_tab(char **tab)
 	{
 		while (tab[i])
 		{
-			// free(tab[i]);
+			free(tab[i]);
 			i++;
 		}
-		// free(tab);
+		free(tab);
 	}
 }
 

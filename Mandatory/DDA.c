@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:47:40 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/19 00:23:13 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/21 22:50:17 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ void	dda(t_data *data, t_segment segment, int color)
 	int		dx;
 	int		dy;
 	int		stp;
-	int		i;
 
-	i = 0;
+	data->i = 0;
 	dx = (int)segment.x1 - (int)segment.x0;
 	dy = (int)segment.y1 - (int)segment.y0;
 	if (abs(dx) > abs(dy))
@@ -37,12 +36,12 @@ void	dda(t_data *data, t_segment segment, int color)
 		stp = abs(dy);
 	incx = (float)dx / stp;
 	incy = (float)dy / stp;
-	while (i <= stp)
+	while (data->i <= stp)
 	{
 		my_mlx_pixel_put(&data->window, segment.x0, segment.y0, color);
 		segment.x0 += incx;
 		segment.y0 += incy;
-		i++;
+		data->i++;
 	}
 }
 
@@ -53,9 +52,8 @@ void	dda2(t_data *data, t_segment s, int color)
 	int		dx;
 	int		dy;
 	int		stp;
-	int		i;
 
-	i = 0;
+	data->i = 0;
 	dx = (int)s.x1 - (int)s.x0;
 	dy = (int)s.y1 - (int)s.y0;
 	if (abs(dx) > abs(dy))
@@ -64,13 +62,13 @@ void	dda2(t_data *data, t_segment s, int color)
 		stp = abs(dy);
 	incx = (float)dx / stp;
 	incy = (float)dy / stp;
-	while (i <= stp)
+	while (data->i <= stp)
 	{
 		if (s.x0 > Z && s.x0 < Z * (MINI_CUB -1)
 			&& s.y0 > Z && s.y0 < Z * (MINI_CUB -1))
 			my_mlx_pixel_put(&data->window, s.x0, s.y0, color);
 		s.x0 += incx;
 		s.y0 += incy;
-		i++;
+		data->i++;
 	}
 }

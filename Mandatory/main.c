@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/18 21:52:10 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/30 17:06:26 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,37 +146,38 @@ int	txtr_error(char **args, char *key)
 
 	i = search_indx(args, key);
 	if (i < 0)
+	{
+		printf("%s\n", key);
 		write(2, "Texture_ERROR!\n", 16);
+	}
 	return (i);
 }
 
 void	parse_walls(t_data *data, char **args)
 {
-	int	i;
-
-	i = txtr_error(args, "NO");
-	if (i < 0)
+	data->i = txtr_error(args, "NO");
+	if (data->i < 0)
 		exit_n_free(data, 1);
-	check_space(args[i], data);
-	data->NO = ft_strdup(ft_strchr(args[i], '.'));
+	check_space(args[data->i], data);
+	data->NO = ft_strdup(ft_strchr(args[data->i], '.'));
 	check_path(data->NO, data);
-	i = txtr_error(args, "SO");
-	if (i < 0)
+	data->i = txtr_error(args, "SO");
+	if (data->i < 0)
 		exit_n_free(data, 1);
-	check_space(args[i], data);
-	data->SO = ft_strdup(ft_strchr(args[i], '.'));
+	check_space(args[data->i], data);
+	data->SO = ft_strdup(ft_strchr(args[data->i], '.'));
 	check_path(data->SO, data);
-	i = txtr_error(args, "WE");
-	if (i < 0)
+	data->i = txtr_error(args, "WE");
+	if (data->i < 0)
 		exit_n_free(data, 1);
-	check_space(args[i], data);
-	data->WE = ft_strdup(ft_strchr(args[i], '.'));
+	check_space(args[data->i], data);
+	data->WE = ft_strdup(ft_strchr(args[data->i], '.'));
 	check_path(data->WE, data);
-	i = txtr_error(args, "EA");
-	if (i < 0)
+	data->i = txtr_error(args, "EA");
+	if (data->i < 0)
 		exit_n_free(data, 1);
-	check_space(args[i], data);
-	data->EA = ft_strdup(ft_strchr(args[i], '.'));
+	check_space(args[data->i], data);
+	data->EA = ft_strdup(ft_strchr(args[data->i], '.'));
 	check_path(data->EA, data);
 }
 
@@ -244,21 +245,18 @@ int	check_assets(char **s)
 
 void get_player_data(t_data *data)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (data->map[i])
+	data->i = -1;
+	data->j = -1;
+	while (data->map[++data->i])
 	{
-		j = 1;
-		while (data->map[i][j])
+		data->j = 0;
+		while (data->map[data->i][++data->j])
 		{
-			if (check_player(data->map[i][j]))
+			if (check_player(data->map[data->i][data->j]))
 			{
-				data->player.facing = data->map[i][j];
-				data->player.x = (j * Z) + (Z / 2);
-				data->player.y = (i * Z) + (Z / 2);
+				data->player.facing = data->map[data->i][data->j];
+				data->player.x = (data->j * Z) + (Z / 2);
+				data->player.y = (data->i * Z) + (Z / 2);
 				if (data->player.facing == 'N')
 					data->player.teta = 3 * M_PI / 2;
 				else if (data->player.facing == 'S')
@@ -269,9 +267,7 @@ void get_player_data(t_data *data)
 					data->player.teta = M_PI;
 				break ;
 			}
-			j++;
 		}
-		i++;
 	}
 }
 
@@ -289,34 +285,51 @@ void	parse_data(t_data *data,char *temp)
 	parse_walls(data, s);
 	get_colors(data, s);
 	temp = intial_map_check(temp, s, data);
-	free_tab(s);
 	data->map = ft_split(temp, '\n');
+	free_tab(s);
+	free(temp);
 	check_map(data->map, data);
 	get_player_data(data);
 	data->map_height = tab_len(data->map);
+}
+
+void	get_data_f(char	*str, t_data *data, char *temp)
+{
+	if (str)
+	{
+		if (data->i < 7)
+		{
+			if (ft_trima(&str, data->i))
+			{
+				str = ft_strjoin_2(str, "\n");
+				data->i++;
+			}
+		}
+		temp = ft_strjoin_2(temp, str);
+	}
 }
 
 void	get_data(int fd, t_data *data)
 {
 	char	*str;
 	char	*temp;
-	int		i;
 
-	i = 0;
+	data->i = 0;
 	str = malloc(1);
 	str[0] = '\0';
 	temp = str;
 	while (str)
 	{
 		str = get_next_line(fd);
+		// get_data_f(str, data, temp);
 		if (str)
 		{
-			if (i < 7)
+			if (data->i < 7)
 			{
-				if (ft_trima(&str, i))
+				if (ft_trima(&str, data->i))
 				{
 					str = ft_strjoin_2(str, "\n");
-					i++;
+					data->i++;
 				}
 			}
 			temp = ft_strjoin_2(temp, str);
@@ -325,7 +338,7 @@ void	get_data(int fd, t_data *data)
 			free(str);
 	}
 	parse_data(data, temp);
-	free(temp);
+	// free(temp);
 }
 
 void	exit_n_free(t_data *data, int t)
@@ -335,9 +348,10 @@ void	exit_n_free(t_data *data, int t)
 	free(data->EA);
 	free(data->WE);
 	free(data->SO);
-	// free_tab(data->map);
+	free_tab(data->map);
 	free(data->r);
 	free(data);
+	system("leaks cub3d");
 	exit(t);
 }
 

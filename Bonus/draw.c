@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/28 23:57:59 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/30 07:00:13 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,37 +233,16 @@ int draw(t_data *data)
 	draw_doors(data);
 	draw_rest_sprites(data);
 	// draw_sprites(data);
-	free(data->sprites);
 	draw_minimap_frame(data);
 	draw_rays(&seg, data);
 	draw_minimap(data);
-	free(data->r);
 	player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
+	free(data->r);
+	free(data->sprites);
 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
 	mlx_destroy_image(data->window.mlx, data->window.img);
 	return(0);
 }
-
-// void	rotate_player(t_data *data)
-// {
-// 	t_segment seg;
-
-// 	mlx_clear_window(data->window.mlx, data->window.mlx_win);
-// 	data->window.img = mlx_new_image(data->window.mlx, W_WIDTH, W_HEIGHT);
-// 	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
-// 								&data->window.endian);
-// 	draw_background(data);
-// 	claculate_rays(data);
-// 	draw_walls(data);
-// 	draw_sprites(data);
-// 	draw_minimap_frame(data);
-// 	draw_rays(&seg, data);
-// 	free(data->r);
-// 	draw_minimap(data);
-// 	player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
-// 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
-// 	mlx_destroy_image(data->window.mlx, data->window.img);
-// }
 
 int draw_minimap(t_data *data)
 {
@@ -293,10 +272,10 @@ int draw_minimap(t_data *data)
 	{
 		t.x = data->sprites[i].x - 2;
 		t.y = data->sprites[i].y - 2;
-		if (data->sprites[0].vis == 1)
+		// if (data->sprites[i].vis == 1)
+		// 	player_symbol(data,t.x,t.y, 0xEEC643);
+		// else
 			player_symbol(data,t.x,t.y, 0xEEC643);
-		else
-			player_symbol(data,t.x,t.y, 0);
 		i++;
 	}
 	return(0);

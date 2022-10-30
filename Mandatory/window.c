@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/19 00:22:26 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/29 20:44:04 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,8 @@ int	you_quit(void)
 	exit(EXIT_SUCCESS);
 }
 
-int	key_press(int key, t_data *data)
+void	key_press_cond(int key, t_data *data)
 {
-	if (key == KEY_W)
-	{
-		data->player.sides = 0;
-		data->player.walkdirection = 1;
-	}
-	else if (key == KEY_S)
-	{
-		data->player.sides = 0;
-		data->player.walkdirection = -1;
-	}
 	if (key == KEY_A)
 	{
 		data->player.sides = 1;
@@ -73,10 +63,22 @@ int	key_press(int key, t_data *data)
 	else if (key == RIGHT)
 		data->player.turndirection = 1;
 	else if (key == KEY_ESC)
-	{
-		free_tab(data->map);
 		exit_n_free(data, 1);
+}
+
+int	key_press(int key, t_data *data)
+{
+	if (key == KEY_W)
+	{
+		data->player.sides = 0;
+		data->player.walkdirection = 1;
 	}
+	else if (key == KEY_S)
+	{
+		data->player.sides = 0;
+		data->player.walkdirection = -1;
+	}
+	key_press_cond(key, data);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/21 21:21:59 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:54:59 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,11 @@ void    check_space(char *s, t_data *data)
 	t = ft_split(s, ' ');
     if(tab_len(t) != 2)
     {
-		// free_tab(t);
+		free_tab(t);
         printf("Error!\n");
         exit_n_free(data, 1);
     }
-	// free_tab(t);
+	free_tab(t);
 }
 
 void    check_path(char *d, t_data *data)
@@ -239,7 +239,8 @@ int	check_assets(char **s)
 			free(tmp);
 			break;
 		}
-		// free_tab(t);
+		if (t[0][0])
+			free_tab(t);
 		i++;
 	}
 	if(!check_duplicates(str))
@@ -285,15 +286,16 @@ void parse_data(t_data *data,char *temp)
 {
 	char **s = ft_split(temp,'\n');
 	if(check_assets(s))
-	{
-		// free_tab(s);
+	{	
+		
+		free_tab(s);
 		puts("FAIL");
 		exit_n_free(data, 1);;
 	}
 	parse_walls(data,s);
 	get_colors(data, s);
 	temp = intial_map_check(temp, s,data);
-	// free_tab(s);
+	free_tab(s);
 	data->map = ft_split(temp,'\n');
 	check_map(data->map,data);
 	get_player_data(data);
@@ -339,8 +341,8 @@ void exit_n_free(t_data *data, int t)
 	free(data->WE);
 	free(data->SO);
 	free_tab(data->map);
-	// free(data->r);
 	free(data);
+	// system("leaks cub3d");
 	exit(t);	
 }
 
@@ -358,12 +360,13 @@ int main(int ac, char **av)
 		free(t);
 		return(printf("Invalid Extention\n"));
 	}
-		free(t);
+	free(t);
 	fd = open(av[1], O_RDONLY);
 	if (fd > 0)
 	{
 		get_data(fd,data);
 		data->an = 0;
+		// while(1);
 		init_window(data);
 		exit_n_free(data, 0);
 	}

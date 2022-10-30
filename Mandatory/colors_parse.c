@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:30:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/19 00:33:44 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/29 20:13:16 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,30 @@ void	check_color_range(t_color col)
 	exit(1);
 }
 
-t_color	check_color(char **s, int i)
+void	fill_col(char	**sp, t_color *col, char *t)
 {
-	t_color	col;
-	char	**sp;
 	char	**ss;
-	char	*t;
-	int		j;
 
-	j = 0;
-	t = ft_strdup(s[i]);
-	sp = ft_split(t, ' ');
+	ss = ft_split(sp[1], ',');
+	col->r = ft_atoi(ss[0]);
+	col->g = ft_atoi(ss[1]);
+	col->b = ft_atoi(ss[2]);
+	free_tab(ss);
+	free_tab(sp);
+	check_color_range(*col);
+	free(t);
+}
+
+void	error_n_free(char **sp, char	*t)
+{
+	free_tab(sp);
+	free(t);
+	printf("Error\n");
+	exit(0);
+}
+
+void	error_n_free2(char	**sp, char	*t)
+{
 	if (!sp[1] || sp[2])
 	{
 		if (sp[0])
@@ -77,9 +90,22 @@ t_color	check_color(char **s, int i)
 		printf("Error0\n");
 		exit(1);
 	}
+}
+
+t_color	check_color(char **s, int i)
+{
+	t_color	col;
+	char	**sp;
+	char	*t;
+	int		j;
+
+	j = -1;
+	t = ft_strdup(s[i]);
+	sp = ft_split(t, ' ');
+	error_n_free2(sp, t);
 	if (check_cama(sp[1]))
 	{
-		while (sp[1][j])
+		while (sp[1][++j])
 		{
 			if (!ft_isdigit(sp[1][j]) && sp[1][j] != ',')
 			{
@@ -87,16 +113,8 @@ t_color	check_color(char **s, int i)
 				printf("Error1\n");
 				exit(1);
 			}
-			j++;
 		}
-		ss = ft_split(sp[1], ',');
-		col.r = ft_atoi(ss[0]);
-		col.g = ft_atoi(ss[1]);
-		col.b = ft_atoi(ss[2]);
-		free_tab(ss);
-		free_tab(sp);
-		check_color_range(col);
-		free(t);
+		fill_col(sp, &col, t);
 	}
 	else
 	{

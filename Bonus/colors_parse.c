@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:30:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/19 19:34:37 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/29 23:27:56 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ t_color check_color(char **s, int i)
 		col.r = ft_atoi(ss[0]);
 		col.g = ft_atoi(ss[1]);
 		col.b = ft_atoi(ss[2]);
-		// free_tab(ss);
-		// free_tab(sp);
+		free_tab(ss);
+		free_tab(sp);
 		check_color_range(col);
 		free(t);
 	}
 	else
 	{
-		// free_tab(sp);
+		free_tab(sp);
 		free(t);
 		printf("Error\n");
 		exit(0);	

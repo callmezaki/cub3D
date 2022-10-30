@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/28 23:09:58 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/30 10:20:31 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,18 @@ typedef struct s_door
 
 	struct s_door *next;
 } t_door;
+
+typedef struct s_dis
+{
+	t_point a; 
+	t_point first_inter;
+	t_point t;
+	t_point stp;
+	double dis;
+	t_point ply;
+	double beta;
+	int h_or_v;
+}t_dis;
 
 typedef struct s_ray
 {
