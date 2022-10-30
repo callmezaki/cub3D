@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/30 07:00:13 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/10/30 18:16:50 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,9 +234,9 @@ int draw(t_data *data)
 	draw_rest_sprites(data);
 	// draw_sprites(data);
 	draw_minimap_frame(data);
+	player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
 	draw_rays(&seg, data);
 	draw_minimap(data);
-	player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
 	free(data->r);
 	free(data->sprites);
 	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
@@ -297,7 +297,7 @@ int draw_minimap_frame(t_data *data)
 			if ((i == 0 || (i == MINI_CUB - 1)) || (j == 0 || (j == MINI_CUB - 1)))
 				ft_block(data, p.x,p.y,0);	
 			else
-				ft_block(data, p.x,p.y,10676939);	
+				ft_block(data, p.x,p.y,0x6E7E85);	
 			p.x += Z;
 			j++;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/30 16:40:44 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/30 18:18:34 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int get_color(char c)
 		color = 16777215;
 	}
 	else if (c == '1')
-		color = 35184;
+		color = 0xB7CECE;
+	else if (c == '2')
+		color = 0x011627;
 	else
 		color = 0x808080;
 	return (color);
@@ -292,17 +294,21 @@ double normalize(double teta)
 void	draw_rays(t_segment *seg, t_data *data)
 {
 	
-	int i = 0;
-	seg->x0 = data->player.x;
-	seg->y0 = data->player.y;
-		while(i < RAYS)
-		{
+	// int i = 0;
+	// seg->x0 = data->player.x;
+	// seg->y0 = data->player.y;
+		// while(i < RAYS)
+		// {
 
-			seg->x1 = data->r[i].x;
-			seg->y1 = data->r[i].y;
-			dda2(data, *seg,0xFFFFFFF);
-			i++;
-		}
+			// seg->x1 = data->r[i].x;
+			// seg->y1 = data->r[i].y;
+			seg->x0 = data->player.x;
+			seg->y0 = data->player.y;
+			seg->x1 = data->r[RAYS / 2].x;
+			seg->y1 = data->r[RAYS / 2].y;
+			dda2(data, *seg,0);
+		// 	i++;
+		// }
 }
 
 int door(t_data *data, char c)

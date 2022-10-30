@@ -16,7 +16,7 @@ SRC =	cub3d.c         \
 		check_map_utils.c\
 
 
-CFLAGS = -Wall -Werror -Wextra -g -Ofast
+CFLAGS = -Wall -Werror -Wextra -g -Ofast 
 
 OBJS = $(SRC:.c=.o)
 
