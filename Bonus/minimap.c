@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/30 18:18:34 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/01 00:46:59 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ void free_list(t_door *door)
 		door = door->next;
 		free(d);
 	}
+	free(door);
+
 }
 
 int return_firstx(t_data *data, t_sprite sp)
@@ -188,7 +190,7 @@ void draw_doors(t_data *data)
 				while (x < data->sp)
 				{
 					// printf("x = %d, i = %d\n",return_firstx(data, data->sprites[x]),i);
-					if (return_firstx(data, data->sprites[x]) == i && data->sprites[x].distance > door->dis_door && data->sprites[x].drown == 0)
+					if (return_firstx(data, data->sprites[x]) <= i && data->sprites[x].distance > door->dis_door && data->sprites[x].drown == 0)
 					{
 						// printf("sp_dis = %f > d_dis = %f,\n",data->sprites[x].angle ,data->r[i].alpha);
 						draw_sprite(data, x);
@@ -198,8 +200,8 @@ void draw_doors(t_data *data)
 				cast_door_ray(door, data,i);
 				door = door->next;
 			}
-			free_list(data->r[i].door);
 		}
+		free_list(data->r[i].door);
 		i++;
 	}
 }
@@ -294,21 +296,21 @@ double normalize(double teta)
 void	draw_rays(t_segment *seg, t_data *data)
 {
 	
-	// int i = 0;
-	// seg->x0 = data->player.x;
-	// seg->y0 = data->player.y;
-		// while(i < RAYS)
-		// {
+	int i = 0;
+	seg->x0 = data->player.x;
+	seg->y0 = data->player.y;
+		while(i < RAYS)
+		{
 
 			// seg->x1 = data->r[i].x;
 			// seg->y1 = data->r[i].y;
-			seg->x0 = data->player.x;
-			seg->y0 = data->player.y;
-			seg->x1 = data->r[RAYS / 2].x;
-			seg->y1 = data->r[RAYS / 2].y;
+			// seg->x0 = data->player.x;
+			// seg->y0 = data->player.y;
+			seg->x1 = data->r[i].x;
+			seg->y1 = data->r[i].y;
 			dda2(data, *seg,0);
-		// 	i++;
-		// }
+			i++;
+		}
 }
 
 int door(t_data *data, char c)
@@ -318,6 +320,31 @@ int door(t_data *data, char c)
 	else
 		return(0);
 }
+
+
+int check_coll(t_data *data)
+{
+	t_ray ray;
+	double teta;
+
+	teta = data->player.teta;
+	if (data->player.walkdirection == 1)
+		teta = data->player.teta;
+	else if (data->player.walkdirection == -1)
+		teta = normalize(data->player.teta + M_PI);
+	else if (data->player.sides == 1 && (data->player.teta < M_PI / 2 || data->player.teta < 1.5 * M_PI))  
+		teta = normalize(data->player.teta + M_PI / 2);
+	else if (data->player.sides == 1 && (data->player.teta >= 1.5 * M_PI &&  data->player.teta <= M_PI / 2))  
+		teta = normalize(data->player.teta - M_PI / 2);
+	best_distance(data, teta,&ray);
+	// if(ray.hit_door)
+	// 	free_list(ray.door);
+	if (data->distance.distance <= 1)
+		return(0);
+	return(1);
+	
+}
+
 
 void move_player(t_data *data)
 {
@@ -340,14 +367,16 @@ void move_player(t_data *data)
 	}
 	t.x = (data->player.x - data->map_x + p.x) / Z;
 	t.y = (data->player.y - data->map_y + p.y) / Z;
-	if (data->map[(int)t.y][(int)t.x] == '0' || data->map[(int)t.y][(int)t.x] == '2' || check_player(data->map[(int)t.y][(int)t.x]))
+	
+	// printf("data->distance.distance  =  %f\n", data->distance.distance);
+	if ((data->map[(int)t.y][(int)t.x] == '0' || data->map[(int)t.y][(int)t.x] == '2' || check_player(data->map[(int)t.y][(int)t.x])) && check_coll(data))
 	{
-		if(data->map[(int)t.y][(int)t.x] == '0' && data->map[(int)t.y][(int)t.x - 1] == '1'
-			&& data->map[(int)t.y + 1][(int)t.x] == '1' && data->map[(int)t.y + 1][(int)t.x - 1] == '0');
-		else
-		{
+		// if(data->map[(int)t.y][(int)t.x] == '0' && data->map[(int)t.y][(int)t.x - 1] == '1'
+		// 	&& data->map[(int)t.y + 1][(int)t.x] == '1' && data->map[(int)t.y + 1][(int)t.x - 1] == '0');
+		// else
+		// {
 			data->player.x += p.x;
 			data->player.y += p.y;
-		}
+		// }
 	}
 }

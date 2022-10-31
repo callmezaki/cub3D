@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/31 16:21:36 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/01 00:42:08 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,6 @@ int draw(t_data *data)
 	get_sprite_data(data);
 	draw_doors(data);
 	draw_rest_sprites(data);
-	// draw_sprites(data);
 	draw_minimap_frame(data);
 	player_symbol(data, data->player.x - 2, data->player.y - 2, 0);
 	draw_rays(&seg, data);

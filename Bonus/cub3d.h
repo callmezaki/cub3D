@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/30 10:20:31 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/01 00:45:27 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,8 @@ void	get_texture(t_data *data);
 double	h_distance(t_data *data, double beta,t_ray *ray);
 double	v_distance(t_data *data, double beta,t_ray *ray);
 void	claculate_rays(t_data *data);
-void	best_distance(t_data *data, double beta,t_ray *ray);
+// void	best_distance(t_data *data, double beta,t_ray *ray);
+void	best_distance(t_data *data, double beta, t_ray *ray);
 double	normalize(double teta);
 int		facing_right(double beta);
 int		facing_down(double beta);

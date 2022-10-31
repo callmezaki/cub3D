@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/30 10:23:15 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/01 00:46:39 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,7 @@ void	claculate_rays(t_data *data)
 		data->player.teta = normalize(data->player.teta);
 		sigma = data->player.teta + (t);
 		data->r[i].alpha = normalize(sigma);
+
 		best_distance(data,sigma,&data->r[i]);
 		data->r[i].x = data->player.x + (cos(sigma) * data->distance.distance);
 		data->r[i].y = data->player.y + (sin(sigma) * data->distance.distance);
@@ -221,6 +222,9 @@ void	claculate_rays(t_data *data)
 		// 	// ft_add_front(&data->r[i].door,ft_new(door));
 		// 	data->r[i].door = ft_new(door);
 		// }
+		// if (data->r[i].hit_door == 0)
+		// 	free(data->r[i].door);
+
 		i++;
 		t += inc_rays;
 	}

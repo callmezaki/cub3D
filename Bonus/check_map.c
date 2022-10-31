@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/29 23:26:28 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/01 00:05:03 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ char *intial_map_check(char *s, char **t, t_data *data)
 	int len = 0;
 	char *a;
 	char *b;
+	char	*h;
 	int p_count = 0;
 
 	while(i < 7)
@@ -120,7 +121,9 @@ char *intial_map_check(char *s, char **t, t_data *data)
 		len+= ft_strlen(t[i]);
 		i++;
 	}
-	s = ft_strdup(&s[len + i]);
+	h = ft_strdup(&s[len + i]);
+	free(s);
+	s = h;
 	i = 0;
 	while(s[i] && s[i + 1])
 	{
