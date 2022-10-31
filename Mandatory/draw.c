@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/19 19:29:58 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:23:29 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ void	draw_background(t_data *data)
 	}
 }
 
+
+// void free_rays(t_ray *r)
+// {
+// 	int i = 0;
+
+// 	while(i < RAYS)
+// 	{
+// 		free(r[i]);
+// 		i++;
+// 	}
+// 	free(r);
+// }
+
 int	draw(t_data *data)
 {
 	mlx_clear_window(data->window.mlx, data->window.mlx_win);
@@ -46,6 +59,7 @@ int	draw(t_data *data)
 	move_player(data);
 	claculate_rays(data);
 	draw_walls(data);
+	free(data->r);
 	mlx_put_image_to_window(data->window.mlx,
 		data->window.mlx_win, data->window.img, 0, 0);
 	mlx_destroy_image(data->window.mlx, data->window.img);
@@ -62,6 +76,7 @@ void	rotate_player(t_data *data)
 	draw_background(data);
 	claculate_rays(data);
 	draw_walls(data);
+	free(data->r);
 	mlx_put_image_to_window(data->window.mlx,
 		data->window.mlx_win, data->window.img, 0, 0);
 	mlx_destroy_image(data->window.mlx, data->window.img);

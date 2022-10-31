@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/30 17:06:26 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:19:45 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,7 +349,6 @@ void	exit_n_free(t_data *data, int t)
 	free(data->WE);
 	free(data->SO);
 	free_tab(data->map);
-	free(data->r);
 	free(data);
 	system("leaks cub3d");
 	exit(t);
