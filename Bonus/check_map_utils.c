@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:47:00 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/13 17:06:26 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/02 19:02:57 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int get_map_width(t_data *data, int y)
 int check_valid(int c)
 {
 	if(c == '1' || c == '0' || c == '2' || c == 'N'
-		|| c == 'W' || c == 'E' || c == 'S' || c == ' ' || c == '3')
+		|| c == 'W' || c == 'E' || c == 'S' || c == ' ' || c == '3'
+		|| c == '\n' || c == '\t')
 		return(1);
 	return(0);
 }
@@ -56,6 +57,6 @@ void check_zero(char **s, int i, int j)
 		}
 		
 	}
-	printf("Error zero\n");
 	exit(1);
+	printf("Error zero\n");
 }

@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/01 00:46:59 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/02 19:05:06 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,21 +296,21 @@ double normalize(double teta)
 void	draw_rays(t_segment *seg, t_data *data)
 {
 	
-	int i = 0;
+	// int i = 0;
 	seg->x0 = data->player.x;
 	seg->y0 = data->player.y;
-		while(i < RAYS)
-		{
+		// while(i < RAYS)
+		// {
 
-			// seg->x1 = data->r[i].x;
-			// seg->y1 = data->r[i].y;
-			// seg->x0 = data->player.x;
+		// 	// seg->x1 = data->r[i].x;
+		// 	// seg->y1 = data->r[i].y;
+		// 	// seg->x0 = data->player.x;
 			// seg->y0 = data->player.y;
-			seg->x1 = data->r[i].x;
-			seg->y1 = data->r[i].y;
+			seg->x1 = data->r[RAYS / 2].x;
+			seg->y1 = data->r[RAYS / 2].y;
 			dda2(data, *seg,0);
-			i++;
-		}
+		// 	i++;
+		// }
 }
 
 int door(t_data *data, char c)
@@ -326,7 +326,7 @@ int check_coll(t_data *data)
 {
 	t_ray ray;
 	double teta;
-
+	ray.door = calloc(sizeof(t_door),1);
 	teta = data->player.teta;
 	if (data->player.walkdirection == 1)
 		teta = data->player.teta;
@@ -337,8 +337,7 @@ int check_coll(t_data *data)
 	else if (data->player.sides == 1 && (data->player.teta >= 1.5 * M_PI &&  data->player.teta <= M_PI / 2))  
 		teta = normalize(data->player.teta - M_PI / 2);
 	best_distance(data, teta,&ray);
-	// if(ray.hit_door)
-	// 	free_list(ray.door);
+	free_list(ray.door);
 	if (data->distance.distance <= 1)
 		return(0);
 	return(1);

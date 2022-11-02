@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/01 00:05:03 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/02 19:01:04 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int  check_line(char **s)
 	int j;
 	int len;
 	
-	i = 0;
 	j = 0;
 	len = tab_len(s) -1;
 	while(s[0][j])
@@ -54,6 +53,7 @@ int  check_line(char **s)
 			return(0);
 		j++;
 	}
+	i = 0;
 	while(s[i])
 	{
 		len = ft_strlen(s[i]) - 1;
@@ -78,7 +78,7 @@ void check_map(char **s, t_data *data)
 {
 	int i;
 	int j;
-	int check;
+	int check = 1;
 	
 	s = ft_trima3(s);
 	data->sp = 0;

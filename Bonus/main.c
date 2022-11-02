@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/31 23:09:18 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/02 19:00:45 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int ft_check_exten(char *s)
 int ft_trima(char **a, int i)
 {
 	char *t = *a;
-	if (i == 6)
+	if (i == 7)
 		t = ft_strtrim2_f(t, " \t\n");
 	else
 		t = ft_strtrim_f(t, " \t\n");
@@ -222,13 +222,13 @@ int	check_assets(char **s)
 	tmp = ft_strdup("");
 	i = 0;
 	j = 0;
-	while(s[i] && i < 8)
+	while(s[i] && i < 7)
 	{
 		t = ft_split(s[i], ' ');
-		if(!ft_strcmp(t[0], "NO") || !ft_strcmp(t[0], "SO")
+		if(t[0][0] && (!ft_strcmp(t[0], "NO") || !ft_strcmp(t[0], "SO")
 			|| !ft_strcmp(t[0], "WE") || !ft_strcmp(t[0], "EA") 
 			|| !ft_strcmp(t[0], "C") || !ft_strcmp(t[0], "F")
-			|| !ft_strcmp(t[0], "DO"))
+			|| !ft_strcmp(t[0], "DO")))
 		{
 			tmp[0] = s[i][0];
 			str = ft_strjoin_2(str, tmp);
@@ -287,7 +287,6 @@ void parse_data(t_data *data,char *temp)
 	char **s = ft_split(temp,'\n');
 	if(check_assets(s))
 	{	
-		
 		free_tab(s);
 		puts("FAIL");
 		exit_n_free(data, 1);;
@@ -330,7 +329,8 @@ void get_data(int fd, t_data *data)
 			free(str);
 	}
 	parse_data(data,temp);
-	free(temp);
+	if (temp)
+		free(temp);
 }
 
 void exit_n_free(t_data *data, int t)
@@ -340,6 +340,7 @@ void exit_n_free(t_data *data, int t)
 	free(data->EA);
 	free(data->WE);
 	free(data->SO);
+	free(data->DO);
 	free_tab(data->map);
 	free(data);
 	system("leaks cub3d");
