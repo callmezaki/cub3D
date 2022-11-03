@@ -14,6 +14,14 @@ SRC =	cub3d.c         \
 		colors_parse.c \
 		check_map.c\
 		check_map_utils.c\
+		key_handling.c	\
+		distance_calc.c	\
+		draw_utils_2.c \
+		colors_utils.c \
+		check_utils.c \
+		main_utils.c  \
+		main_utils_2.c \
+		main_utils_3.c \
 
 
 CFLAGS = -Wall -Werror -Wextra -g -Ofast

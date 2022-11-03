@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/31 16:23:29 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/03 01:06:43 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,6 @@ void	draw_background(t_data *data)
 		y++;
 	}
 }
-
-
-// void free_rays(t_ray *r)
-// {
-// 	int i = 0;
-
-// 	while(i < RAYS)
-// 	{
-// 		free(r[i]);
-// 		i++;
-// 	}
-// 	free(r);
-// }
 
 int	draw(t_data *data)
 {

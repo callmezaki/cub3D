@@ -6,31 +6,11 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:11:26 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/19 00:32:36 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/03 01:06:57 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	player_symbol(t_data *data, double x, double y, int color)
-{
-	int		tmp;
-	t_point	t;
-
-	t.x = 4 + x;
-	t.y = 4 + y;
-	tmp = y;
-	while (x < t.x)
-	{
-		y = tmp;
-		while (y < t.y)
-		{
-			my_mlx_pixel_put(&data->window, x, y, color);
-			y++;
-		}
-		x++;
-	}
-}
 
 void	get_texture(t_data *data)
 {
@@ -74,4 +54,18 @@ int	rgb_to_dec(t_color color)
 
 	dec = (color.r << 16) + (color.g << 8) + color.b;
 	return (dec);
+}
+
+int	facing_down(double beta)
+{
+	if (beta > 0 && beta < M_PI)
+		return (1);
+	return (0);
+}
+
+int	facing_right(double beta)
+{
+	if (beta < M_PI / 2 || beta > 1.5 * M_PI)
+		return (1);
+	return (0);
 }

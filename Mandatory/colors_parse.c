@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:30:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/29 20:13:16 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/03 01:08:39 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,39 +58,13 @@ void	check_color_range(t_color col)
 	exit(1);
 }
 
-void	fill_col(char	**sp, t_color *col, char *t)
-{
-	char	**ss;
-
-	ss = ft_split(sp[1], ',');
-	col->r = ft_atoi(ss[0]);
-	col->g = ft_atoi(ss[1]);
-	col->b = ft_atoi(ss[2]);
-	free_tab(ss);
-	free_tab(sp);
-	check_color_range(*col);
-	free(t);
-}
-
-void	error_n_free(char **sp, char	*t)
-{
-	free_tab(sp);
-	free(t);
-	printf("Error\n");
-	exit(0);
-}
-
-void	error_n_free2(char	**sp, char	*t)
-{
-	if (!sp[1] || sp[2])
-	{
-		if (sp[0])
-			free_tab(sp);
-		free(t);
-		printf("Error0\n");
-		exit(1);
-	}
-}
+// void	f_n_ex(char	**sp, char	*t)
+// {
+// 	free_tab(sp);
+// 	free(t);
+// 	printf("Error\n");
+// 	exit(0);
+// }
 
 t_color	check_color(char **s, int i)
 {

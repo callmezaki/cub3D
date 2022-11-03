@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:28:14 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/19 00:23:12 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/03 01:07:11 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_block(t_data *data, double x, double y, int color)
 	}
 }
 
-void	ft_block2(t_data *data, double x, double y,int color)
+void	ft_block2(t_data *data, double x, double y, int color)
 {
 	int		tmp;
 	double	tx;

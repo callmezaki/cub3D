@@ -3,101 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/31 16:24:56 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/03 00:44:06 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_valid_chars(char **s)
+void	map_checkif_1(char *s, t_data *data)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (s[i])
+	if (s[data->i] != ' ' && s[data->i] != '\n'
+		&& s[data->i] != '\t' && s[data->i] != '1')
 	{
-		j = 0;
-		while (s[i][j])
-		{
-			if (!check_valid(s[i][j]))
-				return (0);
-			j++;
-		}
-		i++;
+		printf("%c\n", s[data->i]);
+		printf("Errrrroooor\n");
+		exit_n_free(data, 1);
 	}
-	return (1);
 }
 
-int	check_line_comp(char **s, int t, int i)
+void	map_checkif_2(int p_count, t_data *data)
 {
-	while (s[i])
+	if (p_count > 1 || p_count == 0)
 	{
-		t = ft_strlen(s[i]) - 1;
-		if ((s[i][t] != ' ' && s[i][t] != '1')
-			|| (s[i][0] != ' ' && s[i][0] != '1'))
-			return (0);
-		i++;
+		printf("P Error\n");
+		exit_n_free(data, 1);
 	}
-	return (1);
 }
 
-int	check_line(char **s)
+void	map_checkif_3(int len, t_data *data)
 {
-	int	i;
-	int	j;
-	int	len;
-	int	t;
-
-	t = 0;
-	i = 0;
-	j = 0;
-	len = tab_len(s) -1;
-	while (s[0][j])
+	if (len > 1)
 	{
-		if (s[0][j] != ' ' && s[0][j] != '1')
-			return (0);
-		j++;
-	}
-	j = 0;
-	while (s[len][j])
-	{
-		if (s[len][j] != ' ' && s[len][j] != '1')
-			return (0);
-		j++;
-	}
-	if (!check_line_comp(s, t, i))
-		return (0);
-	return (1);
-}
-
-void	check_map(char **s, t_data *data)
-{
-	int	i;
-	int	j;
-	int	check;
-
-	s = ft_trima3(s);
-	check = check_valid_chars(s);
-	check = check_line(s);
-	i = 1;
-	while (s[i + 1] && check)
-	{
-		j = 1;
-		while (s[i][j])
-		{
-			if (s[i][j] == '0' || check_player(s[i][j]))
-				check_zero(s, i, j);
-			j++;
-		}
-		i++;
-	}
-	if (!check)
-	{
-		printf("Error check_map\n");
+		printf("Errrrroooor7\n");
 		exit_n_free(data, 1);
 	}
 }
@@ -130,20 +69,10 @@ char	*intial_map_check(char *s, char **t, t_data *data)
 			p_count++;
 		data->i++;
 	}
-	if (p_count > 1 || p_count == 0)
-	{
-		printf("P Error\n");
-		exit_n_free(data, 1);
-	}
+	map_checkif_2(p_count, data);
 	while (s[data->i])
 	{
-		if (s[data->i] != ' ' && s[data->i] != '\n'
-			&& s[data->i] != '\t' && s[data->i] != '1')
-		{
-			printf("%c\n", s[data->i]);
-			printf("Errrrroooor\n");
-			exit_n_free(data, 1);
-		}
+		map_checkif_1(s, data);
 		data->i++;
 	}
 	t = ft_split(s, '\n');
@@ -154,9 +83,7 @@ char	*intial_map_check(char *s, char **t, t_data *data)
 		a = ft_strtrim(t[data->i], " ");
 		b = ft_strtrim(t[data->i - 1], " ");
 		if (!a[0] && b[0])
-		{
 			len++;
-		}
 		if (a)
 			free(a);
 		if (b)
@@ -164,11 +91,7 @@ char	*intial_map_check(char *s, char **t, t_data *data)
 		data->i++;
 	}
 	free_tab(t);
-	if (len > 1)
-	{
-		printf("Errrrroooor7\n");
-		exit_n_free(data, 1);
-	}
+	map_checkif_3(len, data);
 	s = ft_strtrim2_f(s, " \n\t");
 	return (s);
 }
