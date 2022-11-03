@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 18:49:48 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:19:47 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,9 @@ typedef struct s_dwvars
 	int			j;
 	t_point		txtr_off;
 	double		x;
-	double		a;
+	int		h;
+	double		a; 
+	double		k; 
 	double		rad;
 	t_texture	tx;
 	double		per_distance;
