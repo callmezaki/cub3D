@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 19:19:47 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:39:40 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,8 +296,21 @@ int key_release(int key, t_data *data);
 int key_press(int key, t_data *data);
 int	you_quit(void);
 void draw_doors(t_data *data);
+t_door	*ft_new(t_door d);
+void	ft_add_front(t_door **lst, t_door *new);
+t_texture	which_door_texture(t_data *data, t_door *door);
+void	cast_door_ray(t_door *door, t_data *data, int i);
+void	free_list(t_door *door);
+int	return_firstx(t_data *data, t_sprite sp);
+void draw_doors(t_data *data);
 
-
+void	sort_sprites(t_data *data);
+t_texture	which_sprite_texture(t_data *data);
+void	get_sprite_data(t_data *data);
+int	check_dis(t_data *data, int x, int i);
+void	draw_sprite_rays(t_dwsprite *dsp, t_data *data, int x);
+void	draw_sprite(t_data *data, int x);
+void	draw_rest_sprites(t_data *data);
 //parsing
 
 int		check_cama(char *s);

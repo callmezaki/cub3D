@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 17:29:24 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:40:28 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,8 +339,8 @@ void	get_data(int fd, t_data *data)
 			free(str);
 	}
 	parse_data(data, temp);
-	if (temp)
-		free(temp);
+	// if (temp)
+	// 	free(temp);
 }
 
 void	exit_n_free(t_data *data, int t)
