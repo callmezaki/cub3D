@@ -6,25 +6,29 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:30:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/29 23:27:56 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:07:24 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int check_cama(char *s)
+int	check_cama(char *s)
 {
-	int i = 0;
-	int c = 0;
-	int len = ft_strlen(s);
+	int	i;
+	int	c;
+	int	len;
+
+	i = 0;
+	c = 0;
+	len = ft_strlen(s);
 	if (s[0] == ',' || s[len] == ',')
-		return(0);
+		return (0);
 	else
 	{
-		while(s[i] && s[i+1])
+		while (s[i] && s[i+1])
 		{
-			if(s[i] == ',' && s[i+1] == ',')
-				return(0);
+			if (s[i] == ',' && s[i+1] == ',')
+				return (0);
 			if (s[i] == ',')
 				c++;
 			i++;
@@ -33,12 +37,12 @@ int check_cama(char *s)
 	if (s[ft_strlen(s) - 1] == ',')
 		c++;
 	if (c == 2)
-		return(1);
+		return (1);
 	else
-		return(0);
+		return (0);
 }
 
-void check_color_range(t_color col)
+void	check_color_range(t_color col)
 {
 	if (col.r <= 255 && col.r >= 0)
 	{
@@ -54,16 +58,17 @@ void check_color_range(t_color col)
 	exit(1);
 }
 
-t_color check_color(char **s, int i)
+t_color	check_color(char **s, int i)
 {
-	t_color col;
-	char **sp;
-	char **ss;
-	char *t;
-	int j = 0;
+	t_color	col;
+	char	**sp;
+	char	**ss;
+	char	*t;
+	int		j;
 
+	j = 0;
 	t = ft_strdup(s[i]);
-	sp = ft_split(t,' ');
+	sp = ft_split(t, ' ');
 	if (!sp[1] || sp[2])
 	{
 		if (sp[0])
@@ -74,7 +79,7 @@ t_color check_color(char **s, int i)
 	}
 	if (check_cama(sp[1]))
 	{
-		while(sp[1][j])
+		while (sp[1][j])
 		{
 			if (!ft_isdigit(sp[1][j]) && sp[1][j] != ',')
 			{
@@ -84,7 +89,7 @@ t_color check_color(char **s, int i)
 			}
 			j++;
 		}
-		ss = ft_split(sp[1],',');
+		ss = ft_split(sp[1], ',');
 		col.r = ft_atoi(ss[0]);
 		col.g = ft_atoi(ss[1]);
 		col.b = ft_atoi(ss[2]);
@@ -98,23 +103,25 @@ t_color check_color(char **s, int i)
 		free_tab(sp);
 		free(t);
 		printf("Error\n");
-		exit(0);	
+		exit(0);
 	}
-	return(col);
+	return (col);
 }
 
 void	get_colors(t_data *data, char **s)
 {
-	int i = search_indx(s, "F");
+	int	i;
+
+	i = search_indx(s, "F");
 	if (i >= 0)
 	{
-		data->F =  check_color(s,i);
+		data->F =  check_color(s, i);
 		i = search_indx(s, "C");
 		if (i >= 0)
 		{
-			data->C = check_color(s,i);
+			data->C = check_color(s, i);
 		}
-		return;
+		return ;
 	}
 	printf("Error8\n");
 	exit(1);

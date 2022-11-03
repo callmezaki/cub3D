@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 18:38:59 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:01:21 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	draw_background(t_data *data)
 {
-	int x;
-	int y;
-	int c;
+	int	x;
+	int	y;
+	int	c;
 
 	x = 0;
 	y = 0;
 	c = rgb_to_dec(data->C);
-	while(y < W_HEIGHT)
+	while (y < W_HEIGHT)
 	{
 		x = 0;
-		if(y == W_HEIGHT / 2)
+		if (y == W_HEIGHT / 2)
 			c = rgb_to_dec(data->F);
-		while(x < W_WIDTH)
+		while (x < W_WIDTH)
 		{
 			my_mlx_pixel_put(&data->window, x, y, c);
 			x++;
@@ -35,17 +35,17 @@ void	draw_background(t_data *data)
 	}
 }
 
-
-void sort_sprites(t_data *data)
+void	sort_sprites(t_data *data)
 {
-	int i = 0;
-	int j = 0;
-	t_sprite t;
+	int			i;
+	int			j;
+	t_sprite	t;
 
-	while(i < data->sp)
+	i = 0;
+	while (i < data->sp)
 	{
 		j = 0;
-		while(j + 1 < data->sp)
+		while (j + 1 < data->sp)
 		{
 			if (data->sprites[j].distance < data->sprites[j + 1].distance)
 			{
@@ -59,68 +59,68 @@ void sort_sprites(t_data *data)
 	}
 }
 
-t_texture which_sprite_texture(t_data *data)
+t_texture	which_sprite_texture(t_data *data)
 {
 	if (data->an > 80)
-		data->an  = 0;
+		data->an = 0;
 	if (data->an >= 0 && data->an <= 20)
 	{
 		data->an++;
-		return(data->txtr.s0);
+		return (data->txtr.s0);
 	}
 	else if (data->an > 20 && data->an <= 40)
 	{
-		data->an++;	
-		return(data->txtr.s1);
+		data->an++;
+		return (data->txtr.s1);
 	}
-	else if(data->an > 40 && data->an <= 60)
-	{
-		data->an++;	
-		return(data->txtr.s2);
-	}
-	else if(data->an > 60 && data->an <= 80)
-	{
-		data->an++;	
-		return(data->txtr.s3);
-	}
-	else
+	else if (data->an > 40 && data->an <= 60)
 	{
 		data->an++;
-		return(data->txtr.s3);
+		return (data->txtr.s2);
 	}
+	else if (data->an > 60 && data->an <= 80)
+	{
+		data->an++;
+		return (data->txtr.s3);
+	}
+	else
+		return (data->txtr.s3);
 }
 
-void get_sprite_data(t_data *data)
+void	get_sprite_data(t_data *data)
 {
-	int i;
-	int j = 0;
-	int x = 0;
-	t_point t;
-	t_sprite *sps;
+	int			i;
+	int			j;
+	int			x;
+	t_point		t;
+	t_sprite	*sps;
 
 	sps = malloc(sizeof(t_sprite) * data->sp);
-	while(data->map[j])
+	j = 0;
+	x = 0;
+	while (data->map[j])
 	{
 		i = 0;
-		while(data->map[j][i])
+		while (data->map[j][i])
 		{
 			if (data->map[j][i] == '3')
 			{
 				sps[x].y = (j * Z) + data->map_y + (Z / 2);
 				sps[x].x = (i * Z) + data->map_x + (Z / 2);
 				sps[x].tx = data->txtr.sp;
-				t.y =  sps[x].y - data->player.y;
-				t.x =  sps[x].x - data->player.x;
+				t.y = sps[x].y - data->player.y;
+				t.x = sps[x].x - data->player.x;
 				sps[x].angle = data->player.teta - atan2(t.y, t.x);
 				if (sps[x].angle > M_PI)
-					sps[x].angle -= 2 * M_PI; 
+					sps[x].angle -= 2 * M_PI;
 				if (sps[x].angle < -M_PI)
 					sps[x].angle += 2 * M_PI;
 				sps[x].angle = fabs(sps[x].angle);
 				sps[x].vis = 0;
 				if (sps[x].angle < D_RAYS + 0.2)
 					sps[x].vis = 1;
-				sps[x].distance = sqrt(pow(sps[x].x - data->player.x,2) + pow(sps[x].y - data->player.y,2));
+				sps[x].distance = sqrt(pow(sps[x].x - data->player.x, 2) + \
+				pow(sps[x].y - data->player.y, 2));
 				sps[x].drown = 0;
 				x++;
 			}
@@ -139,7 +139,7 @@ int	check_dis(t_data *data, int x, int i)
 	return (0);
 }
 
-void draw_sprite_rays(t_dwsprite dsp, t_data *data, int x)
+void	draw_sprite_rays(t_dwsprite dsp, t_data *data, int x)
 {
 	dsp.i = 0;
 	while (dsp.i < dsp.sp_rightX)
@@ -198,7 +198,7 @@ void	draw_sprite(t_data *data, int x)
 
 void	draw_rest_sprites(t_data *data)
 {
-	int x;
+	int	x;
 
 	x = 0;
 	while (x < data->sp)

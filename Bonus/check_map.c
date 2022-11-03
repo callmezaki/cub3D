@@ -6,91 +6,94 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/02 19:01:04 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:05:09 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int check_valid_chars(char **s)
+int	check_valid_chars(char **s)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
 		j = 0;
-		while(s[i][j])
+		while (s[i][j])
 		{
 			if (!check_valid(s[i][j]))
-				return(0); 
+				return (0);
 			j++;
 		}
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
-int  check_line(char **s)
+int	check_line(char **s)
 {
-	int i;
-	int j;
-	int len;
-	
+	int	i;
+	int	j;
+	int	len;
+
 	j = 0;
 	len = tab_len(s) -1;
-	while(s[0][j])
+	while (s[0][j])
 	{
 		if (s[0][j] != ' ' && s[0][j] != '1')
-			return(0);
+			return (0);
 		j++;
 	}
 	j = 0;
-	while(s[len][j])
+	while (s[len][j])
 	{
 		if (s[len][j] != ' ' && s[len][j] != '1')
-			return(0);
+			return (0);
 		j++;
 	}
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
 		len = ft_strlen(s[i]) - 1;
-		if ((s[i][len] != ' ' && s[i][len] != '1') || (s[i][0] != ' ' && s[i][0] != '1'))
-			return(0);
+		if ((s[i][len] != ' ' && s[i][len] != '1') || \
+		(s[i][0] != ' ' && s[i][0] != '1'))
+			return (0);
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
-int check_doors(char **s,int i,int j)
+int	check_doors(char **s, int i, int j)
 {
 	if (s[i - 1][j] == '1' && s[i + 1][j] == '1')
-		return(1);
+		return (1);
 	else if (s[i][j + 1] == '1' && s[i][j - 1] == '1')
-		return(1);
+		return (1);
 	else
-		return(0);
+		return (0);
 }
 
-void check_map(char **s, t_data *data)
+void	check_map(char **s, t_data *data)
 {
-	int i;
-	int j;
-	int check = 1;
-	
+	int	i;
+	int	j;
+	int	check;
+
+	check = 1;
 	s = ft_trima3(s);
 	data->sp = 0;
 	check = check_valid_chars(s);
 	check = check_line(s);
 	i = 1;
-	while(s[i + 1] && check)
+	while (s[i + 1] && check)
 	{
 		j = 1;
-		while(s[i][j] && check)
+		while (s[i][j] && check)
 		{
-			if (s[i][j] == '0' || s[i][j] == '2' || s[i][j] == '3' || check_player(s[i][j]))
+			if (s[i][j] == '0' || s[i][j] == '2' || s[i][j] == '3' || \
+			check_player(s[i][j]))
 				check_zero(s, i, j);
 			if (s[i][j] == '2')
 				check = check_doors(s, i, j);
@@ -107,12 +110,12 @@ void check_map(char **s, t_data *data)
 	}
 }
 
-char *intial_map_check(char *s, char **t, t_data *data)
+char	*intial_map_check(char *s, char **t, t_data *data)
 {
-	int i = 0;
-	int len = 0;
-	char *a;
-	char *b;
+	int		i = 0;
+	int		len = 0;
+	char	*a;
+	char	*b;
 	char	*h;
 	int p_count = 0;
 
