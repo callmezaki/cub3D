@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/01 00:42:08 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:38:59 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,98 +132,92 @@ void get_sprite_data(t_data *data)
 	sort_sprites(data);
 }
 
-
-int check_dis(t_data *data, int x, int i)
+int	check_dis(t_data *data, int x, int i)
 {
-	// if (data->r[i].hit_door)
-	// {
-	// 	if (data->sprites[x].distance <  data->r[i].dis_door)
-	// 		return(1);
-	// }
-		if (data->sprites[x].distance < data->r[i].distance)
-			return(1);
-	// }
-	return(0);
+	if (data->sprites[x].distance < data->r[i].distance)
+		return (1);
+	return (0);
 }
 
-void draw_sprite(t_data *data,int x)
+void draw_sprite_rays(t_dwsprite dsp, t_data *data, int x)
 {
-	int i = 0;
-	int j = 0;
-	// int x = 0;
-	t_point t;
-	double rad = (FOV) * (M_PI / 180);
-
-	// x = 0;
-	data->sprites[x].drown = 1;
-	// while(x < data->sp)
-	// {dro
-		if (data->sprites[x].vis == 1)
+	dsp.i = 0;
+	while (dsp.i < dsp.sp_rightX)
+	{
+		if (dsp.i >= 0 && dsp.i < W_WIDTH && check_dis(data, x, dsp.i))
 		{
-			t_texture tx = which_sprite_texture(data);
-			t_point txtr_off;
-			double distance_to_proj = (W_WIDTH / 2)  / tan(rad / 2);
-			double sprite_height = (Z / data->sprites[x].distance) * distance_to_proj;
-			double sprite_width = sprite_height;
-			double sprite_topY = (W_HEIGHT / 2) - (sprite_height /  2);
-			if (sprite_topY < 0)
-				sprite_topY = 0;
-			double sprite_bottomY = (W_HEIGHT / 2) + (sprite_height /  2);
-			if (sprite_bottomY > W_HEIGHT)
-				sprite_bottomY = W_HEIGHT;
-			t.y =  data->sprites[x].y - data->player.y;
-			t.x =  data->sprites[x].x - data->player.x;
-			data->sprites[x].angle = normalize(atan2(t.y, t.x) - data->player.teta);
-			double sprite_sc_posX = tan(data->sprites[x].angle) * distance_to_proj;
-			double sprite_leftX = (W_WIDTH / 2) + sprite_sc_posX  - (sprite_width / 2);
-			double sprite_rightX = sprite_leftX + sprite_width;
-			i = (int)sprite_leftX;
-			while(i < sprite_rightX)
+			dsp.tp = (dsp.tx.width / dsp.sp_width);
+			dsp.txtr_off.x = (dsp.i - dsp.sp_leftX) * dsp.tp;
+			dsp.j = dsp.sp_topY;
+			while (dsp.j < dsp.sp_bottomY)
 			{
-				if (i >= 0 && i < W_WIDTH  && check_dis(data, x, i))
-				{
-					double t = (tx.width / sprite_width);
-					txtr_off.x = (i - sprite_leftX) * t;
-					j = sprite_topY;
-					while(j < sprite_bottomY)
-					{
-						double distance_from_top = j + ((int)sprite_height / 2 ) - (W_HEIGHT / 2);
-						txtr_off.y = distance_from_top * (tx.height / sprite_height);
-						int h = (tx.width * (int)txtr_off.y) + (int)txtr_off.x;
-						if (h >=0 && h < (tx.height * tx.width) && tx.tab[h] != 3642478)
-						{
-							my_mlx_pixel_put(&data->window, i, j, tx.tab[h]);
-						}
-						j++;
-					}
-				}
-				i++;
+				dsp.distance_from_top = dsp.j + ((int)dsp.sp_height / 2) - \
+				(W_HEIGHT / 2);
+				dsp.txtr_off.y = dsp.distance_from_top * \
+				(dsp.tx.height / dsp.sp_height);
+				dsp.h = (dsp.tx.width * (int)dsp.txtr_off.y) + \
+				(int)dsp.txtr_off.x;
+				if (dsp.h >= 0 && dsp.h < (dsp.tx.height * dsp.tx.width) && \
+				dsp.tx.tab[dsp.h] != 3642478)
+					my_mlx_pixel_put(&data->window, dsp.i, dsp.j, \
+					dsp.tx.tab[dsp.h]);
+				dsp.j++;
 			}
 		}
-	// 	x++;
-	// }	
+		dsp.i++;
+	}
 }
 
-void draw_rest_sprites(t_data *data)
+void	draw_sprite(t_data *data, int x)
 {
-	int x = 0;
+	t_dwsprite	dsp;
 
-	while(x < data->sp)
+	dsp.rad = (FOV) * (M_PI / 180);
+	data->sprites[x].drown = 1;
+	if (data->sprites[x].vis == 1)
+	{
+		dsp.tx = which_sprite_texture(data);
+		dsp.distance_to_proj = (W_WIDTH / 2) / tan(dsp.rad / 2);
+		dsp.sp_height = (Z / data->sprites[x].distance) * dsp.distance_to_proj;
+		dsp.sp_width = dsp.sp_height;
+		dsp.sp_topY = (W_HEIGHT / 2) - (dsp.sp_height / 2);
+		if (dsp.sp_topY < 0)
+			dsp.sp_topY = 0;
+		dsp.sp_bottomY = (W_HEIGHT / 2) + (dsp.sp_height / 2);
+		if (dsp.sp_bottomY > W_HEIGHT)
+			dsp.sp_bottomY = W_HEIGHT;
+		dsp.t.y = data->sprites[x].y - data->player.y;
+		dsp.t.x = data->sprites[x].x - data->player.x;
+		data->sprites[x].angle = normalize(atan2(dsp.t.y, dsp.t.x) - \
+		data->player.teta);
+		dsp.sp_sc_posX = tan(data->sprites[x].angle) * dsp.distance_to_proj;
+		dsp.sp_leftX = (W_WIDTH / 2) + dsp.sp_sc_posX - (dsp.sp_width / 2);
+		draw_sprite_rays(dsp, data, x);
+	}
+}
+
+void	draw_rest_sprites(t_data *data)
+{
+	int x;
+
+	x = 0;
+	while (x < data->sp)
 	{
 		if (data->sprites[x].drown == 0)
-			draw_sprite(data,x);
+			draw_sprite(data, x);
 		x++;
 	}
 }
 
-int draw(t_data *data)
+int	draw(t_data *data)
 {
-	t_segment seg;
+	t_segment	seg;
 
 	mlx_clear_window(data->window.mlx, data->window.mlx_win);
 	data->window.img = mlx_new_image(data->window.mlx, W_WIDTH, W_HEIGHT);
-	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel, &data->window.line_length,
-								&data->window.endian);
+	data->window.addr = mlx_get_data_addr(data->window.img, \
+	&data->window.bits_per_pixel, &data->window.line_length, \
+	&data->window.endian);
 	move_map(data);
 	draw_background(data);
 	move_player(data);
@@ -238,69 +232,73 @@ int draw(t_data *data)
 	draw_minimap(data);
 	free(data->r);
 	free(data->sprites);
-	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, data->window.img, 0, 0);
+	mlx_put_image_to_window(data->window.mlx, data->window.mlx_win, \
+	data->window.img, 0, 0);
 	mlx_destroy_image(data->window.mlx, data->window.img);
-	return(0);
+	return (0);
 }
 
-int draw_minimap(t_data *data)
+int	draw_minimap(t_data *data)
 {
-	int i = 0;
-	int j = 0;
-	t_point p;
-	t_point t;
-	
-	while(data->map[i])
+	int		i;
+	int		j;
+	t_point	p;
+	t_point	t;
+
+	i = 0;
+	while (data->map[i])
 	{
 		p.x = data->map_x;
-		p.y = data->map_y + (i * Z) ;
+		p.y = data->map_y + (i * Z);
 		j = 0;
-		while(data->map[i][j])
+		while (data->map[i][j])
 		{
-			if (data->map[i][j] == ' ');
-			else if ((data->map[i][j] == '0') || (data->map[i][j] == '3') || check_player(data->map[i][j]));
+			if (data->map[i][j] == ' ')
+				;
+			else if ((data->map[i][j] == '0') || (data->map[i][j] == '3') \
+			|| check_player(data->map[i][j]))
+				;
 			else
-				ft_block2(data, p.x,p.y,get_color(data->map[i][j]));
+				ft_block2(data, p.x, p.y, get_color(data->map[i][j]));
 			p.x += Z;
 			j++;
 		}
 		i++;
 	}
 	i = 0;
-	while(i < data->sp)
+	while (i < data->sp)
 	{
 		t.x = data->sprites[i].x - 2;
 		t.y = data->sprites[i].y - 2;
-		// if (data->sprites[i].vis == 1)
-		// 	player_symbol(data,t.x,t.y, 0xEEC643);
-		// else
-			player_symbol(data,t.x,t.y, 0xEEC643);
+		player_symbol(data, t.x, t.y, 0xEEC643);
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
-int draw_minimap_frame(t_data *data)
+int	draw_minimap_frame(t_data *data)
 {
-	int i = 0;
-	int j = 0;
-	t_point p;
-	
-	while(i < MINI_CUB)
+	int		i;
+	int		j;
+	t_point	p;
+
+	i = 0;
+	while (i < MINI_CUB)
 	{
 		p.x = 0;
 		p.y = i * Z ;
 		j = 0;
-		while(j < MINI_CUB)
+		while (j < MINI_CUB)
 		{
-			if ((i == 0 || (i == MINI_CUB - 1)) || (j == 0 || (j == MINI_CUB - 1)))
-				ft_block(data, p.x,p.y,0);	
+			if ((i == 0 || (i == MINI_CUB - 1)) || (j == 0 || \
+			(j == MINI_CUB - 1)))
+				ft_block(data, p.x, p.y, 0);
 			else
-				ft_block(data, p.x,p.y,0x6E7E85);	
+				ft_block(data, p.x, p.y, 0x6E7E85);
 			p.x += Z;
 			j++;
 		}
 		i++;
 	}
-	return(0);
+	return (0);
 }

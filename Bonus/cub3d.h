@@ -6,12 +6,13 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/01 00:45:27 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:49:48 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -43,9 +44,9 @@
 
 typedef struct s_color
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 } t_color;
 
 
@@ -95,8 +96,6 @@ typedef struct s_ray
 	int	h_or_v;
 	t_door *door;
 } t_ray;
-
-
 
 typedef struct s_block
 {
@@ -166,6 +165,43 @@ typedef struct	s_window {
 	void	*mlx_win;
 }	t_window;
 
+typedef struct s_dwvars
+{
+	int			i;
+	int			j;
+	t_point		txtr_off;
+	double		x;
+	double		a;
+	double		rad;
+	t_texture	tx;
+	double		per_distance;
+	double		distance_to_proj;
+	double		proj_wall_height;
+	int			wall_top_pixel;
+	int			wall_bottom_pixel;
+}	t_dwvars;
+
+typedef struct s_dwsprite
+{
+	int		i;
+	int		j;
+	t_point	t;
+	double	rad;
+	double	distance_to_proj;
+	double	sp_height;
+	double	sp_width;
+	double	sp_topY;
+	double	sp_bottomY;
+	double	sp_sc_posX;
+	double	sp_leftX;
+	double	sp_rightX;
+	t_texture tx;
+	t_point txtr_off;
+	double distance_from_top;
+	double	tp;
+	int h;
+}	t_dwsprite;
+
 typedef struct	s_txtr {
 	t_texture north;
 	t_texture south;
@@ -214,6 +250,7 @@ typedef struct s_data
 	t_point centre_p;
 	t_sprite *sprites;
 	int sp;
+	int i;
 } t_data;
 
 char	*get_next_line(int fd);

@@ -6,70 +6,65 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:11:26 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/10/26 23:26:44 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:09:27 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    player_symbol(t_data *data, double x, double y,int color)
+void	player_symbol(t_data *data, double x, double y,int color)
 {
-	int tmp;
-	t_point t;
+	int		tmp;
+	t_point	t;
 
 	t.x = 4 + x;
 	t.y = 4 + y;
-	
 	tmp = y;
-    while(x < t.x)
-    {
-        y = tmp;
-        while(y < t.y)
-        {
-           	my_mlx_pixel_put(&data->window, x, y, color);
-            y++;
-        }
-        x++;
-    }
+	while (x < t.x)
+	{
+		y = tmp;
+		while (y < t.y)
+		{
+			my_mlx_pixel_put(&data->window, x, y, color);
+			y++;
+		}
+		x++;
+	}
 }
 
-t_texture get_t(char *path, t_texture tx,t_data *data)
+t_texture	get_t(char *path, t_texture tx, t_data *data)
 {
-	void *img;
+	void	*img;
 
 	img = malloc(sizeof(void *));
 	img = mlx_xpm_file_to_image(data->window.mlx, path, &tx.width, &tx.height);
-	tx.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, &data->window.line_length, &data->window.endian);
-	return(tx);
+	tx.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, \
+	&data->window.line_length, &data->window.endian);
+	return (tx);
 }
 
 void	get_texture(t_data *data)
 {
-	data->txtr.sp = get_t("../barrel.xpm", data->txtr.sp,data);
-	data->txtr.north = get_t(data->NO, data->txtr.north,data);
-	data->txtr.south = get_t(data->SO, data->txtr.south,data);
-	data->txtr.east = get_t(data->EA, data->txtr.east,data);
-	data->txtr.west = get_t(data->WE, data->txtr.west,data);
-	data->txtr.door = get_t(data->DO, data->txtr.door,data);
-	
-	
-	data->txtr.d_f0 = get_t("../F0.xpm", data->txtr.d_f0,data);
-	data->txtr.d_f1 = get_t("../F1.xpm", data->txtr.d_f1,data);
-	data->txtr.d_f2 = get_t("../F2.xpm", data->txtr.d_f2,data);
-	data->txtr.d_f3 = get_t("../F3.xpm", data->txtr.d_f3,data);
-	data->txtr.d_f4 = get_t("../F4.xpm", data->txtr.d_f4,data);
-	data->txtr.d_f5 = get_t("../F5.xpm", data->txtr.d_f5,data);
-	data->txtr.d_f6 = get_t("../F6.xpm", data->txtr.d_f6,data);
-
-	
-	data->txtr.s0 = get_t("./assets/sprite/R0.xpm", data->txtr.s0,data);
-	data->txtr.s1 = get_t("./assets/sprite/R1.xpm", data->txtr.s1,data);
-	data->txtr.s2 = get_t("./assets/sprite/R2.xpm", data->txtr.s2,data);
-	data->txtr.s3 = get_t("./assets/sprite/R5.xpm", data->txtr.s3,data);
-	
+	data->txtr.sp = get_t("../barrel.xpm", data->txtr.sp, data);
+	data->txtr.north = get_t(data->NO, data->txtr.north, data);
+	data->txtr.south = get_t(data->SO, data->txtr.south, data);
+	data->txtr.east = get_t(data->EA, data->txtr.east, data);
+	data->txtr.west = get_t(data->WE, data->txtr.west, data);
+	data->txtr.door = get_t(data->DO, data->txtr.door, data);
+	data->txtr.d_f0 = get_t("../F0.xpm", data->txtr.d_f0, data);
+	data->txtr.d_f1 = get_t("../F1.xpm", data->txtr.d_f1, data);
+	data->txtr.d_f2 = get_t("../F2.xpm", data->txtr.d_f2, data);
+	data->txtr.d_f3 = get_t("../F3.xpm", data->txtr.d_f3, data);
+	data->txtr.d_f4 = get_t("../F4.xpm", data->txtr.d_f4, data);
+	data->txtr.d_f5 = get_t("../F5.xpm", data->txtr.d_f5, data);
+	data->txtr.d_f6 = get_t("../F6.xpm", data->txtr.d_f6, data);
+	data->txtr.s0 = get_t("./assets/sprite/R0.xpm", data->txtr.s0, data);
+	data->txtr.s1 = get_t("./assets/sprite/R1.xpm", data->txtr.s1, data);
+	data->txtr.s2 = get_t("./assets/sprite/R2.xpm", data->txtr.s2, data);
+	data->txtr.s3 = get_t("./assets/sprite/R5.xpm", data->txtr.s3, data);
 }
 
-void move_map(t_data *data)
+void	move_map(t_data *data)
 {
 	data->centre_p.x = data->player.x - (MINI_CUB * Z / 2);
 	data->centre_p.y = data->player.y - (MINI_CUB * Z / 2);
@@ -79,10 +74,10 @@ void move_map(t_data *data)
 	data->map_y -= data->centre_p.y;
 }
 
-int rgb_to_dec(t_color color)
+int	rgb_to_dec(t_color color)
 {
-	int dec;
+	int	dec;
 
 	dec = (color.r << 16) + (color.g << 8) + color.b;
-	return(dec);
+	return (dec);
 }
