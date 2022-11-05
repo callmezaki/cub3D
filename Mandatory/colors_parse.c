@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:30:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 01:08:39 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/04 22:23:34 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,20 @@ void	check_color_range(t_color col)
 	exit(1);
 }
 
-// void	f_n_ex(char	**sp, char	*t)
-// {
-// 	free_tab(sp);
-// 	free(t);
-// 	printf("Error\n");
-// 	exit(0);
-// }
+void	f_n_ex(char	**sp, char	*t)
+{
+	free_tab(sp);
+	free(t);
+	printf("Error\n");
+	exit(0);
+}
+
+void	f_n_ex_2(char	**sp)
+{
+	free_tab(sp);
+	printf("Error1\n");
+	exit(1);
+}
 
 t_color	check_color(char **s, int i)
 {
@@ -76,27 +83,19 @@ t_color	check_color(char **s, int i)
 	j = -1;
 	t = ft_strdup(s[i]);
 	sp = ft_split(t, ' ');
+	col.b = 0;
 	error_n_free2(sp, t);
 	if (check_cama(sp[1]))
 	{
 		while (sp[1][++j])
 		{
 			if (!ft_isdigit(sp[1][j]) && sp[1][j] != ',')
-			{
-				free_tab(sp);
-				printf("Error1\n");
-				exit(1);
-			}
+				f_n_ex_2(sp);
 		}
 		fill_col(sp, &col, t);
 	}
 	else
-	{
-		free_tab(sp);
-		free(t);
-		printf("Error\n");
-		exit(0);
-	}
+		f_n_ex(sp, t);
 	return (col);
 }
 

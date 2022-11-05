@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:30:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 19:07:24 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/05 00:07:14 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	check_cama(char *s)
 		return (0);
 	else
 	{
-		while (s[i] && s[i+1])
+		while (s[i] && s[i + 1])
 		{
-			if (s[i] == ',' && s[i+1] == ',')
+			if (s[i] == ',' && s[i + 1] == ',')
 				return (0);
 			if (s[i] == ',')
 				c++;
@@ -58,6 +58,45 @@ void	check_color_range(t_color col)
 	exit(1);
 }
 
+void	check_compl(char **ss, t_color *col, char	**sp, char	*t)
+{
+	ss = ft_split(sp[1], ',');
+	col->r = ft_atoi(ss[0]);
+	col->g = ft_atoi(ss[1]);
+	col->b = ft_atoi(ss[2]);
+	free_tab(ss);
+	free_tab(sp);
+	check_color_range(*col);
+	free(t);
+}
+
+void	f_n_ex(char	**sp, char	*t)
+{
+	free_tab(sp);
+	free(t);
+	printf("Error\n");
+	exit(0);
+}
+
+void	error_n_free2(char	**sp, char	*t)
+{
+	if (!sp[1] || sp[2])
+	{
+		if (sp[0])
+			free_tab(sp);
+		free(t);
+		printf("Error0\n");
+		exit(1);
+	}
+}
+
+void	f_n_ex_2(char	**sp)
+{
+	free_tab(sp);
+	printf("Error1\n");
+	exit(1);
+}
+
 t_color	check_color(char **s, int i)
 {
 	t_color	col;
@@ -69,42 +108,21 @@ t_color	check_color(char **s, int i)
 	j = 0;
 	t = ft_strdup(s[i]);
 	sp = ft_split(t, ' ');
-	if (!sp[1] || sp[2])
-	{
-		if (sp[0])
-			free_tab(sp);
-		free(t);
-		printf("Error0\n");
-		exit(1);
-	}
+	ss = NULL;
+	col.b = 0;
+	error_n_free2(sp, t);
 	if (check_cama(sp[1]))
 	{
 		while (sp[1][j])
 		{
 			if (!ft_isdigit(sp[1][j]) && sp[1][j] != ',')
-			{
-				free_tab(sp);
-				printf("Error1\n");
-				exit(1);
-			}
+				f_n_ex_2(sp);
 			j++;
 		}
-		ss = ft_split(sp[1], ',');
-		col.r = ft_atoi(ss[0]);
-		col.g = ft_atoi(ss[1]);
-		col.b = ft_atoi(ss[2]);
-		free_tab(ss);
-		free_tab(sp);
-		check_color_range(col);
-		free(t);
+		check_compl(ss, &col, sp, t);
 	}
 	else
-	{
-		free_tab(sp);
-		free(t);
-		printf("Error\n");
-		exit(0);
-	}
+		f_n_ex(sp, t);
 	return (col);
 }
 

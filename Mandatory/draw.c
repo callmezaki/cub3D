@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 01:06:43 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/03 16:27:34 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ int	draw_minimap(t_data *data)
 		{
 			if (data->map[i][j] == ' ')
 				;
-			else if ((data->map[i][j] == '0') || check_player(data->map[i][j]));
+			else if ((data->map[i][j] == '0') || check_player(data->map[i][j]))
+				;
 			else
 				ft_block2(data, p.x, p.y, get_color(data->map[i][j]));
 			p.x += Z;

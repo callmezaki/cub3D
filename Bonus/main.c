@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 19:40:28 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/05 00:07:42 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,6 +343,11 @@ void	get_data(int fd, t_data *data)
 	// 	free(temp);
 }
 
+void f()
+{
+	system("leaks cub3d");
+}
+
 void	exit_n_free(t_data *data, int t)
 {
 	(void)data;
@@ -353,12 +358,12 @@ void	exit_n_free(t_data *data, int t)
 	free(data->DO);
 	free_tab(data->map);
 	free(data);
-	system("leaks cub3d");
 	exit(t);
 }
 
 int	main(int ac, char **av)
 {
+	atexit(f);
 	t_data	*data;
 	int		fd;
 	char	*t;
