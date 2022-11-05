@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:21:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/10/29 23:30:12 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/05 23:58:18 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ void	my_mlx_pixel_put(t_window *data, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < W_WIDTH && x >=  0 && y < W_HEIGHT && y >= 0)
+	if (x < W_WIDTH && x >= 0 && y < W_HEIGHT && y >= 0)
 	{
-		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-		*(unsigned int*)dst = color;
+		dst = data->addr
+			+ (y * data->line_length + x * (data->bits_per_pixel / 8));
+		*(unsigned int *) dst = color;
 	}
 }
 
@@ -45,21 +46,8 @@ int	you_quit(void)
 	exit(EXIT_SUCCESS);
 }
 
-int key_press(int key, t_data *data)
+void	key_press_cond(int key, t_data *data)
 {
-	t_point p;
-	p.y = data->player.y - data->map_y;
-	p.x = data->player.x - data->map_x;
-	if (key == KEY_W)
-	{
-		data->player.sides = 0;
-		data->player.walkdirection = 1;
-	}
-	else if (key == KEY_S)
-	{
-		data->player.sides = 0;
-		data->player.walkdirection = -1;
-	}
 	if (key == KEY_A)
 	{
 		data->player.sides = 1;
@@ -75,11 +63,27 @@ int key_press(int key, t_data *data)
 	else if (key == RIGHT)
 		data->player.turndirection = 1;
 	else if (key == KEY_ESC)
-	{
 		exit_n_free(data, 0);
-	}
+}
 
-	return(0);
+int	key_press(int key, t_data *data)
+{
+	t_point	p;
+
+	p.y = data->player.y - data->map_y;
+	p.x = data->player.x - data->map_x;
+	if (key == KEY_W)
+	{
+		data->player.sides = 0;
+		data->player.walkdirection = 1;
+	}
+	else if (key == KEY_S)
+	{
+		data->player.sides = 0;
+		data->player.walkdirection = -1;
+	}
+	key_press_cond(key, data);
+	return (0);
 }
 
 int key_release(int key, t_data *data)
@@ -96,7 +100,7 @@ int key_release(int key, t_data *data)
 		data->player.turndirection = 0;
 	else if (key == RIGHT)
 		data->player.turndirection = 0;
-	return(0);
+	return (0);
 }
 
 int mouse_press(int key, int x, int y, t_data *data)
@@ -105,7 +109,7 @@ int mouse_press(int key, int x, int y, t_data *data)
 	(void)y;
 	if (key == 1)
 		data->player.is_m_pressed = 1;
-	return(0);
+	return (0);
 }
 
 int mouse_release(int key, int x, int y, t_data *data)
@@ -114,14 +118,13 @@ int mouse_release(int key, int x, int y, t_data *data)
 	(void)y;
 	if (key == 1)
 		data->player.is_m_pressed = 0;
-	return(0);
+	return (0);
 }
 
 int mouse_move(int x, int y, t_data *data)
 {
 	(void)y;
-	
-	if(!data->player.is_m_pressed)
+	if (!data->player.is_m_pressed)
 		data->player.turndirection = 0;
 	else if (data->player.is_m_pressed)
 	{
@@ -131,9 +134,8 @@ int mouse_move(int x, int y, t_data *data)
 			data->player.turndirection = 1;
 		if (x > W_WIDTH || x < 0)
 			data->player.turndirection = 0;
-		// printf("%d | %d\n", x, data->player.turndirection);
 	}
-	return(0);
+	return (0);
 }
 
 void	init_window(t_data *data)
@@ -142,7 +144,8 @@ void	init_window(t_data *data)
 	data->player.walkdirection = 0;
 	data->player.sides = 0;
 	data->window.mlx = mlx_init();
-	data->window.mlx_win = mlx_new_window(data->window.mlx, W_WIDTH, W_HEIGHT, "Cub3d");
+	data->window.mlx_win = mlx_new_window(data->window.mlx,
+			W_WIDTH, W_HEIGHT, "Cub3d");
 	get_texture(data);
 	draw(data);
 	mlx_loop_hook(data->window.mlx, run, data);

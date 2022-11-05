@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 19:24:31 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 19:25:43 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/05 21:22:55 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ double	h_distance(t_data *data, double beta, t_ray *ray)
 	}
 }
 
-void get_v_inter(t_data *data, t_dis *d)
+void	get_v_inter(t_data *data, t_dis *d)
 {	
 	d->ply.x = data->player.x - data->map_x;
 	d->ply.y = data->player.y - data->map_y;
@@ -103,7 +103,7 @@ void get_v_inter(t_data *data, t_dis *d)
 		d->stp.y *= -1;
 }
 
-double	v_distance(t_data *data, double beta,t_ray *ray)
+double	v_distance(t_data *data, double beta, t_ray *ray)
 {
 	t_dis	d;
 	t_door	door;

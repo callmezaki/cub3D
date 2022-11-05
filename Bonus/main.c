@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/05 00:07:42 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/05 20:55:09 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,8 +343,9 @@ void	get_data(int fd, t_data *data)
 	// 	free(temp);
 }
 
-void f()
+void	f(void)
 {
+	printf("\n\n\n_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n\n\n");
 	system("leaks cub3d");
 }
 

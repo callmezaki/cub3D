@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 00:02:45 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/03 01:05:01 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/05 22:23:47 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	key_press_cond(int key, t_data *data)
 	else if (key == RIGHT)
 		data->player.turndirection = 1;
 	else if (key == KEY_ESC)
-		exit_n_free(data, 1);
+		exit_n_free(data, 0);
 }
 
 int	key_press(int key, t_data *data)
