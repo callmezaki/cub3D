@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 20:39:48 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 23:42:28 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	draw_minimap(t_data *data)
 	while (data->map[i])
 	{
 		p.x = data->map_x;
-		p.y = data->map_y + i * Z ;
+		p.y = data->map_y + i * data->tile ;
 		j = 0;
 		while (data->map[i][j])
 		{
@@ -90,7 +90,7 @@ int	draw_minimap(t_data *data)
 				;
 			else
 				ft_block2(data, p.x, p.y, get_color(data->map[i][j]));
-			p.x += Z;
+			p.x += data->tile;
 			j++;
 		}
 		i++;
@@ -109,7 +109,7 @@ int	draw_minimap_frame(t_data *data)
 	while (i < MINI_CUB)
 	{
 		p.x = 0;
-		p.y = i * Z ;
+		p.y = i * data->tile ;
 		j = 0;
 		while (j < MINI_CUB)
 		{
@@ -118,7 +118,7 @@ int	draw_minimap_frame(t_data *data)
 				ft_block(data, p.x, p.y, 0);
 			else
 				ft_block(data, p.x, p.y, 10676939);
-			p.x += Z;
+			p.x += data->tile;
 			j++;
 		}
 		i++;

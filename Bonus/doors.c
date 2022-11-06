@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 19:33:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 20:22:38 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 23:42:28 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	door_ray(t_dwvars *dw, t_door *door, t_data *data, int i)
 	if (data->r[i].distance <= door->dis_door)
 		return (0);
 	dw->distance_to_proj = (W_WIDTH / 2) / tan(dw->rad / 2);
-	dw->proj_wall_height = (dw->distance_to_proj / door->dis_door) * Z;
+	dw->proj_wall_height = (dw->distance_to_proj / door->dis_door) * data->tile;
 	dw->a = dw->proj_wall_height;
 	if (dw->proj_wall_height > W_HEIGHT)
 		dw->proj_wall_height = W_HEIGHT;
@@ -57,9 +57,9 @@ void	cast_door_ray(t_door *door, t_data *data, int i)
 	dw.proj_wall_height = 0;
 	dw.tx = which_door_texture(data, door);
 	if (door->h_or_v == 2)
-		dw.txtr_off.x = (door->y_door - data->map_y) / Z;
+		dw.txtr_off.x = (door->y_door - data->map_y) / data->tile;
 	else
-		dw.txtr_off.x = (door->x_door - data->map_x) / Z;
+		dw.txtr_off.x = (door->x_door - data->map_x) / data->tile;
 	dw.txtr_off.x = dw.txtr_off.x - floor(dw.txtr_off.x);
 	dw.txtr_off.x *= dw.tx.width;
 	if (!door_ray(&dw, door, data, i))

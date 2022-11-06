@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 20:37:40 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 00:04:23 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	draw_walls_calc(t_data *data, t_dwvars	*dw)
 	dw->per_distance = data->r[dw->i].distance * cos(data->r[dw->i].alpha
 			- data->player.teta);
 	dw->distance_to_proj = (W_WIDTH / 2) / tan(dw->rad / 2);
-	dw->proj_wall_height = (dw->distance_to_proj / dw->per_distance) * Z;
+	dw->proj_wall_height = (dw->distance_to_proj / dw->per_distance) * \
+	data->tile;
 	dw->a = (int)dw->proj_wall_height;
 	if (dw->proj_wall_height > W_HEIGHT)
 	dw->proj_wall_height = W_HEIGHT;
@@ -48,9 +49,9 @@ void	draw_walls(t_data *data)
 	{
 		dw.tx = which_texture(data, dw.i);
 		if (data->r[dw.i].h_or_v == 2)
-			dw.txtr_off.x = (data->r[dw.i].y - data->map_y) / Z;
+			dw.txtr_off.x = (data->r[dw.i].y - data->map_y) / data->tile;
 		else
-			dw.txtr_off.x = (data->r[dw.i].x - data->map_x) / Z;
+			dw.txtr_off.x = (data->r[dw.i].x - data->map_x) / data->tile;
 		draw_walls_calc(data, &dw);
 		while (dw.j < dw.wall_bottom_pixel)
 		{
@@ -104,8 +105,8 @@ void	move_player(t_data *data)
 		p.x -= (sin(data->player.teta) * data->player.walkdirection * STEP);
 		p.y += (cos(data->player.teta) * data->player.walkdirection * STEP);
 	}
-	t.x = (data->player.x - data->map_x + p.x) / Z;
-	t.y = (data->player.y - data->map_y + p.y) / Z;
+	t.x = (data->player.x - data->map_x + p.x) / data->tile;
+	t.y = (data->player.y - data->map_y + p.y) / data->tile;
 	if (data->map[(int)t.y][(int)t.x] == '0'
 		|| check_player(data->map[(int)t.y][(int)t.x]))
 	{

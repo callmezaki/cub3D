@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils_4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 21:26:19 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/06 21:28:18 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 00:04:12 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,12 @@ int	check_empty_lines(char *s, t_data *data, int len)
 	}
 	free_tab(t);
 	return (len);
+}
+
+int	rgb_to_dec(t_color color)
+{
+	int	dec;
+
+	dec = (color.r << 16) + (color.g << 8) + color.b;
+	return (dec);
 }

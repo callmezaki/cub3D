@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 21:02:50 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/06 21:13:28 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 23:18:05 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void	get_data(int fd, t_data *data)
 	data->i = 0;
 	str = malloc(1);
 	str[0] = '\0';
-	temp = str;
+	temp = malloc(1);
+	temp[0] = '\0';
 	temp = get_data_loop(data, str, fd, temp);
 	parse_data(data, temp);
 }

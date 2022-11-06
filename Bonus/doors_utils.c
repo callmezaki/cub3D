@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 03:37:12 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 04:59:06 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 00:03:22 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	return_firstx(t_data *data, t_sprite sp)
 	t_dwsprite	s;
 
 	s.rad = (FOV) * (M_PI / 180);
-	s.distance_to_proj = (W_WIDTH / 2) / tan(s.rad / 2);
-	s.sp_width = (Z / sp.distance) * s.distance_to_proj;
+	s.dis_to_proj = (W_WIDTH / 2) / tan(s.rad / 2);
+	s.sp_width = (data->tile / sp.dis) * s.dis_to_proj;
 	s.t.y = sp.y - data->player.y;
 	s.t.x = sp.x - data->player.x;
 	sp.angle = normalize(atan2(s.t.y, s.t.x) - data->player.teta);
-	s.sp_sc_posx = tan(sp.angle) * s.distance_to_proj;
+	s.sp_sc_posx = tan(sp.angle) * s.dis_to_proj;
 	s.sp_leftx = (W_WIDTH / 2) + s.sp_sc_posx - (s.sp_width / 2);
 	return ((int)s.sp_leftx);
 }
@@ -58,7 +58,7 @@ void	draw_doors(t_data *data)
 				while (++x < data->sp)
 				{
 					if (return_firstx(data, data->sprites[x]) <= i && \
-	data->sprites[x].distance > door->dis_door && data->sprites[x].drown == 0)
+	data->sprites[x].dis > door->dis_door && data->sprites[x].drown == 0)
 						draw_sprite(data, x);
 				}
 				cast_door_ray(door, data, i);

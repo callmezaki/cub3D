@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 21:23:34 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 00:02:40 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 
 # define W_HEIGHT 1080
 # define W_WIDTH 1920
-# define Z 10
 # define MINI_CUB 20
 # define STEP 1
 # define FOV 60
@@ -118,7 +117,7 @@ typedef struct s_sprite
 {
 	double		x;
 	double		y;
-	double		distance;
+	double		dis;
 	t_texture	tx;
 	double		angle;
 	int			vis;
@@ -180,7 +179,7 @@ typedef struct s_dwsprite
 	int			j;
 	t_point		t;
 	double		rad;
-	double		distance_to_proj;
+	double		dis_to_proj;
 	double		sp_height;
 	double		sp_width;
 	double		sp_topy;
@@ -248,6 +247,7 @@ typedef struct s_data
 	double		rotation_speed;
 	double		rays_degr;
 	double		rays_inc;
+	double		tile;
 }	t_data;
 
 char		*get_next_line(int fd);
@@ -307,7 +307,6 @@ void		draw_sprite(t_data *data, int x);
 void		draw_rest_sprites(t_data *data);
 void		check_map_comp(int check, t_data *data);
 void		check_map(char **s, t_data *data);
-char		*intial_map_check(char *s, char **t, t_data *data);
 int			check_check(char **s, t_data *data);
 int			check_doors(char **s, int i, int j);
 int			check_cama(char *s);

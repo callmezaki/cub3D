@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 04:21:34 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 04:48:15 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 23:59:23 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	draw_walls_calc(t_data *data, t_dwvars	*dw)
 	dw->per_distance = data->r[dw->i].distance * cos(data->r[dw->i].alpha
 			- data->player.teta);
 	dw->distance_to_proj = (W_WIDTH / 2) / tan(dw->rad / 2);
-	dw->proj_wall_height = (Z / dw->per_distance) * dw->distance_to_proj;
+	dw->proj_wall_height = (data->tile / dw->per_distance) * \
+	dw->distance_to_proj;
 	dw->a = (int)dw->proj_wall_height;
 	if (dw->proj_wall_height > W_HEIGHT)
 	dw->proj_wall_height = W_HEIGHT;
@@ -63,9 +64,9 @@ void	draw_walls(t_data *data)
 	{
 		dw.tx = which_texture(data, dw.i);
 		if (data->r[dw.i].h_or_v == 2)
-			dw.txtr_off.x = (data->r[dw.i].y - data->map_y) / Z;
+			dw.txtr_off.x = (data->r[dw.i].y - data->map_y) / data->tile;
 		else
-			dw.txtr_off.x = (data->r[dw.i].x - data->map_x) / Z;
+			dw.txtr_off.x = (data->r[dw.i].x - data->map_x) / data->tile;
 		draw_walls_calc(data, &dw);
 		while (dw.j < dw.wall_bottom_pixel)
 		{

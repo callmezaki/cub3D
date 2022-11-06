@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils_4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 21:12:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/06 21:13:48 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 22:48:50 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ char	*check_assets_loop(t_data *data, char **s, char	*str, char	**t)
 		}
 		else
 		{
-			free(data->tmp);
+			if (t[0][0])
+				free_tab(t);
 			break ;
 		}
 		if (t[0][0])
@@ -66,6 +67,7 @@ int	check_assets(char **s, t_data *data)
 	data->i = 0;
 	data->j = 0;
 	str = check_assets_loop(data, s, str, t);
+	free(data->tmp);
 	if (!check_duplicates(str))
 	{
 		free(str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   distance_calc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 00:06:27 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/03 00:07:12 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 23:42:28 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	h_distance_calc(t_data *data, double beta)
 {
 	data->ply.x = data->player.x - data->map_x;
 	data->ply.y = data->player.y - data->map_y;
-	data->first_inter.y = floor(data->ply.y / Z) * Z;
+	data->first_inter.y = floor(data->ply.y / data->tile) * data->tile;
 	if (facing_down(beta))
-		data->first_inter.y += Z;
+		data->first_inter.y += data->tile;
 	data->first_inter.x = data->ply.x
 		+ ((data->first_inter.y - data->ply.y) / tan(beta));
-	data->stp.y = Z;
+	data->stp.y = data->tile;
 	if (!facing_down(beta))
 		data->stp.y *= -1;
-	data->stp.x = Z / tan(beta);
+	data->stp.x = data->tile / tan(beta);
 	if ((!facing_right(beta) && data->stp.x > 0)
 		|| (facing_right(beta) && data->stp.x < 0))
 		data->stp.x *= -1;
@@ -36,8 +36,8 @@ void	h_distance_calc2(t_data *data, double beta)
 	data->t.y = data->first_inter.y;
 	if (!facing_down(beta))
 		data->t.y -= 1;
-	data->a.x = data->t.x / Z;
-	data->a.y = data->t.y / Z;
+	data->a.x = data->t.x / data->tile;
+	data->a.y = data->t.y / data->tile;
 }
 
 double	h_distance(t_data *data, double beta)
@@ -71,15 +71,15 @@ void	v_distance_calc(t_data *data, double beta)
 {
 	data->ply.x = data->player.x - data->map_x;
 	data->ply.y = data->player.y - data->map_y;
-	data->first_inter.x = floor(data->ply.x / Z) * Z;
+	data->first_inter.x = floor(data->ply.x / data->tile) * data->tile;
 	if (facing_right(beta))
-		data->first_inter.x += Z;
+		data->first_inter.x += data->tile;
 	data->first_inter.y = data->ply.y
 		+ ((data->first_inter.x - data->ply.x) * tan(beta));
-	data->stp.x = Z;
+	data->stp.x = data->tile;
 	if (!facing_right(beta))
 		data->stp.x *= -1;
-	data->stp.y = Z * tan(beta);
+	data->stp.y = data->tile * tan(beta);
 	if ((!facing_down(beta) && data->stp.y > 0)
 		|| (facing_down(beta) && data->stp.y < 0))
 		data->stp.y *= -1;
@@ -91,6 +91,6 @@ void	v_distance_calc2(t_data *data, double beta)
 	data->t.y = data->first_inter.y;
 	if (!facing_right(beta))
 		data->t.x -= 1;
-	data->a.x = data->t.x / Z;
-	data->a.y = data->t.y / Z;
+	data->a.x = data->t.x / data->tile;
+	data->a.y = data->t.y / data->tile;
 }

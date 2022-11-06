@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 19:24:31 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 19:19:35 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 23:42:28 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	get_h_inter(t_data *data, t_dis *d)
 {	
 	d->ply.x = data->player.x - data->map_x;
 	d->ply.y = data->player.y - data->map_y;
-	d->first_inter.y = floor(d->ply.y / Z) * Z;
+	d->first_inter.y = floor(d->ply.y / data->tile) * data->tile;
 	if (facing_down(d->beta))
-		d->first_inter.y += Z;
+		d->first_inter.y += data->tile;
 	d->first_inter.x = d->ply.x + \
 	((d->first_inter.y - d->ply.y) / tan(d->beta));
-	d->stp.y = Z;
+	d->stp.y = data->tile;
 	if (!facing_down(d->beta))
 		d->stp.y *= -1;
-	d->stp.x = Z / tan(d->beta);
+	d->stp.x = data->tile / tan(d->beta);
 	if ((!facing_right(d->beta) && d->stp.x > 0) || \
 	(facing_right(d->beta) && d->stp.x < 0))
 		d->stp.x *= -1;
@@ -76,8 +76,8 @@ double	h_distance(t_data *data, double beta, t_ray *ray)
 		d.t.y = d.first_inter.y;
 		if (!facing_down(d.beta))
 				d.t.y -= 1;
-		d.a.x = d.t.x / Z;
-		d.a.y = d.t.y / Z;
+		d.a.x = d.t.x / data->tile;
+		d.a.y = d.t.y / data->tile;
 		if (check_hit(data, &d, ray, door) == 1)
 			return (d.dis);
 		d.first_inter.x += d.stp.x;
@@ -89,15 +89,15 @@ void	get_v_inter(t_data *data, t_dis *d)
 {	
 	d->ply.x = data->player.x - data->map_x;
 	d->ply.y = data->player.y - data->map_y;
-	d->first_inter.x = floor(d->ply.x / Z) * Z;
+	d->first_inter.x = floor(d->ply.x / data->tile) * data->tile;
 	if (facing_right(d->beta))
-		d->first_inter.x += Z;
+		d->first_inter.x += data->tile;
 	d->first_inter.y = d->ply.y + \
 	((d->first_inter.x - d->ply.x) * tan(d->beta));
-	d->stp.x = Z;
+	d->stp.x = data->tile;
 	if (!facing_right(d->beta))
 		d->stp.x *= -1;
-	d->stp.y = Z * tan(d->beta);
+	d->stp.y = data->tile * tan(d->beta);
 	if ((!facing_down(d->beta) && d->stp.y > 0) || \
 	(facing_down(d->beta) && d->stp.y < 0))
 		d->stp.y *= -1;
@@ -121,8 +121,8 @@ double	v_distance(t_data *data, double beta, t_ray *ray)
 		d.t.y = d.first_inter.y;
 		if (!facing_right(beta))
 			d.t.x -= 1;
-		d.a.x = d.t.x / Z;
-		d.a.y = d.t.y / Z;
+		d.a.x = d.t.x / data->tile;
+		d.a.y = d.t.y / data->tile;
 		if (check_hit(data, &d, ray, door) == 1)
 			return (d.dis);
 		d.first_inter.x += d.stp.x;

@@ -6,54 +6,43 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:11:26 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 20:40:04 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 23:57:31 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_texture(t_data *data)
+t_texture	get_t(char *path, t_texture tx, t_data *data)
 {
 	void	*img;
 
-	img = mlx_xpm_file_to_image(data->window.mlx, data->no,
-			&data->txtr.north.width, &data->txtr.north.height);
-	data->txtr.north.tab = (int *)mlx_get_data_addr(img,
-			&data->window.bits_per_pixel,
-			&data->window.line_length, &data->window.endian);
-	img = mlx_xpm_file_to_image(data->window.mlx, data->so,
-			&data->txtr.south.width, &data->txtr.south.height);
-	data->txtr.south.tab = (int *)mlx_get_data_addr(img,
-			&data->window.bits_per_pixel,
-			&data->window.line_length, &data->window.endian);
-	img = mlx_xpm_file_to_image(data->window.mlx, data->ea,
-			&data->txtr.east.width, &data->txtr.east.height);
-	data->txtr.east.tab = (int *)mlx_get_data_addr(img,
-			&data->window.bits_per_pixel,
-			&data->window.line_length, &data->window.endian);
-	img = mlx_xpm_file_to_image(data->window.mlx, data->we,
-			&data->txtr.west.width, &data->txtr.west.height);
-	data->txtr.west.tab = (int *)mlx_get_data_addr(img,
-			&data->window.bits_per_pixel,
-			&data->window.line_length, &data->window.endian);
+	img = mlx_xpm_file_to_image(data->window.mlx, path, &tx.width, &tx.height);
+	if (!img)
+	{
+		printf("here\n");
+		exit(1);
+	}
+	tx.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, \
+	&data->window.line_length, &data->window.endian);
+	return (tx);
+}
+
+void	get_texture(t_data *data)
+{
+	data->txtr.north = get_t(data->no, data->txtr.north, data);
+	data->txtr.south = get_t(data->so, data->txtr.south, data);
+	data->txtr.east = get_t(data->ea, data->txtr.east, data);
+	data->txtr.west = get_t(data->we, data->txtr.west, data);
 }
 
 void	move_map(t_data *data)
 {
-	data->centre_p.x = data->player.x - (MINI_CUB * Z / 2);
-	data->centre_p.y = data->player.y - (MINI_CUB * Z / 2);
+	data->centre_p.x = data->player.x - (MINI_CUB * data->tile / 2);
+	data->centre_p.y = data->player.y - (MINI_CUB * data->tile / 2);
 	data->player.x -= data->centre_p.x;
 	data->player.y -= data->centre_p.y;
 	data->map_x -= data->centre_p.x;
 	data->map_y -= data->centre_p.y;
-}
-
-int	rgb_to_dec(t_color color)
-{
-	int	dec;
-
-	dec = (color.r << 16) + (color.g << 8) + color.b;
-	return (dec);
 }
 
 int	facing_down(double beta)

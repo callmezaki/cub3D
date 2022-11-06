@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DDA.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:47:40 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 22:25:38 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 23:42:28 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	dda2(t_data *data, t_segment s, int color)
 	incy = (float)dy / stp;
 	while (data->i <= stp)
 	{
-		if (s.x0 > Z && s.x0 < Z * (MINI_CUB -1)
-			&& s.y0 > Z && s.y0 < Z * (MINI_CUB -1))
+		if (s.x0 > data->tile && s.x0 < data->tile * (MINI_CUB -1)
+			&& s.y0 > data->tile && s.y0 < data->tile * (MINI_CUB -1))
 			my_mlx_pixel_put(&data->window, s.x0, s.y0, color);
 		s.x0 += incx;
 		s.y0 += incy;

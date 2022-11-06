@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 21:30:56 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 23:45:08 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@
 
 # define W_HEIGHT 1080
 # define W_WIDTH 1920
-# define Z 10
 # define MINI_CUB 20
-# define STEP 1
+# define STEP 1.5
 # define FOV 60
 # define RAYS W_WIDTH
 
@@ -169,6 +168,7 @@ typedef struct s_data
 	double		rotation_speed;
 	double		rays_degr;
 	double		rays_inc;
+	double		tile;
 }	t_data;
 
 char		*get_next_line(int fd);

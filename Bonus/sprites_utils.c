@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 04:46:09 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 04:47:24 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 00:03:11 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_dis(t_data *data, int x, int i)
 {
-	if (data->sprites[x].distance < data->r[i].distance)
+	if (data->sprites[x].dis < data->r[i].distance)
 		return (1);
 	return (0);
 }
@@ -31,7 +31,7 @@ void	sort_sprites(t_data *data)
 		j = 0;
 		while (j + 1 < data->sp)
 		{
-			if (data->sprites[j].distance < data->sprites[j + 1].distance)
+			if (data->sprites[j].dis < data->sprites[j + 1].dis)
 			{
 				t = data->sprites[j + 1];
 				data->sprites[j + 1] = data->sprites[j];

@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:11:26 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 04:57:30 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 23:56:13 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	player_symbol(t_data *data, double x, double y, int color)
 		y = tmp;
 		while (y < t.y)
 		{
-			if (x > Z && x < Z * (MINI_CUB -1) && y > Z && \
-			y < Z * (MINI_CUB -1))
+			if (x > data->tile && x < data->tile * (MINI_CUB -1) && \
+			y > data->tile && y < data->tile * (MINI_CUB -1))
 				my_mlx_pixel_put(&data->window, x, y, color);
 			y++;
 		}
@@ -38,8 +38,12 @@ t_texture	get_t(char *path, t_texture tx, t_data *data)
 {
 	void	*img;
 
-	img = malloc(sizeof(void *));
 	img = mlx_xpm_file_to_image(data->window.mlx, path, &tx.width, &tx.height);
+	if (!img)
+	{
+		printf("here\n");
+		exit(1);
+	}
 	tx.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, \
 	&data->window.line_length, &data->window.endian);
 	return (tx);
@@ -68,8 +72,8 @@ void	get_texture(t_data *data)
 
 void	move_map(t_data *data)
 {
-	data->centre_p.x = data->player.x - (MINI_CUB * Z / 2);
-	data->centre_p.y = data->player.y - (MINI_CUB * Z / 2);
+	data->centre_p.x = data->player.x - (MINI_CUB * data->tile / 2);
+	data->centre_p.y = data->player.y - (MINI_CUB * data->tile / 2);
 	data->player.x -= data->centre_p.x;
 	data->player.y -= data->centre_p.y;
 	data->map_x -= data->centre_p.x;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 21:30:33 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 23:44:15 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	init_vars(t_data *data)
 		printf("Error in Window Dimentions\n");
 		exit(1);
 	}
+	data->tile = W_HEIGHT / 90;
 	data->rotation_speed = (3 * M_PI / 180);
 	data->rays_degr = (FOV / 2) * (M_PI / 180);
 	data->rays_inc = data->rays_degr / (W_WIDTH / 2);

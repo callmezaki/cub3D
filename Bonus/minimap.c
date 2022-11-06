@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 20:32:45 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 23:42:28 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	move_player(t_data *data)
 	data->player.teta = normalize(data->player.teta);
 	data->player.teta += data->player.turndirection * data->rotation_speed;
 	make_step(&p, data);
-	t.x = (data->player.x - data->map_x + p.x) / Z;
-	t.y = (data->player.y - data->map_y + p.y) / Z;
+	t.x = (data->player.x - data->map_x + p.x) / data->tile;
+	t.y = (data->player.y - data->map_y + p.y) / data->tile;
 	if ((data->map[(int)t.y][(int)t.x] == '0' || \
 	data->map[(int)t.y][(int)t.x] == '2' || \
 		check_player(data->map[(int)t.y][(int)t.x])) && check_coll(data))

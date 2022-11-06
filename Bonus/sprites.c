@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 19:35:17 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 20:35:02 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 00:02:48 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_sprite	sp_data(t_sprite sps, t_data *data, int i, int j)
 {
 	t_point		t;
 
-	sps.y = (j * Z) + data->map_y + (Z / 2);
-	sps.x = (i * Z) + data->map_x + (Z / 2);
+	sps.y = (j * data->tile) + data->map_y + (data->tile / 2);
+	sps.x = (i * data->tile) + data->map_x + (data->tile / 2);
 	sps.tx = data->txtr.sp;
 	t.y = sps.y - data->player.y;
 	t.x = sps.x - data->player.x;
@@ -30,7 +30,7 @@ t_sprite	sp_data(t_sprite sps, t_data *data, int i, int j)
 	sps.vis = 0;
 	if (sps.angle < data->rays_degr + 0.2)
 		sps.vis = 1;
-	sps.distance = sqrt(pow(sps.x - data->player.x, 2) + \
+	sps.dis = sqrt(pow(sps.x - data->player.x, 2) + \
 	pow(sps.y - data->player.y, 2));
 	sps.drown = 0;
 	return (sps);
@@ -102,8 +102,8 @@ void	draw_sprite(t_data *data, int x)
 	if (data->sprites[x].vis == 1)
 	{
 		dsp.tx = which_sprite_texture(data);
-		dsp.distance_to_proj = (W_WIDTH / 2) / tan(dsp.rad / 2);
-		dsp.sp_height = (dsp.distance_to_proj / data->sprites[x].distance) * Z;
+		dsp.dis_to_proj = (W_WIDTH / 2) / tan(dsp.rad / 2);
+		dsp.sp_height = (dsp.dis_to_proj / data->sprites[x].dis) * data->tile;
 		dsp.sp_width = dsp.sp_height;
 		dsp.sp_topy = (W_HEIGHT / 2) - (dsp.sp_height / 2);
 		if (dsp.sp_topy < 0)
@@ -115,7 +115,7 @@ void	draw_sprite(t_data *data, int x)
 		dsp.t.x = data->sprites[x].x - data->player.x;
 		data->sprites[x].angle = normalize(atan2(dsp.t.y, dsp.t.x) - \
 		data->player.teta);
-		dsp.sp_sc_posx = tan(data->sprites[x].angle) * dsp.distance_to_proj;
+		dsp.sp_sc_posx = tan(data->sprites[x].angle) * dsp.dis_to_proj;
 		dsp.sp_leftx = (W_WIDTH / 2) + dsp.sp_sc_posx - (dsp.sp_width / 2);
 		dsp.sp_rightx = dsp.sp_leftx + dsp.sp_width;
 		draw_sprite_rays(&dsp, data, x);
