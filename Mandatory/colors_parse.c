@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:30:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/04 22:23:34 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 20:40:13 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ int	check_cama(char *s)
 	}
 	if (s[ft_strlen(s) - 1] == ',')
 		c++;
-	if (c == 2)
-		return (1);
-	else
-		return (0);
+	return (1);
 }
 
 void	check_color_range(t_color col)
@@ -106,11 +103,11 @@ void	get_colors(t_data *data, char **s)
 	i = search_indx(s, "F");
 	if (i >= 0)
 	{
-		data->F = check_color(s, i);
+		data->f = check_color(s, i);
 		i = search_indx(s, "C");
 		if (i >= 0)
 		{
-			data->C = check_color(s, i);
+			data->c = check_color(s, i);
 		}
 		return ;
 	}

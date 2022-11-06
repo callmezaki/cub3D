@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 00:07:21 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 20:36:50 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	claculate_rays(t_data *data)
 	int		i;
 	t_ray	*r;
 
-	t = D_RAYS;
+	t = data->rays_degr;
 	i = 0;
 	t *= -1;
 	r = malloc(sizeof(t_ray) * RAYS);
@@ -81,7 +81,7 @@ void	claculate_rays(t_data *data)
 		r[i].alpha = sigma;
 		r[i].h_or_v = data->distance.h_or_v;
 		i++;
-		t += inc_rays;
+		t += data->rays_inc;
 	}
 	data->r = r;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 00:44:06 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 20:19:22 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,61 @@ void	map_checkif_3(int len, t_data *data)
 	}
 }
 
+void	check_map_err(char *s, t_data *data)
+{
+	int		p_count;
+
+	data->i = 0;
+	p_count = 0;
+	while (s[data->i] && s[data->i + 1])
+	{
+		if ((s[data->i] == '\n' && s[data->i + 1] == '\n'))
+		{
+			break ;
+		}
+		if (check_player(s[data->i]))
+			p_count++;
+		data->i++;
+	}
+	if (p_count > 1 || p_count == 0)
+	{
+		printf("P Error\n");
+		exit_n_free(data, 1);
+	}
+}
+
+int	check_empty_lines(char *s, t_data *data, int len)
+{
+	char	*a;
+	char	*b;
+	char	**t;
+
+	while (s[++data->i])
+	{
+		if (s[data->i] != ' ' && s[data->i] != '\n'
+			&& s[data->i] != '\t')
+			exit_n_free(data, 1);
+	}
+	t = ft_split(s, '\n');
+	data->i = 0;
+	while (*t && t[++data->i])
+	{
+		a = ft_strtrim(t[data->i], " ");
+		b = ft_strtrim(t[data->i - 1], " ");
+		if (!a[0] && b[0])
+			len++;
+		if (a)
+			free(a);
+		if (b)
+			free(b);
+	}
+	free_tab(t);
+	return (len);
+}
+
 char	*intial_map_check(char *s, char **t, t_data *data)
 {
 	int		len;
-	char	*a;
-	char	*b;
 	char	*h;
 	int		p_count;
 
@@ -60,38 +110,14 @@ char	*intial_map_check(char *s, char **t, t_data *data)
 	h = ft_strdup(&s[len + data->i]);
 	free(s);
 	s = h;
-	data->i = 0;
-	while (s[data->i] && s[data->i + 1])
-	{
-		if ((s[data->i] == '\n' && s[data->i + 1] == '\n'))
-			break ;
-		if (check_player(s[data->i]))
-			p_count++;
-		data->i++;
-	}
-	map_checkif_2(p_count, data);
-	while (s[data->i])
-	{
-		map_checkif_1(s, data);
-		data->i++;
-	}
-	t = ft_split(s, '\n');
+	check_map_err(s, data);
 	len = 0;
-	data->i = 1;
-	while (t[data->i])
+	len = check_empty_lines(s, data, len);
+	if (len > 1)
 	{
-		a = ft_strtrim(t[data->i], " ");
-		b = ft_strtrim(t[data->i - 1], " ");
-		if (!a[0] && b[0])
-			len++;
-		if (a)
-			free(a);
-		if (b)
-			free(b);
-		data->i++;
+		printf("Errrrroooor7\n");
+		exit_n_free(data, 1);
 	}
-	free_tab(t);
-	map_checkif_3(len, data);
 	s = ft_strtrim2_f(s, " \n\t");
 	return (s);
 }

@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 19:31:27 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 20:35:37 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	claculate_rays(t_data *data)
 	double	t;
 	int		i;
 
-	t = D_RAYS * -1;
+	t = data->rays_degr * -1;
 	data->r = malloc(sizeof(t_ray) * RAYS);
 	i = 0;
 	while (i < RAYS)
@@ -78,6 +78,6 @@ void	claculate_rays(t_data *data)
 		data->r[i].distance = data->distance.distance;
 		data->r[i].h_or_v = data->distance.h_or_v;
 		i++;
-		t += inc_rays;
+		t += data->rays_inc;
 	}
 }

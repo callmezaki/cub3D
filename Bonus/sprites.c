@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 19:35:17 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 04:59:16 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 20:35:02 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_sprite	sp_data(t_sprite sps, t_data *data, int i, int j)
 		sps.angle += 2 * M_PI;
 	sps.angle = fabs(sps.angle);
 	sps.vis = 0;
-	if (sps.angle < D_RAYS + 0.2)
+	if (sps.angle < data->rays_degr + 0.2)
 		sps.vis = 1;
 	sps.distance = sqrt(pow(sps.x - data->player.x, 2) + \
 	pow(sps.y - data->player.y, 2));
@@ -103,7 +103,7 @@ void	draw_sprite(t_data *data, int x)
 	{
 		dsp.tx = which_sprite_texture(data);
 		dsp.distance_to_proj = (W_WIDTH / 2) / tan(dsp.rad / 2);
-		dsp.sp_height = (Z / data->sprites[x].distance) * dsp.distance_to_proj;
+		dsp.sp_height = (dsp.distance_to_proj / data->sprites[x].distance) * Z;
 		dsp.sp_width = dsp.sp_height;
 		dsp.sp_topy = (W_HEIGHT / 2) - (dsp.sp_height / 2);
 		if (dsp.sp_topy < 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 19:50:24 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 20:33:25 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,6 +375,19 @@ void	exit_n_free(t_data *data, int t)
 	exit(t);
 }
 
+void	init_vars(t_data *data)
+{
+	if (W_HEIGHT > 2000 || W_HEIGHT < 300 || W_WIDTH < 300 || W_WIDTH > 2000)
+	{
+		printf("Error in Window Dimentions\n");
+		exit(1);
+	}
+	data->an = 0;
+	data->rotation_speed = (3 * M_PI / 180);
+	data->rays_degr = (FOV / 2) * (M_PI / 180);
+	data->rays_inc = data->rays_degr / (W_WIDTH / 2);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*data;
@@ -396,7 +409,7 @@ int	main(int ac, char **av)
 	if (fd > 0)
 	{
 		get_data(fd, data);
-		data->an = 0;
+		init_vars(data);
 		init_window(data);
 		exit_n_free(data, 0);
 	}

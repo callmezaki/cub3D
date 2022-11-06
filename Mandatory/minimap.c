@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:22:07 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 00:16:07 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 20:37:40 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	draw_walls_calc(t_data *data, t_dwvars	*dw)
 	dw->per_distance = data->r[dw->i].distance * cos(data->r[dw->i].alpha
 			- data->player.teta);
 	dw->distance_to_proj = (W_WIDTH / 2) / tan(dw->rad / 2);
-	dw->proj_wall_height = (Z / dw->per_distance) * dw->distance_to_proj;
+	dw->proj_wall_height = (dw->distance_to_proj / dw->per_distance) * Z;
 	dw->a = (int)dw->proj_wall_height;
 	if (dw->proj_wall_height > W_HEIGHT)
 	dw->proj_wall_height = W_HEIGHT;
@@ -93,7 +93,7 @@ void	move_player(t_data *data)
 	p.x = 0.0;
 	p.y = 0.0;
 	data->player.teta = normalize(data->player.teta);
-	data->player.teta += data->player.turndirection * ROTATIONSPEED;
+	data->player.teta += data->player.turndirection * data->rotation_speed;
 	if (data->player.sides == 0 && (data->player.walkdirection != 0))
 	{
 		p.x += (cos(data->player.teta) * data->player.walkdirection * STEP);

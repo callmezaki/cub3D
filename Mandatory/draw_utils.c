@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:11:26 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 01:06:57 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 20:40:04 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ void	get_texture(t_data *data)
 {
 	void	*img;
 
-	img = mlx_xpm_file_to_image(data->window.mlx, data->NO,
+	img = mlx_xpm_file_to_image(data->window.mlx, data->no,
 			&data->txtr.north.width, &data->txtr.north.height);
 	data->txtr.north.tab = (int *)mlx_get_data_addr(img,
 			&data->window.bits_per_pixel,
 			&data->window.line_length, &data->window.endian);
-	img = mlx_xpm_file_to_image(data->window.mlx, data->SO,
+	img = mlx_xpm_file_to_image(data->window.mlx, data->so,
 			&data->txtr.south.width, &data->txtr.south.height);
 	data->txtr.south.tab = (int *)mlx_get_data_addr(img,
 			&data->window.bits_per_pixel,
 			&data->window.line_length, &data->window.endian);
-	img = mlx_xpm_file_to_image(data->window.mlx, data->EA,
+	img = mlx_xpm_file_to_image(data->window.mlx, data->ea,
 			&data->txtr.east.width, &data->txtr.east.height);
 	data->txtr.east.tab = (int *)mlx_get_data_addr(img,
 			&data->window.bits_per_pixel,
 			&data->window.line_length, &data->window.endian);
-	img = mlx_xpm_file_to_image(data->window.mlx, data->WE,
+	img = mlx_xpm_file_to_image(data->window.mlx, data->we,
 			&data->txtr.west.width, &data->txtr.west.height);
 	data->txtr.west.tab = (int *)mlx_get_data_addr(img,
 			&data->window.bits_per_pixel,

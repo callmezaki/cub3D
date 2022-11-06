@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 19:33:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 04:01:05 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 20:22:38 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	door_ray(t_dwvars *dw, t_door *door, t_data *data, int i)
 	if (data->r[i].distance <= door->dis_door)
 		return (0);
 	dw->distance_to_proj = (W_WIDTH / 2) / tan(dw->rad / 2);
-	dw->proj_wall_height = (Z / door->dis_door) * dw->distance_to_proj;
+	dw->proj_wall_height = (dw->distance_to_proj / door->dis_door) * Z;
 	dw->a = dw->proj_wall_height;
 	if (dw->proj_wall_height > W_HEIGHT)
 		dw->proj_wall_height = W_HEIGHT;

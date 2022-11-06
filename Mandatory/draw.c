@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 16:27:34 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 20:39:48 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	draw_background(t_data *data)
 
 	x = 0;
 	y = 0;
-	c = rgb_to_dec(data->C);
+	c = rgb_to_dec(data->c);
 	while (y < W_HEIGHT)
 	{
 		x = 0;
 		if (y == W_HEIGHT / 2)
-			c = rgb_to_dec(data->F);
+			c = rgb_to_dec(data->f);
 		while (x < W_WIDTH)
 		{
 			my_mlx_pixel_put(&data->window, x, y, c);
