@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 22:16:24 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 04:59:16 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,11 +186,11 @@ typedef struct s_dwsprite
 	double		distance_to_proj;
 	double		sp_height;
 	double		sp_width;
-	double		sp_topY;
-	double		sp_bottomY;
-	double		sp_sc_posX;
-	double		sp_leftX;
-	double		sp_rightX;
+	double		sp_topy;
+	double		sp_bottomy;
+	double		sp_sc_posx;
+	double		sp_leftx;
+	double		sp_rightx;
 	t_texture	tx;
 	t_point		txtr_off;
 	double		distance_from_top;
@@ -221,14 +221,14 @@ typedef struct s_txtr
 
 typedef struct s_data
 {
-	char		*NO;
-	char		*SO;
-	char		*WE;
-	char		*EA;
-	char		*DO;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		*doo;
 	char		**map;
-	t_color		F;
-	t_color		C;
+	t_color		f;
+	t_color		c;
 	t_player	player;
 	t_window	window;
 	t_block		block;
@@ -274,7 +274,6 @@ void		get_texture(t_data *data);
 double		h_distance(t_data *data, double beta, t_ray *ray);
 double		v_distance(t_data *data, double beta, t_ray *ray);
 void		claculate_rays(t_data *data);
-// void	best_distance(t_data *data, double beta,t_ray *ray);
 void		best_distance(t_data *data, double beta, t_ray *ray);
 double		normalize(double teta);
 int			facing_right(double beta);
@@ -305,7 +304,24 @@ int			check_dis(t_data *data, int x, int i);
 void		draw_sprite_rays(t_dwsprite *dsp, t_data *data, int x);
 void		draw_sprite(t_data *data, int x);
 void		draw_rest_sprites(t_data *data);
+void		check_map_comp(int check, t_data *data);
+void		check_map(char **s, t_data *data);
+char		*intial_map_check(char *s, char **t, t_data *data);
+int			check_check(char **s, t_data *data);
+int			check_doors(char **s, int i, int j);
+int			check_cama(char *s);
+void		check_color_range(t_color col);
+void		check_compl(char **ss, t_color *col, char	**sp, char	*t);
+int			check_dis(t_data *data, int x, int i);
+void		sort_sprites(t_data *data);
+t_texture	which_sprite_texture(t_data *data);
 //parsing
+
+void		key_press_cond(int key, t_data *data);
+int			key_press(int key, t_data *data);
+int			key_release(int key, t_data *data);
+int			mouse_press(int key, int x, int y, t_data *data);
+int			mouse_release(int key, int x, int y, t_data *data);
 
 int			check_cama(char *s);
 void		check_color_range(t_color col);

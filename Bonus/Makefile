@@ -11,12 +11,19 @@ SRC =	cub3d.c         \
 		draw.c \
 		rays.c \
 		draw_utils.c \
+		draw_utils2.c\
 		colors_parse.c \
 		check_map.c\
 		check_map_utils.c\
 		rays_utils.c \
 		doors.c \
 		sprites.c\
+		check_map2.c\
+		colors_parse_utils.c\
+		doors_utils.c\
+		walls.c\
+		sprites_utils.c\
+		keys.c\
 
 CFLAGS = -Wall -Werror -Wextra -g -Ofast
 

@@ -6,13 +6,13 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:28:14 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/03 18:41:15 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 04:20:05 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_block(t_data *data, double x, double y,int color)
+void	ft_block(t_data *data, double x, double y, int color)
 {
 	int		tmp;
 	t_point	t;
@@ -32,7 +32,7 @@ void	ft_block(t_data *data, double x, double y,int color)
 	}
 }
 
-void	ft_block2(t_data *data, double x, double y,int color)
+void	ft_block2(t_data *data, double x, double y, int color)
 {
 	int		tmp;
 	t_point	t;

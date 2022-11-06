@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:15 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 22:26:05 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 04:57:04 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	draw_background(t_data *data)
 
 	x = 0;
 	y = 0;
-	c = rgb_to_dec(data->C);
+	c = rgb_to_dec(data->c);
 	while (y < W_HEIGHT)
 	{
 		x = 0;
 		if (y == W_HEIGHT / 2)
-			c = rgb_to_dec(data->F);
+			c = rgb_to_dec(data->f);
 		while (x < W_WIDTH)
 		{
 			my_mlx_pixel_put(&data->window, x, y, c);
@@ -64,12 +64,26 @@ int	draw(t_data *data)
 	return (0);
 }
 
+void	mini_sp(t_data *data)
+{
+	int		i;
+	t_point	t;
+
+	i = 0;
+	while (i < data->sp)
+	{
+		t.x = data->sprites[i].x - 2;
+		t.y = data->sprites[i].y - 2;
+		player_symbol(data, t.x, t.y, 0xEEC643);
+		i++;
+	}
+}
+
 int	draw_minimap(t_data *data)
 {
 	int		i;
 	int		j;
 	t_point	p;
-	t_point	t;
 
 	i = 0;
 	while (data->map[i])
@@ -79,10 +93,8 @@ int	draw_minimap(t_data *data)
 		j = 0;
 		while (data->map[i][j])
 		{
-			if (data->map[i][j] == ' ')
-				;
-			else if ((data->map[i][j] == '0') || (data->map[i][j] == '3') \
-			|| check_player(data->map[i][j]))
+			if ((data->map[i][j] == '0') || (data->map[i][j] == '3') \
+			|| check_player(data->map[i][j]) || data->map[i][j] == ' ')
 				;
 			else
 				ft_block2(data, p.x, p.y, get_color(data->map[i][j]));
@@ -91,14 +103,7 @@ int	draw_minimap(t_data *data)
 		}
 		i++;
 	}
-	i = 0;
-	while (i < data->sp)
-	{
-		t.x = data->sprites[i].x - 2;
-		t.y = data->sprites[i].y - 2;
-		player_symbol(data, t.x, t.y, 0xEEC643);
-		i++;
-	}
+	mini_sp(data);
 	return (0);
 }
 
@@ -118,7 +123,7 @@ int	draw_minimap_frame(t_data *data)
 		{
 			if ((i == 0 || (i == MINI_CUB - 1)) || (j == 0 || \
 			(j == MINI_CUB - 1)))
-				ft_block(data, p.x, p.y, 0);
+				;
 			else
 				ft_block(data, p.x, p.y, 0x6E7E85);
 			p.x += Z;

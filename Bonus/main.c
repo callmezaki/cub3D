@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/05 20:55:09 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 04:56:32 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,32 +165,32 @@ void	parse_walls(t_data *data, char **args)
 	if (i < 0)
 		exit_n_free(data, 1);
 	check_space(args[i], data);
-	data->NO = ft_strdup(ft_strchr(args[i], '.'));
-	check_path(data->NO, data);
+	data->no = ft_strdup(ft_strchr(args[i], '.'));
+	check_path(data->no, data);
 	i = txtr_error(args, "DO");
 	if (i < 0)
 		exit_n_free(data, 1);
 	check_space(args[i], data);
-	data->DO = ft_strdup(ft_strchr(args[i], '.'));
-	check_path(data->NO, data);
+	data->doo = ft_strdup(ft_strchr(args[i], '.'));
+	check_path(data->no, data);
 	i = txtr_error(args, "SO");
 	if (i < 0)
 		exit_n_free(data, 1);
 	check_space(args[i], data);
-	data->SO = ft_strdup(ft_strchr(args[i], '.'));
-	check_path(data->SO, data);
+	data->so = ft_strdup(ft_strchr(args[i], '.'));
+	check_path(data->so, data);
 	i = txtr_error(args, "WE");
 	if (i < 0)
 		exit_n_free(data, 1);
 	check_space(args[i], data);
-	data->WE = ft_strdup(ft_strchr(args[i], '.'));
-	check_path(data->WE, data);
+	data->we = ft_strdup(ft_strchr(args[i], '.'));
+	check_path(data->we, data);
 	i = txtr_error(args, "EA");
 	if (i < 0)
 		exit_n_free(data, 1);
 	check_space(args[i], data);
-	data->EA = ft_strdup(ft_strchr(args[i], '.'));
-	check_path(data->EA, data);
+	data->ea = ft_strdup(ft_strchr(args[i], '.'));
+	check_path(data->ea, data);
 }
 
 int check_duplicates(char *str)
@@ -262,7 +262,6 @@ void get_player_data(t_data *data)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (data->map[i])
 	{
 		j = 1;
@@ -334,9 +333,8 @@ void	get_data(int fd, t_data *data)
 				}
 			}
 			temp = ft_strjoin_2(temp, str);
-		}
-		if (str)
 			free(str);
+		}
 	}
 	parse_data(data, temp);
 	// if (temp)
@@ -352,11 +350,11 @@ void	f(void)
 void	exit_n_free(t_data *data, int t)
 {
 	(void)data;
-	free(data->NO);
-	free(data->EA);
-	free(data->WE);
-	free(data->SO);
-	free(data->DO);
+	free(data->no);
+	free(data->ea);
+	free(data->we);
+	free(data->so);
+	free(data->doo);
 	free_tab(data->map);
 	free(data);
 	exit(t);

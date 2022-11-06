@@ -6,13 +6,13 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:11:26 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 18:09:27 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 04:57:30 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	player_symbol(t_data *data, double x, double y,int color)
+void	player_symbol(t_data *data, double x, double y, int color)
 {
 	int		tmp;
 	t_point	t;
@@ -25,7 +25,9 @@ void	player_symbol(t_data *data, double x, double y,int color)
 		y = tmp;
 		while (y < t.y)
 		{
-			my_mlx_pixel_put(&data->window, x, y, color);
+			if (x > Z && x < Z * (MINI_CUB -1) && y > Z && \
+			y < Z * (MINI_CUB -1))
+				my_mlx_pixel_put(&data->window, x, y, color);
 			y++;
 		}
 		x++;
@@ -46,11 +48,11 @@ t_texture	get_t(char *path, t_texture tx, t_data *data)
 void	get_texture(t_data *data)
 {
 	data->txtr.sp = get_t("../barrel.xpm", data->txtr.sp, data);
-	data->txtr.north = get_t(data->NO, data->txtr.north, data);
-	data->txtr.south = get_t(data->SO, data->txtr.south, data);
-	data->txtr.east = get_t(data->EA, data->txtr.east, data);
-	data->txtr.west = get_t(data->WE, data->txtr.west, data);
-	data->txtr.door = get_t(data->DO, data->txtr.door, data);
+	data->txtr.north = get_t(data->no, data->txtr.north, data);
+	data->txtr.south = get_t(data->so, data->txtr.south, data);
+	data->txtr.east = get_t(data->ea, data->txtr.east, data);
+	data->txtr.west = get_t(data->we, data->txtr.west, data);
+	data->txtr.door = get_t(data->doo, data->txtr.door, data);
 	data->txtr.d_f0 = get_t("../F0.xpm", data->txtr.d_f0, data);
 	data->txtr.d_f1 = get_t("../F1.xpm", data->txtr.d_f1, data);
 	data->txtr.d_f2 = get_t("../F2.xpm", data->txtr.d_f2, data);
