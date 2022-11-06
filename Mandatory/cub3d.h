@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 01:05:24 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 19:55:03 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ typedef struct s_data
 	double		map_x;
 	double		map_y;
 	t_point		centre_p;
+	char		*tmp;
 }	t_data;
 
 char		*get_next_line(int fd);
@@ -236,7 +237,8 @@ int			check_free(char	*str);
 void		exit_n_free(t_data *data, int t);
 void		get_player_data(t_data *data);
 void		parse_data(t_data *data, char *temp);
-int			check_assets(char **s, char	*str, char	*tmp, char	**t, t_data *data);
+int			check_assets(char **s, t_data *data);
+char		*check_assets_loop(t_data *data, char **s, char	*str, char	**t);
 void		parse_walls(t_data *data, char **args);
 void		else_free(char	*tmp, char	**t);
 //parsing

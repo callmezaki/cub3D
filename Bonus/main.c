@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 04:56:32 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 19:50:24 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,40 +157,43 @@ int txtr_error(char **args, char *key)
 	return (i);
 }
 
+void parse_walls_2(t_data *data, char **args)
+{
+	data->i = txtr_error(args, "SO");
+	if (data->i < 0)
+		exit_n_free(data, 1);
+	check_space(args[data->i], data);
+	data->so = ft_strdup(ft_strchr(args[data->i], '.'));
+	check_path(data->so, data);
+	data->i = txtr_error(args, "WE");
+	if (data->i < 0)
+		exit_n_free(data, 1);
+	check_space(args[data->i], data);
+	data->we = ft_strdup(ft_strchr(args[data->i], '.'));
+	check_path(data->we, data);
+	data->i = txtr_error(args, "EA");
+	if (data->i < 0)
+		exit_n_free(data, 1);
+	check_space(args[data->i], data);
+	data->ea = ft_strdup(ft_strchr(args[data->i], '.'));
+	check_path(data->ea, data);
+}
+
 void	parse_walls(t_data *data, char **args)
 {
-	int	i;
-
-	i = txtr_error(args, "NO");
-	if (i < 0)
+	data->i = txtr_error(args, "NO");
+	if (data->i < 0)
 		exit_n_free(data, 1);
-	check_space(args[i], data);
-	data->no = ft_strdup(ft_strchr(args[i], '.'));
+	check_space(args[data->i], data);
+	data->no = ft_strdup(ft_strchr(args[data->i], '.'));
 	check_path(data->no, data);
-	i = txtr_error(args, "DO");
-	if (i < 0)
+	data->i = txtr_error(args, "DO");
+	if (data->i < 0)
 		exit_n_free(data, 1);
-	check_space(args[i], data);
-	data->doo = ft_strdup(ft_strchr(args[i], '.'));
+	check_space(args[data->i], data);
+	data->doo = ft_strdup(ft_strchr(args[data->i], '.'));
 	check_path(data->no, data);
-	i = txtr_error(args, "SO");
-	if (i < 0)
-		exit_n_free(data, 1);
-	check_space(args[i], data);
-	data->so = ft_strdup(ft_strchr(args[i], '.'));
-	check_path(data->so, data);
-	i = txtr_error(args, "WE");
-	if (i < 0)
-		exit_n_free(data, 1);
-	check_space(args[i], data);
-	data->we = ft_strdup(ft_strchr(args[i], '.'));
-	check_path(data->we, data);
-	i = txtr_error(args, "EA");
-	if (i < 0)
-		exit_n_free(data, 1);
-	check_space(args[i], data);
-	data->ea = ft_strdup(ft_strchr(args[i], '.'));
-	check_path(data->ea, data);
+	parse_walls_2(data, args);
 }
 
 int check_duplicates(char *str)
@@ -214,39 +217,43 @@ int check_duplicates(char *str)
 	return (0);
 }
 
-int	check_assets(char **s)
+char	*check_assets_loop(t_data *data, char **s, char	*str, char	**t)
 {
-	int		i;
-	int		j;
-	char	*str;
-	char	*tmp;
-	char	**t;
-
-	str = ft_strdup("");
-	tmp = ft_strdup("");
-	i = 0;
-	j = 0;
-	while (s[i] && i < 7)
+	while (s[data->i] && data->i < 7)
 	{
-		t = ft_split(s[i], ' ');
+		t = ft_split(s[data->i], ' ');
 		if (t[0][0] && (!ft_strcmp(t[0], "NO") || !ft_strcmp(t[0], "SO")
 			|| !ft_strcmp(t[0], "WE") || !ft_strcmp(t[0], "EA")
 			|| !ft_strcmp(t[0], "C") || !ft_strcmp(t[0], "F")
 			|| !ft_strcmp(t[0], "DO")))
 		{
-			tmp[0] = s[i][0];
-			str = ft_strjoin_2(str, tmp);
-			j++;
+			data->tmp[0] = s[data->i][0];
+			str = ft_strjoin_2(str, data->tmp);
+			data->j++;
 		}
 		else
 		{
-			free(tmp);
+			free(data->tmp);
 			break ;
 		}
 		if (t[0][0])
 			free_tab(t);
-		i++;
+		data->i++;
 	}
+	return (str);
+}
+
+int	check_assets(char **s, t_data *data)
+{
+	char	*str;
+	char	**t;
+
+	t = NULL;
+	str = ft_strdup("");
+	data->tmp = ft_strdup("");
+	data->i = 0;
+	data->j = 0;
+	str = check_assets_loop(data, s, str, t);
 	if (!check_duplicates(str))
 	{
 		free(str);
@@ -254,6 +261,21 @@ int	check_assets(char **s)
 	}
 	free(str);
 	return (1);
+}
+
+void	get_player_data_calc(t_data *data, int	i, int	j)
+{
+	data->player.facing = data->map[i][j];
+	data->player.x = (j * Z) + (Z / 2);
+	data->player.y = (i * Z) + (Z / 2);
+	if (data->player.facing == 'N')
+		data->player.teta = 3 * M_PI / 2;
+	else if (data->player.facing == 'S')
+		data->player.teta = M_PI / 2;
+	else if (data->player.facing == 'E')
+		data->player.teta = 2 * M_PI;
+	else if (data->player.facing == 'W')
+		data->player.teta = M_PI;
 }
 
 void get_player_data(t_data *data)
@@ -269,17 +291,7 @@ void get_player_data(t_data *data)
 		{
 			if (check_player(data->map[i][j]))
 			{
-				data->player.facing = data->map[i][j];
-				data->player.x = (j * Z) + (Z / 2);
-				data->player.y = (i * Z) + (Z / 2);
-				if (data->player.facing == 'N')
-					data->player.teta = 3 * M_PI / 2;
-				else if (data->player.facing == 'S')
-					data->player.teta = M_PI / 2;
-				else if (data->player.facing == 'E')
-					data->player.teta = 2 * M_PI;
-				else if (data->player.facing == 'W')
-					data->player.teta = M_PI;
+				get_player_data_calc(data, i, j);
 				break ;
 			}
 			j++;
@@ -293,7 +305,7 @@ void	parse_data(t_data *data,char *temp)
 	char	**s;
 
 	s = ft_split(temp, '\n');
-	if (check_assets(s))
+	if (check_assets(s, data))
 	{	
 		free_tab(s);
 		puts("FAIL");
@@ -309,36 +321,39 @@ void	parse_data(t_data *data,char *temp)
 	data->map_height = tab_len(data->map);
 }
 
-void	get_data(int fd, t_data *data)
+char	*get_data_loop(t_data *data, char	*str, int fd, char	*temp)
 {
-	char	*str;
-	char	*temp;
-	int		i;
-
-	i = 0;
-	str = malloc(1);
-	str[0] = '\0';
-	temp = str;
 	while (str)
 	{
 		str = get_next_line(fd);
 		if (str)
 		{
-			if (i < 8)
+			if (data->i < 8)
 			{
-				if (ft_trima(&str, i))
+				if (ft_trima(&str, data->i))
 				{
 					str = ft_strjoin_2(str, "\n");
-					i++;
+					data->i++;
 				}
 			}
 			temp = ft_strjoin_2(temp, str);
 			free(str);
 		}
 	}
+	return (temp);
+}
+
+void	get_data(int fd, t_data *data)
+{
+	char	*str;
+	char	*temp;
+
+	data->i = 0;
+	str = malloc(1);
+	str[0] = '\0';
+	temp = str;
+	temp = get_data_loop(data, str, fd, temp);
 	parse_data(data, temp);
-	// if (temp)
-	// 	free(temp);
 }
 
 void	f(void)
@@ -362,11 +377,11 @@ void	exit_n_free(t_data *data, int t)
 
 int	main(int ac, char **av)
 {
-	atexit(f);
 	t_data	*data;
 	int		fd;
 	char	*t;
 
+	atexit(f);
 	if (ac != 2)
 		return (printf("Invalid Args\n"));
 	data = malloc(sizeof(t_data));

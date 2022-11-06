@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 04:59:16 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 19:46:03 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,7 @@ typedef struct s_data
 	t_point		centre_p;
 	t_sprite	*sprites;
 	int			sp;
+	char		*tmp;
 }	t_data;
 
 char		*get_next_line(int fd);

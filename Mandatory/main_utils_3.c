@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 00:55:08 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/03 00:59:00 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 19:56:57 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,9 @@ void	get_player_data(t_data *data)
 void	parse_data(t_data *data, char *temp)
 {
 	char	**s;
-	char	*str;
-	char	*tmp;
-	char	**t;
 
-	str = ft_strdup("");
-	tmp = ft_strdup("");
-	t = NULL;
 	s = ft_split(temp, '\n');
-	if (check_assets(s, str, tmp, t, data))
+	if (check_assets(s, data))
 	{
 		free_tab(s);
 		puts("FAIL");

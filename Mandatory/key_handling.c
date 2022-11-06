@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 00:02:45 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/05 22:23:47 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 19:55:12 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,31 +71,76 @@ int	key_release(int key, t_data *data)
 	return (0);
 }
 
-int	check_assets(char **s, char	*str, char	*tmp, char	**t, t_data *data)
+// int	check_assets(char **s, char	*str, char	*tmp, char	**t, t_data *data)
+// {
+// 	data->i = 0;
+// 	data->j = 0;
+// 	while (s[data->i] && data->i < 7)
+// 	{
+// 		t = ft_split(s[data->i], ' ');
+// 		if (!ft_strcmp(t[0], "NO") || !ft_strcmp(t[0], "SO")
+// 			|| !ft_strcmp(t[0], "WE") || !ft_strcmp(t[0], "EA")
+// 			|| !ft_strcmp(t[0], "C") || !ft_strcmp(t[0], "F"))
+// 		{
+// 			tmp[0] = s[data->i][0];
+// 			str = ft_strjoin_2(str, tmp);
+// 			data->j++;
+// 		}
+// 		else
+// 		{
+// 			else_free(tmp, t);
+// 			break ;
+// 		}
+// 		free_tab(t);
+// 		data->i++;
+// 	}
+// 	if (!check_free(str))
+// 		return (0);
+// 	free(str);
+// 	return (1);
+// }
+
+char	*check_assets_loop(t_data *data, char **s, char	*str, char	**t)
 {
-	data->i = 0;
-	data->j = 0;
 	while (s[data->i] && data->i < 7)
 	{
 		t = ft_split(s[data->i], ' ');
-		if (!ft_strcmp(t[0], "NO") || !ft_strcmp(t[0], "SO")
+		if (t[0][0] && (!ft_strcmp(t[0], "NO") || !ft_strcmp(t[0], "SO")
 			|| !ft_strcmp(t[0], "WE") || !ft_strcmp(t[0], "EA")
-			|| !ft_strcmp(t[0], "C") || !ft_strcmp(t[0], "F"))
+			|| !ft_strcmp(t[0], "C") || !ft_strcmp(t[0], "F")))
 		{
-			tmp[0] = s[data->i][0];
-			str = ft_strjoin_2(str, tmp);
+			data->tmp[0] = s[data->i][0];
+			str = ft_strjoin_2(str, data->tmp);
 			data->j++;
 		}
 		else
 		{
-			else_free(tmp, t);
+			free(data->tmp);
 			break ;
 		}
-		free_tab(t);
+		if (t[0][0])
+			free_tab(t);
 		data->i++;
 	}
-	if (!check_free(str))
+	return (str);
+}
+
+int	check_assets(char **s, t_data *data)
+{
+	char	*str;
+	char	**t;
+
+	t = NULL;
+	str = ft_strdup("");
+	data->tmp = ft_strdup("");
+	data->i = 0;
+	data->j = 0;
+	str = check_assets_loop(data, s, str, t);
+	if (!check_duplicates(str))
+	{
+		free(str);
 		return (0);
+	}
 	free(str);
 	return (1);
 }
