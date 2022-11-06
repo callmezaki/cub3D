@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 20:35:18 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 21:23:34 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,5 +339,22 @@ char		**ft_trima3(char **a);
 int			get_map_width(t_data *data, int y);
 void		exit_n_free(t_data *data, int t);
 void		free_tab(char **tab);
+char		*get_ext(char *filename);
+int			ft_check_exten(char *s);
+int			ft_trima(char **a, int i);
+int			ft_trima2(char *a);
+void		check_space(char *s, t_data *data);
+void		check_path(char *d, t_data *data);
+int			txtr_error(char **args, char *key);
+void		parse_walls(t_data *data, char **args);
+char		*check_assets_loop(t_data *data, char **s, char	*str, char	**t);
+int			check_assets(char **s, t_data *data);
+int			check_duplicates(char *str);
+void		get_player_data(t_data *data);
+char		*get_data_loop(t_data *data, char	*str, int fd, char	*temp);
+void		get_data(int fd, t_data *data);
+void		parse_walls_2(t_data *data, char **args);
+void		get_player_data_calc(t_data *data, int i, int j);
+void		parse_data(t_data *data, char *temp);
 
 #endif

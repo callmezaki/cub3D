@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 00:55:08 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/06 19:56:57 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 21:27:27 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,12 @@ int	check_free(char	*str)
 void	exit_n_free(t_data *data, int t)
 {
 	(void)data;
-	free(data->NO);
-	free(data->EA);
-	free(data->WE);
-	free(data->SO);
+	free(data->no);
+	free(data->ea);
+	free(data->we);
+	free(data->so);
 	free_tab(data->map);
 	free(data);
-	// system("leaks cub3d");
 	exit(t);
 }
 

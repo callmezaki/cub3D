@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 20:38:56 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 21:30:56 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,5 +258,8 @@ char		**ft_trima3(char **a);
 int			get_map_width(t_data *data, int y);
 void		exit_n_free(t_data *data, int t);
 void		free_tab(char **tab);
+void		check_map_err(char *s, t_data *data);
+int			check_empty_lines(char *s, t_data *data, int len);
+void		if_free(char	*str);
 
 #endif

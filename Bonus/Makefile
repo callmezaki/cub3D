@@ -24,6 +24,10 @@ SRC =	cub3d.c         \
 		walls.c\
 		sprites_utils.c\
 		keys.c\
+		main_utils.c\
+		main_utils_2.c\
+		main_utils_3.c\
+		main_utils_4.c\
 
 CFLAGS = -Wall -Werror -Wextra -g -Ofast
 

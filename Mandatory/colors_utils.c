@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 00:37:28 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/03 00:38:37 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/06 21:30:38 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,26 @@ void	error_n_free2(char	**sp, char	*t)
 		printf("Error0\n");
 		exit(1);
 	}
+}
+
+void	check_color_range(t_color col)
+{
+	if (col.r <= 255 && col.r >= 0)
+	{
+		if (col.g <= 255 && col.g >= 0)
+		{
+			if (col.b <= 255 && col.b >= 0)
+			{
+				return ;
+			}
+		}
+	}
+	printf("Error\n");
+	exit(1);
+}
+
+void	if_free(char	*str)
+{
+	if (str)
+		free(str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 20:39:34 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/06 21:30:33 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ void	else_free(char	*tmp, char	**t)
 {
 	free(tmp);
 	free_tab(t);
-}
-
-void	if_free(char	*str)
-{
-	if (str)
-		free(str);
 }
 
 void	get_data(int fd, t_data *data)
