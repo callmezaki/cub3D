@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doors_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 19:33:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 19:48:06 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 21:31:49 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ void	cast_door_ray(t_door *door, t_data *data, int i)
 		dw.txtr_off.y *= dw.tx.width;
 		dw.h = (int)dw.txtr_off.x + (int)dw.txtr_off.y;
 		if (dw.tx.tab[dw.h] != 16711935 && dw.h < (dw.tx.height * dw.tx.width))
-		{
 			my_mlx_pixel_put(&data->window, i, dw.j, dw.tx.tab[dw.h]);
-		}
 		dw.j++;
 	}
 }

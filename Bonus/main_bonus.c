@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 19:48:35 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 20:46:39 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	init_vars(t_data *data)
 	if (W_HEIGHT > 2000 || W_HEIGHT < 300 || W_WIDTH < 300 || W_WIDTH > 2000)
 		error_msg(data, 0);
 	data->an = 0;
-	data->tile = W_HEIGHT / 90;
+	data->tile = W_HEIGHT / 108;
 	data->rotation_speed = (3 * M_PI / 180);
 	data->rays_degr = (FOV / 2) * (M_PI / 180);
 	data->rays_inc = data->rays_degr / (W_WIDTH / 2);
@@ -94,7 +94,7 @@ int	main(int ac, char **av)
 	char	*t;
 
 	data = malloc(sizeof(t_data));
-	if (ac != 2)
+	if (ac != 2 || !data)
 		error_msg(data, 7);
 	t = get_ext(av[1]);
 	check_path_2(av[1], data);

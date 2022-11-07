@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 20:36:50 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 20:56:51 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	claculate_rays(t_data *data)
 	i = 0;
 	t *= -1;
 	r = malloc(sizeof(t_ray) * RAYS);
+	if (!r)
+		exit_n_free(data, 1);
 	while (i < RAYS)
 	{
 		sigma = data->player.teta + (t);

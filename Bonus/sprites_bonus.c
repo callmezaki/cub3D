@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 19:35:17 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 19:48:59 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 21:00:12 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ void	get_sprite_data(t_data *data)
 	t_sprite	*sps;
 
 	sps = malloc(sizeof(t_sprite) * data->sp);
-	j = 0;
+	if (!sps)
+		exit_n_free(data, 1);
+	j = -1;
 	x = 0;
-	while (data->map[j])
+	while (data->map[++j])
 	{
 		i = 0;
 		while (data->map[j][i])
@@ -58,7 +60,6 @@ void	get_sprite_data(t_data *data)
 			}
 			i++;
 		}
-		j++;
 	}
 	data->sprites = sps;
 	sort_sprites(data);

@@ -52,7 +52,7 @@ SRC_B =	Bonus/main_bonus.c          \
 		Bonus/main_utils_3_bonus.c\
 		Bonus/main_utils_4_bonus.c\
 
-CFLAGS = -Wall -Werror -Wextra -g -Ofast
+CFLAGS = -Wall -Werror -Wextra -g -Ofast -fsanitize=address
 
 OBJS = $(SRC:.c=.o)
 OBJ_B = $(SRC_B:.c=.o)
@@ -71,9 +71,8 @@ $(NAME_BONUS):$(OBJ_B)
 
 clean:
 	@rm -f $(OBJS) $(OBJ_B)
+	@make clean -C libft
 fclean: clean
 	@rm -f $(NAME) $(NAME_BONUS)
 	@make fclean -C libft
 re: fclean all
-
-# -fsanitize=address

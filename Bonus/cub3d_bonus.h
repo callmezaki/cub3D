@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 20:03:12 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 20:38:39 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,6 @@ int			get_color(char c);
 void		get_texture(t_data *data);
 double		h_distance(t_data *data, double beta, t_ray *ray);
 double		v_distance(t_data *data, double beta, t_ray *ray);
-void		claculate_rays(t_data *data);
 void		best_distance(t_data *data, double beta, t_ray *ray);
 double		normalize(double teta);
 int			facing_right(double beta);
@@ -295,14 +294,12 @@ t_texture	which_door_texture(t_data *data, t_door *door);
 void		cast_door_ray(t_door *door, t_data *data, int i);
 void		free_list(t_door *door);
 int			return_firstx(t_data *data, t_sprite sp);
-void		draw_doors(t_data *data);
 
 void		sort_sprites(t_data *data);
 t_texture	which_sprite_texture(t_data *data);
 void		get_sprite_data(t_data *data);
 int			check_dis(t_data *data, int x, int i);
 void		draw_sprite_rays(t_dwsprite *dsp, t_data *data, int x);
-void		draw_sprite(t_data *data, int x);
 void		draw_rest_sprites(t_data *data);
 void		check_map_comp(int check, t_data *data);
 void		check_map(char **s, t_data *data);
@@ -311,30 +308,16 @@ int			check_doors(char **s, int i, int j);
 int			check_cama(char *s);
 void		check_color_range(t_color col);
 void		check_compl(char **ss, t_color *col, char	**sp, char	*t);
-int			check_dis(t_data *data, int x, int i);
-void		sort_sprites(t_data *data);
-t_texture	which_sprite_texture(t_data *data);
-//parsing
-
 void		key_press_cond(int key, t_data *data);
-int			key_press(int key, t_data *data);
-int			key_release(int key, t_data *data);
-int			mouse_press(int key, int x, int y, t_data *data);
-int			mouse_release(int key, int x, int y, t_data *data);
 
-int			check_cama(char *s);
-void		check_color_range(t_color col);
 t_color		check_color(char **s, int i, t_data *data);
 void		get_colors(t_data *data, char **s);
 int			search_indx(char **args, char *indx);
-void		check_map(char **s, t_data *data);
 char		*intial_map_check(char *s, char **t, t_data *data);
 int			tab_len(char **str);
 int			check_valid(int c);
-int			check_player(char c);
 void		check_zero(char **s, int i, int j, t_data *data);
 char		**ft_trima3(char **a);
-int			get_map_width(t_data *data, int y);
 void		exit_n_free(t_data *data, int t);
 void		free_tab(char **tab);
 char		*get_ext(char *filename);

@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 18:54:24 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 20:56:30 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	main(int ac, char **av)
 	char	*t;
 
 	data = malloc(sizeof(t_data));
-	if (ac != 2)
+	if (ac != 2 || !data)
 		error_msg(data, 7);
 	t = get_ext(av[1]);
 	check_path_2(av[1], data);

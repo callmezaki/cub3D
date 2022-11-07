@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 20:34:30 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 19:48:53 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 21:00:05 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	claculate_rays(t_data *data)
 
 	t = data->rays_degr * -1;
 	data->r = malloc(sizeof(t_ray) * RAYS);
+	if (!data->r)
+		exit_n_free(data, 1);
 	i = 0;
 	while (i < RAYS)
 	{

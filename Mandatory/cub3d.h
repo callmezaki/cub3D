@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 18:55:54 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 20:42:27 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,6 @@ void		draw_walls(t_data *data);
 void		dda(t_data *data, t_segment segment, int color);
 void		claculate_rays(t_data *data);
 void		draw_rays(t_segment *seg, t_data *data);
-int			get_map_width(t_data *data, int y);
 int			draw(t_data *data);
 int			run(t_data *data);
 int			draw_minimap_frame(t_data *data);
@@ -195,7 +194,6 @@ int			get_color(char c);
 void		get_texture(t_data *data);
 double		h_distance(t_data *data, double beta);
 double		v_distance(t_data *data, double beta);
-void		claculate_rays(t_data *data);
 void		best_distance(t_data *data, double beta);
 double		normalize(double teta);
 int			facing_right(double beta);
@@ -210,11 +208,8 @@ void		h_distance_calc(t_data *data, double beta);
 void		h_distance_calc2(t_data *data, double beta);
 void		v_distance_calc(t_data *data, double beta);
 void		v_distance_calc2(t_data *data, double beta);
-int			get_color(char c);
 t_texture	which_texture(t_data *data, int i);
 double		findmod(double a, double b);
-double		normalize(double teta);
-void		draw_rays(t_segment *seg, t_data *data);
 void		fill_col(char	**sp, t_color *col, char *t);
 void		error_n_free(char **sp, char	*t);
 void		error_n_free2(char	**sp, char	*t, t_data *data);
@@ -241,28 +236,20 @@ int			check_assets(char **s, t_data *data);
 char		*check_assets_loop(t_data *data, char **s, char	*str, char	**t);
 void		parse_walls(t_data *data, char **args);
 void		else_free(char	*tmp, char	**t);
-//parsing
 
 int			check_cama(char *s);
 void		check_color_range(t_color col);
 t_color		check_color(char **s, int i, t_data *data);
 void		get_colors(t_data *data, char **s);
-int			search_indx(char **args, char *indx);
-void		check_map(char **s, t_data *data);
 char		*intial_map_check(char *s, char **t, t_data *data);
-int			tab_len(char **str);
 int			check_valid(int c);
-int			check_player(char c);
 void		check_zero(char **s, int i, int j);
-char		**ft_trima3(char **a);
 int			get_map_width(t_data *data, int y);
-void		exit_n_free(t_data *data, int t);
 void		free_tab(char **tab);
 void		check_map_err(char *s, t_data *data);
 int			check_empty_lines(char *s, t_data *data, int len);
 void		if_free(char	*str);
 void		error_msg(t_data *data, int type);
 void		check_path_2(char *d, t_data *data);
-void		else_free(char	*tmp, char	**t);
 
 #endif

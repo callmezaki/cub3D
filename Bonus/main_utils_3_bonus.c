@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils_3_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 21:02:50 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/07 19:48:41 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 22:23:49 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,18 @@ int	txtr_error(char **args, char *key)
 void	exit_n_free(t_data *data, int t)
 {
 	(void)data;
-	free(data->no);
-	free(data->ea);
-	free(data->we);
-	free(data->so);
-	free_tab(data->map);
-	free(data);
+	if (data->no)
+		free(data->no);
+	if (data->ea)
+		free(data->ea);
+	if (data->we)
+		free(data->we);
+	if (data->so)
+		free(data->so);
+	if (data->map)
+		free_tab(data->map);
+	if (data)
+		free(data);
 	exit(t);
 }
 
@@ -85,8 +91,12 @@ void	get_data(int fd, t_data *data)
 
 	data->i = 0;
 	str = malloc(1);
+	if (!str)
+		exit_n_free(data, 1);
 	str[0] = '\0';
 	temp = malloc(1);
+	if (!temp)
+		exit_n_free(data, 1);
 	temp[0] = '\0';
 	temp = get_data_loop(data, str, fd, temp);
 	parse_data(data, temp);
