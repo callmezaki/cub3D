@@ -1,7 +1,7 @@
-NO ./path_to_the_north_texture.xpm
-SO ./path_to_the_south_texture.xpm
-WE ./path_to_the_west_texture.xpm
-EA ./path_to_the_east_texture.xpm
+NO ./Bonus/assets/wall1.xpm
+SO ./Bonus/assets/wall2.xpm
+WE ./Bonus/assets/wall4.xpm
+EA ./Bonus/assets/wall3.xpm
 
 C 0,19,255
 F 0,128,0

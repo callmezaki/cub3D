@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 21:02:50 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/07 02:03:37 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 18:15:29 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	exit_n_free(t_data *data, int t)
 	free(data->ea);
 	free(data->we);
 	free(data->so);
-	free(data->doo);
 	free_tab(data->map);
 	free(data);
 	exit(t);

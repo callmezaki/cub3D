@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:47:00 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 00:48:28 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 19:36:51 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ int	check_player(char c)
 	if (c == 'N' || c == 'W' || c == 'E' || c == 'S')
 		return (1);
 	return (0);
+}
+
+void	check_path_2(char *d, t_data *data)
+{
+	if (access(d, F_OK | R_OK))
+		error_msg(data, 8);
 }
 
 void	check_zero(char **s, int i, int j, t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 01:28:12 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 18:53:49 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ void	map_checkif_3(int len, t_data *data)
 {
 	if (len > 1)
 		error_msg(data, 4);
+}
+
+void	check_path_2(char *d, t_data *data)
+{
+	if (access(d, F_OK | R_OK))
+		error_msg(data, 8);
 }
 
 char	*intial_map_check(char *s, char **t, t_data *data)

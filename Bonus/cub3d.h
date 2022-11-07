@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 02:41:11 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 18:53:11 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include "mlx.h"
 
 # define W_HEIGHT 1080
@@ -356,5 +356,6 @@ void		parse_walls_2(t_data *data, char **args);
 void		get_player_data_calc(t_data *data, int i, int j);
 void		parse_data(t_data *data, char *temp);
 void		error_msg(t_data *data, int type);
+void		check_path_2(char *d, t_data *data);
 
 #endif

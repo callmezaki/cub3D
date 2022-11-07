@@ -1,7 +1,7 @@
-NO ./assets/wall1.xpm
-SO ./assets/wall2.xpm
-WE ./assets/wall4.xpm
-EA ./assets/wall3.xpm
+NO ./Bonus/assets/wall1.xpm
+SO ./Bonus/assets/wall2.xpm
+WE ./Bonus/assets/wall4.xpm
+EA ./Bonus/assets/wall3.xpm
    
 F 70,77,79
 C 29,29,28

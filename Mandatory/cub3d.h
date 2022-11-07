@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 03:11:17 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 18:55:54 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include "mlx.h"
 
 # define W_HEIGHT 1080
@@ -262,5 +262,7 @@ void		check_map_err(char *s, t_data *data);
 int			check_empty_lines(char *s, t_data *data, int len);
 void		if_free(char	*str);
 void		error_msg(t_data *data, int type);
+void		check_path_2(char *d, t_data *data);
+void		else_free(char	*tmp, char	**t);
 
 #endif

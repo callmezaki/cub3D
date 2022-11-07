@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 03:04:23 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 18:52:41 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	error_msg(t_data *data, int type)
 		ft_putstr_fd("Texure File is empty/not valid\n", 2);
 	else if (type == 7)
 		ft_putstr_fd("Invalid arguments\n", 2);
+	else if (type == 8)
+		ft_putstr_fd("Map file Path is not accessible\n", 2);
+	else if (type == 9)
+		ft_putstr_fd("Map extention is invalid\n", 2);
 	exit_n_free(data, 1);
 }
 
@@ -72,12 +76,6 @@ void	parse_data(t_data *data, char *temp)
 	free(t);
 }
 
-void	f(void)
-{
-	printf("\n\n\n_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n\n\n");
-	system("leaks cub3d");
-}
-
 void	init_vars(t_data *data)
 {
 	if (W_HEIGHT > 2000 || W_HEIGHT < 300 || W_WIDTH < 300 || W_WIDTH > 2000)
@@ -95,16 +93,16 @@ int	main(int ac, char **av)
 	int		fd;
 	char	*t;
 
-	atexit(f);
+	data = malloc(sizeof(t_data));
 	if (ac != 2)
-		return (printf("Invalid Args\n"));
+		error_msg(data, 7);
 	t = get_ext(av[1]);
+	check_path_2(av[1], data);
 	if (!ft_check_exten(t))
 	{
 		free(t);
-		return (printf("Invalid Extention\n"));
+		error_msg(data, 9);
 	}
-	data = malloc(sizeof(t_data));
 	free(t);
 	fd = open(av[1], O_RDONLY);
 	if (fd > 0)
@@ -114,4 +112,5 @@ int	main(int ac, char **av)
 		init_window(data);
 		exit_n_free(data, 0);
 	}
+	return (0);
 }

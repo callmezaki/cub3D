@@ -1,7 +1,7 @@
-NO ./assets/wall1.xpm
-SO ./assets/wall2.xpm
-WE ./assets/wall4.xpm
-EA ./assets/wall3.xpm
+NO ./Mandatory/assets/wall1.xpm
+SO ./Mandatory/assets/wall2.xpm
+WE ./Mandatory/assets/wall4.xpm
+EA ./Mandatory/assets/wall3.xpm
    
 F 70,77,79
 C 29,29,28

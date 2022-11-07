@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 03:04:28 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 18:54:24 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	error_msg(t_data *data, int type)
 		ft_putstr_fd("Texure File is empty/not valid\n", 2);
 	else if (type == 7)
 		ft_putstr_fd("Invalid arguments\n", 2);
+	else if (type == 8)
+		ft_putstr_fd("Map file Path is not accessible\n", 2);
+	else if (type == 9)
+		ft_putstr_fd("Map extention is invalid\n", 2);
 	exit_n_free(data, 1);
 }
 
@@ -60,12 +64,6 @@ void	parse_walls(t_data *data, char **args)
 	check_space(args[data->i], data);
 	data->ea = ft_strdup(ft_strchr(args[data->i], '.'));
 	check_path(data->ea, data);
-}
-
-void	else_free(char	*tmp, char	**t)
-{
-	free(tmp);
-	free_tab(t);
 }
 
 void	get_data(int fd, t_data *data)
@@ -118,12 +116,13 @@ int	main(int ac, char **av)
 
 	data = malloc(sizeof(t_data));
 	if (ac != 2)
-		return (printf("Invalid Args\n"));
+		error_msg(data, 7);
 	t = get_ext(av[1]);
+	check_path_2(av[1], data);
 	if (!ft_check_exten(t))
 	{
 		free(t);
-		return (printf("Invalid Extention\n"));
+		error_msg(data, 9);
 	}
 	free(t);
 	fd = open(av[1], O_RDONLY);
@@ -134,4 +133,5 @@ int	main(int ac, char **av)
 		init_window(data);
 		exit_n_free(data, 0);
 	}
+	return (0);
 }
