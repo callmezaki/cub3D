@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 21:12:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/07 19:48:44 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 23:03:53 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,26 @@ void	parse_walls(t_data *data, char **args)
 	if (data->i < 0)
 		exit_n_free(data, 1);
 	check_space(args[data->i], data);
-	data->no = ft_strdup(ft_strchr(args[data->i], '.'));
+	if (ft_strchr(args[data->i], '.'))
+		data->no = ft_strdup(ft_strchr(args[data->i], '.'));
+	else
+		error_msg(data, 1);
 	check_path(data->no, data);
+	data->i = txtr_error(args, "SO");
+	if (data->i < 0)
+		exit_n_free(data, 1);
+	check_space(args[data->i], data);
+	if (ft_strchr(args[data->i], '.'))
+		data->so = ft_strdup(ft_strchr(args[data->i], '.'));
+	else
+		error_msg(data, 1);
+	check_path(data->so, data);
 	parse_walls_2(data, args);
 }
 
 char	*check_assets_loop(t_data *data, char **s, char	*str, char	**t)
 {
-	while (s[data->i] && data->i < 7)
+	while (s[data->i] && data->i < 6)
 	{
 		t = ft_split(s[data->i], ' ');
 		if (t[0][0] && (!ft_strcmp(t[0], "NO") || !ft_strcmp(t[0], "SO")
@@ -37,11 +49,7 @@ char	*check_assets_loop(t_data *data, char **s, char	*str, char	**t)
 			data->j++;
 		}
 		else
-		{
-			if (t[0][0])
-				free_tab(t);
-			break ;
-		}
+			error_msg(data, 1);
 		if (t[0][0])
 			free_tab(t);
 		data->i++;

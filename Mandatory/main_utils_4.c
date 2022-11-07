@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 21:26:19 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/07 02:13:38 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 22:31:57 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ char	*check_assets_loop(t_data *data, char **s, char	*str, char	**t)
 			data->j++;
 		}
 		else
-		{
-			free(data->tmp);
-			break ;
-		}
+			error_msg(data, 1);
 		if (t[0][0])
 			free_tab(t);
 		data->i++;

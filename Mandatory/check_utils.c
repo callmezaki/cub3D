@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 00:41:39 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/07 01:28:26 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 23:07:35 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,17 @@ void	check_map(char **s, t_data *data)
 	}
 	if (!check)
 		error_msg(data, 4);
+}
+
+void	init_vars(t_data *data)
+{
+	if (W_HEIGHT > 2000 || W_HEIGHT < 300 || W_WIDTH < 300 || W_WIDTH > 2000)
+	{
+		printf("Error in Window Dimentions\n");
+		exit(1);
+	}
+	data->tile = W_HEIGHT / 90;
+	data->rotation_speed = (3 * M_PI / 180);
+	data->rays_degr = (FOV / 2) * (M_PI / 180);
+	data->rays_inc = data->rays_degr / (W_WIDTH / 2);
 }

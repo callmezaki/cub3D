@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 20:53:58 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/07 19:48:38 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 23:04:03 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,22 @@ void	check_path(char *d, t_data *data)
 
 void	parse_walls_2(t_data *data, char **args)
 {
-	data->i = txtr_error(args, "SO");
-	if (data->i < 0)
-		exit_n_free(data, 1);
-	check_space(args[data->i], data);
-	data->so = ft_strdup(ft_strchr(args[data->i], '.'));
-	check_path(data->so, data);
 	data->i = txtr_error(args, "WE");
 	if (data->i < 0)
 		exit_n_free(data, 1);
 	check_space(args[data->i], data);
-	data->we = ft_strdup(ft_strchr(args[data->i], '.'));
+	if (ft_strchr(args[data->i], '.'))
+		data->we = ft_strdup(ft_strchr(args[data->i], '.'));
+	else
+		error_msg(data, 1);
 	check_path(data->we, data);
 	data->i = txtr_error(args, "EA");
 	if (data->i < 0)
 		exit_n_free(data, 1);
 	check_space(args[data->i], data);
-	data->ea = ft_strdup(ft_strchr(args[data->i], '.'));
+	if (ft_strchr(args[data->i], '.'))
+		data->ea = ft_strdup(ft_strchr(args[data->i], '.'));
+	else
+		error_msg(data, 1);
 	check_path(data->ea, data);
 }

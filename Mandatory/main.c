@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 20:56:30 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 23:07:00 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,49 @@ void	error_msg(t_data *data, int type)
 	exit_n_free(data, 1);
 }
 
+void	parse_walls_2(t_data *data, char **args)
+{
+	data->i = txtr_error(args, "WE");
+	if (data->i < 0)
+		exit_n_free(data, 1);
+	check_space(args[data->i], data);
+	if (ft_strchr(args[data->i], '.'))
+		data->we = ft_strdup(ft_strchr(args[data->i], '.'));
+	else
+		error_msg(data, 1);
+	check_path(data->we, data);
+	data->i = txtr_error(args, "EA");
+	if (data->i < 0)
+		exit_n_free(data, 1);
+	check_space(args[data->i], data);
+	if (ft_strchr(args[data->i], '.'))
+		data->ea = ft_strdup(ft_strchr(args[data->i], '.'));
+	else
+		error_msg(data, 1);
+	check_path(data->ea, data);
+}
+
 void	parse_walls(t_data *data, char **args)
 {
 	data->i = txtr_error(args, "NO");
 	if (data->i < 0)
 		exit_n_free(data, 1);
 	check_space(args[data->i], data);
-	data->no = ft_strdup(ft_strchr(args[data->i], '.'));
+	if (ft_strchr(args[data->i], '.'))
+		data->no = ft_strdup(ft_strchr(args[data->i], '.'));
+	else
+		error_msg(data, 1);
 	check_path(data->no, data);
 	data->i = txtr_error(args, "SO");
 	if (data->i < 0)
 		exit_n_free(data, 1);
 	check_space(args[data->i], data);
-	data->so = ft_strdup(ft_strchr(args[data->i], '.'));
+	if (ft_strchr(args[data->i], '.'))
+		data->so = ft_strdup(ft_strchr(args[data->i], '.'));
+	else
+		error_msg(data, 1);
 	check_path(data->so, data);
-	data->i = txtr_error(args, "WE");
-	if (data->i < 0)
-		exit_n_free(data, 1);
-	check_space(args[data->i], data);
-	data->we = ft_strdup(ft_strchr(args[data->i], '.'));
-	check_path(data->we, data);
-	data->i = txtr_error(args, "EA");
-	if (data->i < 0)
-		exit_n_free(data, 1);
-	check_space(args[data->i], data);
-	data->ea = ft_strdup(ft_strchr(args[data->i], '.'));
-	check_path(data->ea, data);
+	parse_walls_2(data, args);
 }
 
 void	get_data(int fd, t_data *data)
@@ -93,19 +110,6 @@ void	get_data(int fd, t_data *data)
 		if_free(str);
 	}
 	parse_data(data, temp);
-}
-
-void	init_vars(t_data *data)
-{
-	if (W_HEIGHT > 2000 || W_HEIGHT < 300 || W_WIDTH < 300 || W_WIDTH > 2000)
-	{
-		printf("Error in Window Dimentions\n");
-		exit(1);
-	}
-	data->tile = W_HEIGHT / 90;
-	data->rotation_speed = (3 * M_PI / 180);
-	data->rays_degr = (FOV / 2) * (M_PI / 180);
-	data->rays_inc = data->rays_degr / (W_WIDTH / 2);
 }
 
 int	main(int ac, char **av)

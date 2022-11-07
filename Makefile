@@ -52,7 +52,7 @@ SRC_B =	Bonus/main_bonus.c          \
 		Bonus/main_utils_3_bonus.c\
 		Bonus/main_utils_4_bonus.c\
 
-CFLAGS = -Wall -Werror -Wextra -g -Ofast -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g -Ofast
 
 OBJS = $(SRC:.c=.o)
 OBJ_B = $(SRC_B:.c=.o)
