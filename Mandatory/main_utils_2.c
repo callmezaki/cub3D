@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 00:49:21 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/03 00:49:47 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 01:35:58 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ void	check_space(char *s, t_data *data)
 	if (tab_len(t) != 2)
 	{
 		free_tab(t);
-		printf("Error!\n");
-		exit_n_free(data, 1);
+		error_msg(data, 4);
 	}
 	free_tab(t);
 }
@@ -65,10 +64,7 @@ void	check_space(char *s, t_data *data)
 void	check_path(char *d, t_data *data)
 {
 	if (access(d, F_OK | R_OK))
-	{
-		printf("Error! Path not accessible\n");
-		exit_n_free(data, 1);
-	}
+		error_msg(data, 5);
 }
 
 int	txtr_error(char **args, char *key)

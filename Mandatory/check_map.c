@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:46:37 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 21:28:10 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 01:28:12 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,20 @@ void	map_checkif_1(char *s, t_data *data)
 		&& s[data->i] != '\t' && s[data->i] != '1')
 	{
 		printf("%c\n", s[data->i]);
-		printf("Errrrroooor\n");
-		exit_n_free(data, 1);
+		error_msg(data, 4);
 	}
 }
 
 void	map_checkif_2(int p_count, t_data *data)
 {
 	if (p_count > 1 || p_count == 0)
-	{
-		printf("P Error\n");
-		exit_n_free(data, 1);
-	}
+		error_msg(data, 4);
 }
 
 void	map_checkif_3(int len, t_data *data)
 {
 	if (len > 1)
-	{
-		printf("Errrrroooor7\n");
-		exit_n_free(data, 1);
-	}
+		error_msg(data, 4);
 }
 
 char	*intial_map_check(char *s, char **t, t_data *data)
@@ -62,10 +55,7 @@ char	*intial_map_check(char *s, char **t, t_data *data)
 	len = 0;
 	len = check_empty_lines(s, data, len);
 	if (len > 1)
-	{
-		printf("Errrrroooor7\n");
-		exit_n_free(data, 1);
-	}
+		error_msg(data, 4);
 	s = ft_strtrim2_f(s, " \n\t");
 	return (s);
 }

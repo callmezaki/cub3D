@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 23:45:08 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 00:34:41 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,5 +261,6 @@ void		free_tab(char **tab);
 void		check_map_err(char *s, t_data *data);
 int			check_empty_lines(char *s, t_data *data, int len);
 void		if_free(char	*str);
+void		error_msg(t_data *data, int type);
 
 #endif

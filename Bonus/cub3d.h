@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 00:02:40 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 00:46:46 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,7 +333,7 @@ char		*intial_map_check(char *s, char **t, t_data *data);
 int			tab_len(char **str);
 int			check_valid(int c);
 int			check_player(char c);
-void		check_zero(char **s, int i, int j);
+void		check_zero(char **s, int i, int j, t_data *data);
 char		**ft_trima3(char **a);
 int			get_map_width(t_data *data, int y);
 void		exit_n_free(t_data *data, int t);
@@ -355,5 +355,6 @@ void		get_data(int fd, t_data *data);
 void		parse_walls_2(t_data *data, char **args);
 void		get_player_data_calc(t_data *data, int i, int j);
 void		parse_data(t_data *data, char *temp);
+void		error_msg(t_data *data, int type);
 
 #endif

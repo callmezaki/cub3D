@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:47:00 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/03 19:02:51 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 00:48:28 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_player(char c)
 	return (0);
 }
 
-void	check_zero(char **s, int i, int j)
+void	check_zero(char **s, int i, int j, t_data *data)
 {
 	char	c;
 
@@ -57,6 +57,5 @@ void	check_zero(char **s, int i, int j)
 			}
 		}
 	}
-	exit(1);
-	printf("Error zero\n");
+	error_msg(data, 4);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 03:00:28 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 23:11:18 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 01:03:21 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 void	check_map_comp(int check, t_data *data)
 {
 	if (!check)
-	{
-		printf("Error check_map\n");
-		exit_n_free(data, 1);
-	}
+		error_msg(data, 4);
 }
 
 void	check_map(char **s, t_data *data)
@@ -37,7 +34,7 @@ void	check_map(char **s, t_data *data)
 		{
 			if (s[i][j] == '0' || s[i][j] == '2' || s[i][j] == '3' || \
 			check_player(s[i][j]))
-				check_zero(s, i, j);
+				check_zero(s, i, j, data);
 			if (s[i][j] == '2')
 				check = check_doors(s, i, j);
 			if (s[i][j] == '3')
@@ -66,10 +63,7 @@ void	check_map_err(char *s, t_data *data)
 		data->i++;
 	}
 	if (p_count > 1 || p_count == 0)
-	{
-		printf("P Error\n");
-		exit_n_free(data, 1);
-	}
+		error_msg(data, 4);
 }
 
 int	check_empty_lines(char *s, t_data *data, int len)
@@ -122,10 +116,7 @@ char	*intial_map_check(char *s, char **t, t_data *data)
 	len = 0;
 	len = check_empty_lines(s, data, len);
 	if (len > 1)
-	{
-		printf("Errrrroooor7\n");
-		exit_n_free(data, 1);
-	}
+		error_msg(data, 4);
 	s = ft_strtrim2_f(s, " \n\t");
 	return (s);
 }

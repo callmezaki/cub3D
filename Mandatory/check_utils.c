@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 00:41:39 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/03 00:42:53 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 01:28:26 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,5 @@ void	check_map(char **s, t_data *data)
 		i++;
 	}
 	if (!check)
-	{
-		printf("Error check_map\n");
-		exit_n_free(data, 1);
-	}
+		error_msg(data, 4);
 }

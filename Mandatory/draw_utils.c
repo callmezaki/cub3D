@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:11:26 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 23:57:31 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 01:28:55 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ t_texture	get_t(char *path, t_texture tx, t_data *data)
 
 	img = mlx_xpm_file_to_image(data->window.mlx, path, &tx.width, &tx.height);
 	if (!img)
-	{
-		printf("here\n");
-		exit(1);
-	}
+		error_msg(data, 3);
 	tx.tab = (int *)mlx_get_data_addr(img, &data->window.bits_per_pixel, \
 	&data->window.line_length, &data->window.endian);
 	return (tx);

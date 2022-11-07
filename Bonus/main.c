@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 23:46:02 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 01:18:17 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	error_msg(t_data *data, int type)
+{
+	printf("Error\n");
+	if (type == 0)
+		ft_putstr_fd("Window dimmentions too big/small\n", 2);
+	else if (type == 1)
+		ft_putstr_fd("Map assets\n", 2);
+	else if (type == 2)
+		ft_putstr_fd("Texture not working\n", 2);
+	else if (type == 3)
+		ft_putstr_fd("Floor/Ceiling colors not working\n", 2);
+	else if (type == 4)
+		ft_putstr_fd("Map components are not valid\n", 2);
+	else if (type == 5)
+		ft_putstr_fd("Texure Path is not accessible\n", 2);
+	else if (type == 6)
+		ft_putstr_fd("Texure File is empty/not valid\n", 2);
+	else if (type == 7)
+		ft_putstr_fd("Invalid arguments\n", 2);
+	else if (type == 8)
+		printf("\n");
+	else if (type == 9)
+		printf("\n");
+	else if (type == 10)
+		printf("\n");
+	exit_n_free(data, 1);
+}
 
 void	get_player_data_calc(t_data *data, int i, int j)
 {
@@ -59,10 +87,7 @@ void	f(void)
 void	init_vars(t_data *data)
 {
 	if (W_HEIGHT > 2000 || W_HEIGHT < 300 || W_WIDTH < 300 || W_WIDTH > 2000)
-	{
-		printf("Error in Window Dimentions\n");
-		exit(1);
-	}
+		error_msg(data, 0);
 	data->an = 0;
 	data->tile = W_HEIGHT / 90;
 	data->rotation_speed = (3 * M_PI / 180);

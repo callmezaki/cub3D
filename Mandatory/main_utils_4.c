@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils_4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 21:26:19 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/07 00:04:12 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 01:35:37 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ void	check_map_err(char *s, t_data *data)
 		data->i++;
 	}
 	if (p_count > 1 || p_count == 0)
-	{
-		printf("P Error\n");
-		exit_n_free(data, 1);
-	}
+		error_msg(data, 4);
 }
 
 int	check_empty_lines(char *s, t_data *data, int len)
