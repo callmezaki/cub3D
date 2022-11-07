@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 03:34:38 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 01:05:24 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 03:15:52 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	check_color_range(t_color col)
 			}
 		}
 	}
-	printf("Error\n");
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd("Floor/Ceiling colors range is wrong\n", 2);
 	exit(1);
 }
 

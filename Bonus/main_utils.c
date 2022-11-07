@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 20:46:48 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/06 20:54:33 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 02:06:19 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_trima(char **a, int i)
 	char	*t;
 
 	t = *a;
-	if (i == 7)
+	if (i == 6)
 		t = ft_strtrim2_f(t, " \t\n");
 	else
 		t = ft_strtrim_f(t, " \t\n");

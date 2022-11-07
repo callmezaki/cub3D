@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 21:02:50 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/06 23:18:05 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 02:03:37 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_data_loop(t_data *data, char	*str, int fd, char	*temp)
 		str = get_next_line(fd);
 		if (str)
 		{
-			if (data->i < 8)
+			if (data->i < 7)
 			{
 				if (ft_trima(&str, data->i))
 				{

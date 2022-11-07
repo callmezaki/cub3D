@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 00:46:46 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 02:41:11 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,7 +325,7 @@ int			mouse_release(int key, int x, int y, t_data *data);
 
 int			check_cama(char *s);
 void		check_color_range(t_color col);
-t_color		check_color(char **s, int i);
+t_color		check_color(char **s, int i, t_data *data);
 void		get_colors(t_data *data, char **s);
 int			search_indx(char **args, char *indx);
 void		check_map(char **s, t_data *data);

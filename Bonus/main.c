@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:46:56 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 01:18:17 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 03:04:23 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@ void	error_msg(t_data *data, int type)
 		ft_putstr_fd("Texure File is empty/not valid\n", 2);
 	else if (type == 7)
 		ft_putstr_fd("Invalid arguments\n", 2);
-	else if (type == 8)
-		printf("\n");
-	else if (type == 9)
-		printf("\n");
-	else if (type == 10)
-		printf("\n");
 	exit_n_free(data, 1);
 }
 

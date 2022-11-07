@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils_4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 21:12:13 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/06 22:48:50 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 02:09:42 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@ void	parse_walls(t_data *data, char **args)
 	check_space(args[data->i], data);
 	data->no = ft_strdup(ft_strchr(args[data->i], '.'));
 	check_path(data->no, data);
-	data->i = txtr_error(args, "DO");
-	if (data->i < 0)
-		exit_n_free(data, 1);
-	check_space(args[data->i], data);
-	data->doo = ft_strdup(ft_strchr(args[data->i], '.'));
-	check_path(data->no, data);
 	parse_walls_2(data, args);
 }
 
@@ -36,8 +30,7 @@ char	*check_assets_loop(t_data *data, char **s, char	*str, char	**t)
 		t = ft_split(s[data->i], ' ');
 		if (t[0][0] && (!ft_strcmp(t[0], "NO") || !ft_strcmp(t[0], "SO")
 			|| !ft_strcmp(t[0], "WE") || !ft_strcmp(t[0], "EA")
-			|| !ft_strcmp(t[0], "C") || !ft_strcmp(t[0], "F")
-			|| !ft_strcmp(t[0], "DO")))
+			|| !ft_strcmp(t[0], "C") || !ft_strcmp(t[0], "F")))
 		{
 			data->tmp[0] = s[data->i][0];
 			str = ft_strjoin_2(str, data->tmp);

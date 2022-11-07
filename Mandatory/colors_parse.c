@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:30:29 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/06 21:29:41 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 03:10:18 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,20 @@ int	check_cama(char *s)
 	return (1);
 }
 
-void	f_n_ex(char	**sp, char	*t)
+void	f_n_ex(char	**sp, char	*t, t_data *data)
 {
 	free_tab(sp);
 	free(t);
-	printf("Error\n");
-	exit(0);
+	error_msg(data, 3);
 }
 
-void	f_n_ex_2(char	**sp)
+void	f_n_ex_2(char	**sp, t_data *data)
 {
 	free_tab(sp);
-	printf("Error1\n");
-	exit(1);
+	error_msg(data, 3);
 }
 
-t_color	check_color(char **s, int i)
+t_color	check_color(char **s, int i, t_data *data)
 {
 	t_color	col;
 	char	**sp;
@@ -65,18 +63,18 @@ t_color	check_color(char **s, int i)
 	t = ft_strdup(s[i]);
 	sp = ft_split(t, ' ');
 	col.b = 0;
-	error_n_free2(sp, t);
+	error_n_free2(sp, t, data);
 	if (check_cama(sp[1]))
 	{
 		while (sp[1][++j])
 		{
 			if (!ft_isdigit(sp[1][j]) && sp[1][j] != ',')
-				f_n_ex_2(sp);
+				f_n_ex_2(sp, data);
 		}
 		fill_col(sp, &col, t);
 	}
 	else
-		f_n_ex(sp, t);
+		f_n_ex(sp, t, data);
 	return (col);
 }
 
@@ -87,14 +85,11 @@ void	get_colors(t_data *data, char **s)
 	i = search_indx(s, "F");
 	if (i >= 0)
 	{
-		data->f = check_color(s, i);
+		data->f = check_color(s, i, data);
 		i = search_indx(s, "C");
 		if (i >= 0)
-		{
-			data->c = check_color(s, i);
-		}
+			data->c = check_color(s, i, data);
 		return ;
 	}
-	printf("Error8\n");
-	exit(1);
+	error_msg(data, 3);
 }

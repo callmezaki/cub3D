@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 03:00:28 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 01:03:21 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 02:07:38 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*intial_map_check(char *s, char **t, t_data *data)
 	data->i = 0;
 	len = 0;
 	p_count = 0;
-	while (data->i < 7)
+	while (data->i < 6)
 	{
 		len += ft_strlen(t[data->i]);
 		data->i++;

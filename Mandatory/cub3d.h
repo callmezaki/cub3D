@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:54:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/11/07 00:34:41 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 03:11:17 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ double		normalize(double teta);
 void		draw_rays(t_segment *seg, t_data *data);
 void		fill_col(char	**sp, t_color *col, char *t);
 void		error_n_free(char **sp, char	*t);
-void		error_n_free2(char	**sp, char	*t);
+void		error_n_free2(char	**sp, char	*t, t_data *data);
 int			check_valid_chars(char **s);
 int			check_line_comp(char **s, int t, int i);
 int			check_line(char **s);
@@ -245,7 +245,7 @@ void		else_free(char	*tmp, char	**t);
 
 int			check_cama(char *s);
 void		check_color_range(t_color col);
-t_color		check_color(char **s, int i);
+t_color		check_color(char **s, int i, t_data *data);
 void		get_colors(t_data *data, char **s);
 int			search_indx(char **args, char *indx);
 void		check_map(char **s, t_data *data);

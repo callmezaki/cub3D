@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 21:26:19 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/07 01:35:37 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 02:13:38 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*check_assets_loop(t_data *data, char **s, char	*str, char	**t)
 {
-	while (s[data->i] && data->i < 7)
+	while (s[data->i] && data->i < 6)
 	{
 		t = ft_split(s[data->i], ' ');
 		if (t[0][0] && (!ft_strcmp(t[0], "NO") || !ft_strcmp(t[0], "SO")

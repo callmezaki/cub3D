@@ -6,7 +6,7 @@
 /*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 00:37:28 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/06 21:30:38 by sgmira           ###   ########.fr       */
+/*   Updated: 2022/11/07 03:16:18 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,14 @@ void	error_n_free(char **sp, char	*t)
 	exit(0);
 }
 
-void	error_n_free2(char	**sp, char	*t)
+void	error_n_free2(char	**sp, char	*t, t_data *data)
 {
 	if (!sp[1] || sp[2])
 	{
 		if (sp[0])
 			free_tab(sp);
 		free(t);
-		printf("Error0\n");
-		exit(1);
+		error_msg(data, 3);
 	}
 }
 
@@ -58,7 +57,8 @@ void	check_color_range(t_color col)
 			}
 		}
 	}
-	printf("Error\n");
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd("Floor/Ceiling colors range is wrong\n", 2);
 	exit(1);
 }
 
