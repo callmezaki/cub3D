@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_block.c                                         :+:      :+:    :+:   */
+/*   ft_block_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgmira <sgmira@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:28:14 by sgmira            #+#    #+#             */
-/*   Updated: 2022/11/06 23:59:42 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:48:22 by sgmira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	ft_block(t_data *data, double x, double y, int color)
 {

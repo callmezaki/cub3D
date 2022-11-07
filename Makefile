@@ -1,7 +1,7 @@
 NAME = cub3d
 NAME_BONUS = cub3d_bonus
 INCLUDE = Mandatory/cub3d.h
-INCLUDE_B = Bonus/cub3d.h
+INCLUDE_B = Bonus/cub3d_bonus.h
 
 SRC =	Mandatory/main.c          \
 		Mandatory/get_next_line.c \
@@ -25,32 +25,32 @@ SRC =	Mandatory/main.c          \
 		Mandatory/main_utils_3.c \
 		Mandatory/main_utils_4.c \
 
-SRC_B =	Bonus/main.c          \
-		Bonus/get_next_line.c \
-		Bonus/window.c        \
-		Bonus/ft_block.c      \
-		Bonus/minimap.c	\
-		Bonus/DDA.c	\
-		Bonus/draw.c \
-		Bonus/rays.c \
-		Bonus/draw_utils.c \
-		Bonus/draw_utils2.c\
-		Bonus/colors_parse.c \
-		Bonus/check_map.c\
-		Bonus/check_map_utils.c\
-		Bonus/rays_utils.c \
-		Bonus/doors.c \
-		Bonus/sprites.c\
-		Bonus/check_map2.c\
-		Bonus/colors_parse_utils.c\
-		Bonus/doors_utils.c\
-		Bonus/walls.c\
-		Bonus/sprites_utils.c\
-		Bonus/keys.c\
-		Bonus/main_utils.c\
-		Bonus/main_utils_2.c\
-		Bonus/main_utils_3.c\
-		Bonus/main_utils_4.c\
+SRC_B =	Bonus/main_bonus.c          \
+		Bonus/get_next_line_bonus.c \
+		Bonus/window_bonus.c        \
+		Bonus/ft_block_bonus.c      \
+		Bonus/minimap_bonus.c	\
+		Bonus/dda_bonus.c	\
+		Bonus/draw_bonus.c \
+		Bonus/rays_bonus.c \
+		Bonus/draw_utils_bonus.c \
+		Bonus/draw_utils2_bonus.c\
+		Bonus/colors_parse_bonus.c \
+		Bonus/check_map_bonus.c\
+		Bonus/check_map_utils_bonus.c\
+		Bonus/rays_utils_bonus.c \
+		Bonus/doors_bonus.c \
+		Bonus/sprites_bonus.c\
+		Bonus/check_map2_bonus.c\
+		Bonus/colors_parse_utils_bonus.c\
+		Bonus/doors_utils_bonus.c\
+		Bonus/walls_bonus.c\
+		Bonus/sprites_utils_bonus.c\
+		Bonus/keys_bonus.c\
+		Bonus/main_utils_bonus.c\
+		Bonus/main_utils_2_bonus.c\
+		Bonus/main_utils_3_bonus.c\
+		Bonus/main_utils_4_bonus.c\
 
 CFLAGS = -Wall -Werror -Wextra -g -Ofast
 
